@@ -1,4 +1,5 @@
 # Site settings
+locale: "ko-KR"
 title: Wedding 2020 11 08
 email: hhj6212@gmail.com
 url: https://hhj6212.github.io/
@@ -7,6 +8,7 @@ description: "Write an awesome description for your new site here. You can edit 
 keywords: "Heonjong Han"
 skills: "How are you im fine thank you and you"
 meta_author: LastName FirstName
+theme: minimal-mistakes-jekyll
 
 # Google webmaster tools
 google_verify:
