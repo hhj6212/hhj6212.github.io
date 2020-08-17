@@ -1,5 +1,6 @@
 ---
 title: "Wedding invitation"
-layout: categories
-permalink: /categories/
+layout: wedding
+permalink: /wedding/
 author_profile: true
+---
