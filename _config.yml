@@ -2,9 +2,10 @@
 title: Wedding 2020 11 08
 email: hhj6212@gmail.com
 url: https://github.com/jeromelachaud/freelancer-theme
+baseurl: "/wedding/"
 description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
-keywords: "your keywords, separated by commas"
-skills: "Web Developer - Graphic Artist - User Experience Designer"
+keywords: "Heonjong Han"
+skills: "How are you im fine thank you and you"
 meta_author: LastName FirstName
 
 # Google webmaster tools
@@ -31,11 +32,11 @@ color:
   secondary-dark: 233140 #A2122F
 
 # Footer settings
-footer:
-  copyright: Dr. Henry Jekyll
-  location: Location
-  social: Around the Web
-  credits: Credits
+#footer:
+#  copyright: Dr. Henry Jekyll
+#  location: Location
+#  social: Around the Web
+#  credits: Credits
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
