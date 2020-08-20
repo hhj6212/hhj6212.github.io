@@ -61,3 +61,6 @@ plugins:
 
 kramdown:
   hard_wrap: true
+
+disqus_url: 
+disqus_shortname: hhanblog
