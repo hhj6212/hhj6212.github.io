@@ -1,5 +1,188 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-20T22:42:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">깃블로그에 댓글창 달기</title><link href="http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그에 댓글창 달기" /><published>2020-08-20T00:00:00+09:00</published><updated>2020-08-20T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html">&lt;h2 id=&quot;깃허브-블로그에-댓글창을-달아보자&quot;&gt;깃허브 블로그에 댓글창을 달아보자&lt;/h2&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><summary type="html">깃허브 블로그에 댓글창을 달아보자</summary></entry><entry><title type="html">깃블로그를 시작하며</title><link href="http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그를 시작하며" /><published>2020-08-19T00:00:00+09:00</published><updated>2020-08-19T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;블로그를-시작하며&quot;&gt;블로그를 시작하며&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-20T23:43:53+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">깃블로그에 댓글창 달기</title><link href="http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그에 댓글창 달기" /><published>2020-08-20T00:00:00+09:00</published><updated>2020-08-20T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html">&lt;h3 id=&quot;깃허브-블로그에-댓글창을-달아보자&quot;&gt;깃허브 블로그에 댓글창을 달아보자&lt;/h3&gt;
+&lt;p&gt;안녕하세요. 한헌종입니다.&lt;/p&gt;
+
+&lt;p&gt;이번엔 Jekyll 로 구축된 깃허브 블로그에 댓글창을 넣는 방법을 설명해보겠습니다.&lt;br /&gt;
+블로그에는 당연하게 댓글창이 달려있을 거라 생각하실 겁니다.&lt;br /&gt;
+그러나 깃허브 블로그는 그렇지 않습니다…&lt;br /&gt;
+오로지 글만 올리는 용도의 블로그로만 써야하나? 하는 생각이 들었습니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;소통 없는 삭막한 블로그의 현장&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그래서 찾아봤습니다. 어딘가 당연히 방법이 있겠지.&lt;br /&gt;
+구글링을 해보니 이미 많은 분들이 Jekyll 에 댓글창을 추가해 사용하고 계시더군요.&lt;br /&gt;
+그 방법은 바로 Disqus 라는 사이트의 서비스를 이용하는 것이었습니다.&lt;br /&gt;
+자, 일단 &lt;a href=&quot;https://disqus.com/&quot;&gt;https://disqus.com/&lt;/a&gt; 에 접속해서 계정을 만들어 봅시다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image2.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;계정을 만든 다음에는 이메일 인증을 꼭 해주세요&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;계정을 만들고 Get started 를 클릭하면 다음과 같은 선택창이 뜹니다.&lt;br /&gt;
+저는 제 사이트에 댓글을 만들고 싶으므로 아래의 “I want to install Disqus on my site” 를 클릭합니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image3.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;선택지가 둘 뿐이군요. 아래꺼 선택!&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그 후 Disqus를 사용하기 위한 설정들을 해야 합니다.&lt;br /&gt;
+먼저 사이트를 나타낼 이름을 지어봅니다. (저는 간단하게 hhangitblog로 했습니다.)&lt;br /&gt;
+이 이름은 아래 코드부분에서 사용해야 하니 간단한 걸로 지어주세요.&lt;br /&gt;
+Category 도 아무거나 선택해주시구요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;간단하고 기억하기 쉬운 걸로 지어봅시다&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그런 다음엔 서비스를 선택해야 합니다.&lt;br /&gt;
+돈 내고 굉장히 좋은 서비스를 사용할 수도 있군요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200820/image5.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;돈 안내는 서비스는 없나 찾아보니, 아래쪽에 숨겨뒀네요.&lt;br /&gt;
+Basic을 선택하시면 무료로 이용이 가능합니다.&lt;br /&gt;
+물론 선택은 여러분에게 달려있습니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200820/image6.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그 다음엔 어떤 플랫폼을 사용하고 있는지 고르게 되어있습니다.&lt;br /&gt;
+이중 Jekyll을 선택해줍시다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image7.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Jekyll 말고도 웹사이트 만드는 선택지가 굉장히 많군요&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;자, 이러면 disqus 사이트에서 설정할 부분은 모두 끝났습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;다음 장면에서는 Jekyll 코드에서 어떤 부분을 만져야 댓글창이 나오는지 알려줍니다.&lt;br /&gt;
+Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성하실 겁니다.&lt;br /&gt;
+이 때, 각 .md 파일의 맨 윗부분에 변수로 “comments” 라는 것을 만들고, 이를 “true”로 설정해줘야 합니다.&lt;br /&gt;
+그림에서처럼 말이죠.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200820/image8.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이후, 위 그림의 아래 부분에 나와있는 파란 글씨의 “Universal Embed Code”라는 것을 클릭해봅시다.&lt;br /&gt;
+그럼 다음과 같은 긴 코드가 나오는데요.&lt;br /&gt;
+여러분의 Jekyll 디렉토리에 _includes/disqus_comments.html 이라는 파일을 만들고, 이 코드를 모두 복사해 붙여넣어 주세요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image9.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image10.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;위 코드를 _includes/disqus_comments.html 에 붙여넣기 한 모습&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;거의 다 됐습니다!&lt;br /&gt;
+이제 _layouts 만 바꾸면 됩니다.&lt;br /&gt;
+저는 각 포스트가 _layouts/post.html 을 참조하게 해놨는데요.&lt;br /&gt;
+그럼 이 코드의 밑 부분에 아래 코드들을 추가하면 댓글창 사용이 가능합니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200820/image11.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;자, 끝났습니다!&lt;br /&gt;
+이제 포스트를 확인하시면 댓글창이 들어와 있는 걸 보실 수 있습니다.&lt;br /&gt;
+간단한 것 같으면서도 여러 과정을 거쳐야 하는군요.&lt;br /&gt;
+그래도 블로그에 댓글창 정도는 있어야겠죠.&lt;br /&gt;
+배워보길 잘했다는 생각이 듭니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200820/image12.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;드디어 댓글로 소통이 가능해졌군요. 편-안&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이제 여러분도 댓글창을 만드실 수 있습니다.&lt;br /&gt;
+긴 글 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><summary type="html">깃허브 블로그에 댓글창을 달아보자 안녕하세요. 한헌종입니다.</summary></entry><entry><title type="html">깃블로그를 시작하며</title><link href="http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그를 시작하며" /><published>2020-08-19T00:00:00+09:00</published><updated>2020-08-19T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;블로그를-시작하며&quot;&gt;블로그를 시작하며&lt;/h3&gt;
 &lt;p&gt;얼마전까지만 해도 블로그 하면 네이버 블로그밖에 생각이 안나고, 저랑은 전혀 관련없는 세상이라고 생각했습니다.&lt;br /&gt;
 그런데 최근들어 주변에서 블로그를 시작해보라는 이야기를 많이 해주셨습니다.&lt;br /&gt;
 추천해주신 분들 중에는 이미 몇년간, 혹은 십년 이상 블로그를 운영해오신 분들이 계셨습니다.&lt;br /&gt;
