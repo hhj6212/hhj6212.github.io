@@ -2,6 +2,8 @@
 layout: wedding
 title: Wedding
 permalink: /wedding/
+comments: true
+
 ---
 ---
 ## 저희의 결혼식에 초대합니다

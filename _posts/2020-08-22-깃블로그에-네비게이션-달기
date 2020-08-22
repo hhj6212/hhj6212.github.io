@@ -1,0 +1,36 @@
+---
+layout: post
+title: 깃 블로그에 글 목록 (네비게이션) 만들기
+comments: true
+categories: blog
+---
+
+### 깃 블로그에 글 목록을 만들어보자
+안녕하세요 한헌종입니다.
+이번에는 글 목록을 만들어서 쉽게 이 포스트에서 저 포스트로 넘어갈 수 있도록 해보겠습니다.
+
+먼저 글 목록을 불러와 보겠습니다.
+이를 위해서는 jekyll 에서 제공하는 여러 '변수'를 활용하는 방법을 알아야 합니다.
+[링크](https://jekyllrb-ko.github.io/docs/variables/)에서 변수에 관해 더욱 자세하게 배울 수 있습니다.
+
+지금 제 블로그에는 글이 세개밖에 없습니다.
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+{% raw %}
+~~~html
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+~~~
+{% endraw %}

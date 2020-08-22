@@ -1,8 +1,235 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-20T23:43:53+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">깃블로그에 댓글창 달기</title><link href="http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그에 댓글창 달기" /><published>2020-08-20T00:00:00+09:00</published><updated>2020-08-20T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html">&lt;h3 id=&quot;깃허브-블로그에-댓글창을-달아보자&quot;&gt;깃허브 블로그에 댓글창을 달아보자&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-22T17:27:48+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">깃 블로그에 글 목록 (네비게이션) 만들기</title><link href="http://localhost:4000/2020/08/22/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EB%8B%AC%EA%B8%B0.html" rel="alternate" type="text/html" title="깃 블로그에 글 목록 (네비게이션) 만들기" /><published>2020-08-22T00:00:00+09:00</published><updated>2020-08-22T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/22/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EB%8B%AC%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/22/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EB%8B%AC%EA%B8%B0.html">&lt;h3 id=&quot;깃-블로그에-글-목록을-만들어보자&quot;&gt;깃 블로그에 글 목록을 만들어보자&lt;/h3&gt;
+&lt;p&gt;안녕하세요 한헌종입니다.&lt;br /&gt;
+이번에는 글 목록을 만들어서 쉽게 이 포스트에서 저 포스트로 넘어갈 수 있도록 해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;먼저 글 목록을 불러와 보겠습니다.&lt;br /&gt;
+이를 위해서는 jekyll 에서 제공하는 여러 ‘변수’를 활용하는 방법을 알아야 합니다.&lt;br /&gt;
+&lt;a href=&quot;https://jekyllrb-ko.github.io/docs/variables/&quot;&gt;링크&lt;/a&gt;에서 변수에 관해 더욱 자세하게 배울 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;지금 제 블로그에는 글이 세개밖에 없습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/2020/08/22/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EB%8B%AC%EA%B8%B0.html&quot;&gt;깃 블로그에 글 목록 (네비게이션) 만들기&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html&quot;&gt;깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html&quot;&gt;깃블로그에 댓글창 달기&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html&quot;&gt;깃블로그를 시작하며&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/minima/2016/05/20/welcome-to-jekyll.html&quot;&gt;Welcome To Jekyll&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/minima/junk/2016/05/20/this-post-demonstrates-post-content-styles.html&quot;&gt;This post demonstrates post content styles&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/minima/misc/2016/05/20/super-long-article.html&quot;&gt;Some articles are just so long they deserve a really long title to see if things will break well&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/minima/2016/05/20/my-example-post.html&quot;&gt;My Example Post&lt;/a&gt;
+    &lt;/li&gt;
+  
+    &lt;li&gt;
+      &lt;a href=&quot;/minima/misc/2016/05/19/super-short-article.html&quot;&gt;Some articles are just so short that we have to make the footer stick&lt;/a&gt;
+    &lt;/li&gt;
+  
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
+  {% for post in site.posts %}
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{ post.url }}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+  {% endfor %}
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><summary type="html">깃 블로그에 글 목록을 만들어보자 안녕하세요 한헌종입니다. 이번에는 글 목록을 만들어서 쉽게 이 포스트에서 저 포스트로 넘어갈 수 있도록 해보겠습니다.</summary></entry><entry><title type="html">깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!</title><link href="http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!" /><published>2020-08-22T00:00:00+09:00</published><updated>2020-08-22T00:00:00+09:00</updated><id>http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;깃-블로그에서-코드-부분을-볼-수-있게-해보자&quot;&gt;깃 블로그에서 코드 부분을 볼 수 있게 해보자!&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요 한헌종입니다.&lt;br /&gt;
+이번엔 블로그에서 코드를 설명할 때 특정 블록으로 처리하는 방법을 알아보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;깃 블로그는 Jekyll로 이루어져 있고, 각 포스트는 .md 파일로 구성되어 있죠.&lt;br /&gt;
+이 파일 안에는 그냥 텍스트를 쓸 수도 있지만, liquid, html, markdown 세가지 언어를 통해 특정 기능이나 표현을 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 어떤 코드를 썼는지를 그대로 보여주려면 어떻게 할까요?&lt;br /&gt;
+예를 들어, 아래처럼 이탤릭체로 기울어진 텍스트는 ‘asterisk 별표 모양을 글 양옆에 붙이면 된다’는 설명을 어떻게 하면 될까요?&lt;br /&gt;
+&lt;em&gt;기울임글자&lt;/em&gt;&lt;br /&gt;
+별표-텍스트-별표 라고 쓰세요! 이런식으로 설명할 수도 없고 말이죠.&lt;/p&gt;
+
+&lt;p&gt;이럴 때, 코드블록이 필요합니다.&lt;br /&gt;
+깃 블로그에서 쓰는 liquid, html, markdown 세가지에 대해 어떻게 코드를 나타낼 수 있는지 알아보겠습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;liquid-의-경우&quot;&gt;liquid 의 경우&lt;/h3&gt;
+
+&lt;p&gt;Jekyll 은 중괄호-퍼센트 글자 사이, 즉 {% 와 %} 모양 안에 특정 문구를 넣어서 원하는 명령을 실행할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이걸 liquid 언어라고 하는데요, 이처럼 작성하면 Jekyll이 이 부분을 인식하고 렌더링을 통해 특정 기능을 실행합니다.&lt;br /&gt;
+사실 이전 포스트에서 ‘이 코드를 넣으세요’ 라며 설명하는 부분이 있었는데,&lt;br /&gt;
+그 코드를 실제로 쓰려니 코드가 렌더링 되어서 여러분께 보여드릴 수가 없었습니다.&lt;/p&gt;
+
+&lt;p&gt;그래서 찾아보았습니다. 역시 구글은 검색하면 다 나오는군요.&lt;br /&gt;
+아래처럼 Jekyll liquid 언어를 블로그에 넣는 방법을 설명드리겠습니다.&lt;br /&gt;
+두 가지 방법이 있습니다. 하나는 raw-endraw 구문, 다른 하나는 highlight-endhighlight 구문입니다.&lt;/p&gt;
+
+&lt;p&gt;{%- if page.comments -%}&lt;br /&gt;
+    {%- include disqus_comments.html -%}&lt;br /&gt;
+{%- endif -%}&lt;/p&gt;
+
+&lt;p&gt;위 세줄을 .md 파일에 그냥 쓰면 이 글에서 보이지 않을 겁니다. 그럼 어떻게 한 걸까요?&lt;br /&gt;
+방법은 정말 간단합니다.&lt;br /&gt;
+아래 그림처럼 raw - endraw 구문을 넣으면 됩니다!&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200822/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;이렇게 말입니다&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;정말 쉽죠?&lt;br /&gt;
+liquid 문구 중 raw-endraw 라는 문구를 쓰면, 그 안에서 Jekyll liquid 언어를 작성하더라도&lt;br /&gt;
+실제로 렌더링 하는 대신 ‘그대로’ 보여주더군요.&lt;/p&gt;
+
+&lt;p&gt;그런데, 너무 코드블록 느낌이 안 나는군요. 어떻게 하면 될까요?&lt;br /&gt;
+이 때는 pre, code 문구를 추가로 위아래에 집어넣으면 됩니다. 아래 그림처럼요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200822/image2.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그럼 아래처럼 표시할 코드부분만 코드블록 안에 나오게 됩니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{%- if page.comments -%}
+    {%- include disqus_comments.html -%}
+{%- endif -%}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이 방법을 통해서 여러분께 liquid 언어 쓰는 방법을 더 자세하게 설명할 수 있게 되었습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;html의-경우&quot;&gt;html의 경우&lt;/h3&gt;
+&lt;p&gt;html 을 코드블록에 표시하는 방법은 두가지입니다.&lt;br /&gt;
+첫 번째는 물결 세 개를 쓰고 html이라고 쓰면 되는군요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200822/image3.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그럼 이렇게 나옵니다.&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://hhj6212.github.io/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+   블로그 링크
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;혹은 highlight-endhighlight 기능을 사용할 수 있습니다.&lt;br /&gt;
+highlight는 특정 언어를 지정하면, 그 언어에 맞는 형식대로 코드블록에서 보여줄 수 있게 해줍니다.&lt;br /&gt;
+여기서 표시해야 할 언어는 html 이니, {% highlight html %} 이라고 작성해야 합니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200822/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이것도 똑같은 효과를 가져옵니다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://hhj6212.github.io/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+   블로그 링크
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;markdown-언어의-경우&quot;&gt;markdown 언어의 경우&lt;/h3&gt;
+&lt;p&gt;markdown 언어는 어떻게 할까요?&lt;br /&gt;
+위에서 썼던 방법 중 pre, code 문구를 사용하면 됩니다.&lt;br /&gt;
+이렇게 말이죠.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200822/image5.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그럼 아래처럼 나타나게 됩니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;### 하하하&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;세-언어를-동시에-사용할-때는요&quot;&gt;세 언어를 동시에 사용할 때는요?&lt;/h3&gt;
+&lt;p&gt;만약 제가 liquid, html, markdown 세 가지 언어로 작성된 .md 파일을 여러분께 그대로 보여드리고 싶을 때는 어떻게 할까요?&lt;br /&gt;
+물론 스크린샷을 찍어서 보여드릴 순 있겠죠.&lt;br /&gt;
+그렇지만 여러분께서 따라서 연습하고 싶으실 땐 복사-붙여넣기를 하고 싶으실테니까, 좀 더 좋은 방법을 사용해봅시다.&lt;/p&gt;
+
+&lt;p&gt;위에서 사용한 세 가지 방법을 잘 조합하면 됩니다!&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;liquid: raw-endraw 문구&lt;/li&gt;
+  &lt;li&gt;html: highlight 문구&lt;/li&gt;
+  &lt;li&gt;markdown: pre/code 문구&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;코드를 감쌀 때, 위 세 개의 물고 물리는 관계를 잘 고려해야 합니다.&lt;br /&gt;
+예를 들어, pre/code 문구는 html이니, 이건 highlight로 묶기 전에 선언해야 합니다.&lt;br /&gt;
+또, highlight 문구는 liquid 언어이므로, raw-endraw로 묶기 전에 선언해야 하죠.&lt;/p&gt;
+
+&lt;p&gt;즉 다음과 같은 구조로 짜야 합니다.&lt;br /&gt;
+가장 바깥에 pre-code, 그 다음에 highlight, 그리고 raw 로 묶으면 됩니다.&lt;br /&gt;
+아래 그림처럼 말이죠.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/200822/image6.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그럼 아래처럼 liquid, html, markdown 세가지 언어가 모두 ‘그대로’ 여러분께 표시됩니다!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;{%- if page.comments -%}
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-disqus&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;container&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        ### 하하하
+        {%- include disqus_comments.html -%}
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+{%- endif -%}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;지금까지 Jekyll 에서 liquid, html, markdown 을 코드블록으로 표시하는 방법을 배워보았습니다.&lt;br /&gt;
+여러분의 블로그에서도 잘 활용하셨으면 좋겠습니다.&lt;/p&gt;
+
+&lt;p&gt;그럼 다음 시간에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="blog" /><summary type="html">깃 블로그에서 코드 부분을 볼 수 있게 해보자!</summary></entry><entry><title type="html">깃블로그에 댓글창 달기</title><link href="http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그에 댓글창 달기" /><published>2020-08-20T00:00:00+09:00</published><updated>2020-08-20T00:00:00+09:00</updated><id>http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html">&lt;h3 id=&quot;깃허브-블로그에-댓글창을-달아보자&quot;&gt;깃허브 블로그에 댓글창을 달아보자&lt;/h3&gt;
 &lt;p&gt;안녕하세요. 한헌종입니다.&lt;/p&gt;
 
-&lt;p&gt;이번엔 Jekyll 로 구축된 깃허브 블로그에 댓글창을 넣는 방법을 설명해보겠습니다.&lt;br /&gt;
+&lt;p&gt;이번엔 Jekyll 로 구축된 깃허브 블로그에 댓글창을 넣는 방법을 설명해 보겠습니다.&lt;br /&gt;
 블로그에는 당연하게 댓글창이 달려있을 거라 생각하실 겁니다.&lt;br /&gt;
 그러나 깃허브 블로그는 그렇지 않습니다…&lt;br /&gt;
 오로지 글만 올리는 용도의 블로그로만 써야하나? 하는 생각이 들었습니다.&lt;/p&gt;
@@ -56,7 +283,6 @@
 
 &lt;p&gt;그 후 Disqus를 사용하기 위한 설정들을 해야 합니다.&lt;br /&gt;
 먼저 사이트를 나타낼 이름을 지어봅니다. (저는 간단하게 hhangitblog로 했습니다.)&lt;br /&gt;
-이 이름은 아래 코드부분에서 사용해야 하니 간단한 걸로 지어주세요.&lt;br /&gt;
 Category 도 아무거나 선택해주시구요.&lt;/p&gt;
 
 &lt;table&gt;
@@ -117,7 +343,8 @@ Basic을 선택하시면 무료로 이용이 가능합니다.&lt;br /&gt;
 &lt;p&gt;다음 장면에서는 Jekyll 코드에서 어떤 부분을 만져야 댓글창이 나오는지 알려줍니다.&lt;br /&gt;
 Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성하실 겁니다.&lt;br /&gt;
 이 때, 각 .md 파일의 맨 윗부분에 변수로 “comments” 라는 것을 만들고, 이를 “true”로 설정해줘야 합니다.&lt;br /&gt;
-그림에서처럼 말이죠.&lt;/p&gt;
+그림에서처럼 말이죠.&lt;br /&gt;
+여기서, layout: default 처럼 여러분이 포스트 글에서 사용하고 계신 _layout/[레이아웃이름].html 을 기억하고 계세요!&lt;/p&gt;
 
 &lt;table&gt;
   &lt;tbody&gt;
@@ -129,7 +356,8 @@ Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성
 
 &lt;p&gt;이후, 위 그림의 아래 부분에 나와있는 파란 글씨의 “Universal Embed Code”라는 것을 클릭해봅시다.&lt;br /&gt;
 그럼 다음과 같은 긴 코드가 나오는데요.&lt;br /&gt;
-여러분의 Jekyll 디렉토리에 _includes/disqus_comments.html 이라는 파일을 만들고, 이 코드를 모두 복사해 붙여넣어 주세요.&lt;/p&gt;
+여러분의 Jekyll 디렉토리에 _includes/disqus_comments.html 이라는 파일을 만들고, 이 코드를 모두 복사해 붙여넣어 주세요.&lt;br /&gt;
+코드 중간에 보시면 제가 위에서 지은 블로그이름 ‘hhangitblog’ 가 사용되고 있는 걸 확인하실 수 있어요.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -151,8 +379,15 @@ Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성
 
 &lt;p&gt;거의 다 됐습니다!&lt;br /&gt;
 이제 _layouts 만 바꾸면 됩니다.&lt;br /&gt;
-저는 각 포스트가 _layouts/post.html 을 참조하게 해놨는데요.&lt;br /&gt;
+저는 각 포스트의 레이아웃을 _layouts/post.html 을 참조하게 해놨는데요.&lt;br /&gt;
 그럼 이 코드의 밑 부분에 아래 코드들을 추가하면 댓글창 사용이 가능합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  {%- if page.comments -%}
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-disqus&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;container&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    {%- include disqus_comments.html -%}
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  {%- endif -%}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;table&gt;
   &lt;tbody&gt;
@@ -182,7 +417,7 @@ Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성
 &lt;/table&gt;
 
 &lt;p&gt;이제 여러분도 댓글창을 만드실 수 있습니다.&lt;br /&gt;
-긴 글 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><summary type="html">깃허브 블로그에 댓글창을 달아보자 안녕하세요. 한헌종입니다.</summary></entry><entry><title type="html">깃블로그를 시작하며</title><link href="http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그를 시작하며" /><published>2020-08-19T00:00:00+09:00</published><updated>2020-08-19T00:00:00+09:00</updated><id>http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;블로그를-시작하며&quot;&gt;블로그를 시작하며&lt;/h3&gt;
+긴 글 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="blog" /><category term="tech" /><summary type="html">깃허브 블로그에 댓글창을 달아보자 안녕하세요. 한헌종입니다.</summary></entry><entry><title type="html">깃블로그를 시작하며</title><link href="http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그를 시작하며" /><published>2020-08-19T00:00:00+09:00</published><updated>2020-08-19T00:00:00+09:00</updated><id>http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;블로그를-시작하며&quot;&gt;블로그를 시작하며&lt;/h3&gt;
 &lt;p&gt;얼마전까지만 해도 블로그 하면 네이버 블로그밖에 생각이 안나고, 저랑은 전혀 관련없는 세상이라고 생각했습니다.&lt;br /&gt;
 그런데 최근들어 주변에서 블로그를 시작해보라는 이야기를 많이 해주셨습니다.&lt;br /&gt;
 추천해주신 분들 중에는 이미 몇년간, 혹은 십년 이상 블로그를 운영해오신 분들이 계셨습니다.&lt;br /&gt;
@@ -221,7 +456,7 @@ Jekyll 이라는게 뭔지부터 차근차근 공부했다면 시행착오가 �
 &lt;h3 id=&quot;앞으로&quot;&gt;앞으로&lt;/h3&gt;
 &lt;p&gt;블로그는 처음이라 어떻게 가꿔나가야 할지 모르겠습니다.&lt;br /&gt;
 그러나 누군가 이야기해준 것처럼, 정말 작은것부터 하나하나 해나가는게 중요한 것 같습니다.&lt;br /&gt;
-오늘 이렇게 한 페이지를 작성했고, 앞으로 꾸준히 작성해보려 합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><summary type="html">블로그를 시작하며 얼마전까지만 해도 블로그 하면 네이버 블로그밖에 생각이 안나고, 저랑은 전혀 관련없는 세상이라고 생각했습니다. 그런데 최근들어 주변에서 블로그를 시작해보라는 이야기를 많이 해주셨습니다. 추천해주신 분들 중에는 이미 몇년간, 혹은 십년 이상 블로그를 운영해오신 분들이 계셨습니다. 그분들을 보며 “와 저렇게 오래 많은 글을 기록하는 건 무척 힘들겠구나” 라며 압도되었습니다. 그때마다 제가 들었던 말은, 바로 가장 작은 것부터 시작해보라는 이야기였습니다. 처음부터 크게 할 생각을 하지 말고, 조금씩 꾸준히 해나가는게 중요하다는 것이었습니다. 그러다보면 어느새 수많은 글을 포스팅하게 되고, 그 분야의 전문가로 인정받을 수 있다는 말이었죠.</summary></entry><entry><title type="html">My Example Post</title><link href="http://localhost:4000/minima/2016/05/20/my-example-post.html" rel="alternate" type="text/html" title="My Example Post" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/minima/2016/05/20/my-example-post</id><content type="html" xml:base="http://localhost:4000/minima/2016/05/20/my-example-post.html">&lt;p&gt;Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.&lt;/p&gt;
+오늘 이렇게 한 페이지를 작성했고, 앞으로 꾸준히 작성해보려 합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="life" /><summary type="html">블로그를 시작하며 얼마전까지만 해도 블로그 하면 네이버 블로그밖에 생각이 안나고, 저랑은 전혀 관련없는 세상이라고 생각했습니다. 그런데 최근들어 주변에서 블로그를 시작해보라는 이야기를 많이 해주셨습니다. 추천해주신 분들 중에는 이미 몇년간, 혹은 십년 이상 블로그를 운영해오신 분들이 계셨습니다. 그분들을 보며 “와 저렇게 오래 많은 글을 기록하는 건 무척 힘들겠구나” 라며 압도되었습니다. 그때마다 제가 들었던 말은, 바로 가장 작은 것부터 시작해보라는 이야기였습니다. 처음부터 크게 할 생각을 하지 말고, 조금씩 꾸준히 해나가는게 중요하다는 것이었습니다. 그러다보면 어느새 수많은 글을 포스팅하게 되고, 그 분야의 전문가로 인정받을 수 있다는 말이었죠.</summary></entry><entry><title type="html">My Example Post</title><link href="http://localhost:4000/minima/2016/05/20/my-example-post.html" rel="alternate" type="text/html" title="My Example Post" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/minima/2016/05/20/my-example-post</id><content type="html" xml:base="http://localhost:4000/minima/2016/05/20/my-example-post.html">&lt;p&gt;Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.&lt;/p&gt;
 
 &lt;p&gt;No laudem altera adolescens has, volumus lucilius eum no. Eam ei nulla audiam efficiantur. Suas affert per no, ei tale nibh sea. Sea ne magna harum, in denique scriptorem sea, cetero alienum tibique ei eos. Labores persequeris referrentur eos ei.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="minima" /><summary type="html">Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.</summary></entry><entry><title type="html">Some articles are just so long they deserve a really long title to see if things will break well</title><link href="http://localhost:4000/minima/misc/2016/05/20/super-long-article.html" rel="alternate" type="text/html" title="Some articles are just so long they deserve a really long title to see if things will break well" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/minima/misc/2016/05/20/super-long-article</id><content type="html" xml:base="http://localhost:4000/minima/misc/2016/05/20/super-long-article.html">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
 

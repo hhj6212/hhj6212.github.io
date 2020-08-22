@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에! | 한헌종의 Git Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!" />
+<meta name="author" content="Heonjong Han" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="깃 블로그에서 코드 부분을 볼 수 있게 해보자!" />
+<meta property="og:description" content="깃 블로그에서 코드 부분을 볼 수 있게 해보자!" />
+<link rel="canonical" href="http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html" />
+<meta property="og:url" content="http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html" />
+<meta property="og:site_name" content="한헌종의 Git Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-22T00:00:00+09:00" />
+<script type="application/ld+json">
+{"dateModified":"2020-08-22T00:00:00+09:00","datePublished":"2020-08-22T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html"},"author":{"@type":"Person","name":"Heonjong Han"},"description":"깃 블로그에서 코드 부분을 볼 수 있게 해보자!","@type":"BlogPosting","url":"http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html","headline":"깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="한헌종의 Git Blog" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">한헌종의 Git Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/wedding/">Wedding</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-08-22T00:00:00+09:00" itemprop="datePublished">
+        Aug 22, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="깃-블로그에서-코드-부분을-볼-수-있게-해보자">깃 블로그에서 코드 부분을 볼 수 있게 해보자!</h3>
+
+<p>안녕하세요 한헌종입니다.<br />
+이번엔 블로그에서 코드를 설명할 때 특정 블록으로 처리하는 방법을 알아보겠습니다.</p>
+
+<p>깃 블로그는 Jekyll로 이루어져 있고, 각 포스트는 .md 파일로 구성되어 있죠.<br />
+이 파일 안에는 그냥 텍스트를 쓸 수도 있지만, liquid, html, markdown 세가지 언어를 통해 특정 기능이나 표현을 할 수 있습니다.</p>
+
+<p>그런데 어떤 코드를 썼는지를 그대로 보여주려면 어떻게 할까요?<br />
+예를 들어, 아래처럼 이탤릭체로 기울어진 텍스트는 ‘asterisk 별표 모양을 글 양옆에 붙이면 된다’는 설명을 어떻게 하면 될까요?<br />
+<em>기울임글자</em><br />
+별표-텍스트-별표 라고 쓰세요! 이런식으로 설명할 수도 없고 말이죠.</p>
+
+<p>이럴 때, 코드블록이 필요합니다.<br />
+깃 블로그에서 쓰는 liquid, html, markdown 세가지에 대해 어떻게 코드를 나타낼 수 있는지 알아보겠습니다.</p>
+
+<hr />
+<h3 id="liquid-의-경우">liquid 의 경우</h3>
+
+<p>Jekyll 은 중괄호-퍼센트 글자 사이, 즉 {% 와 %} 모양 안에 특정 문구를 넣어서 원하는 명령을 실행할 수 있습니다.</p>
+
+<p>이걸 liquid 언어라고 하는데요, 이처럼 작성하면 Jekyll이 이 부분을 인식하고 렌더링을 통해 특정 기능을 실행합니다.<br />
+사실 이전 포스트에서 ‘이 코드를 넣으세요’ 라며 설명하는 부분이 있었는데,<br />
+그 코드를 실제로 쓰려니 코드가 렌더링 되어서 여러분께 보여드릴 수가 없었습니다.</p>
+
+<p>그래서 찾아보았습니다. 역시 구글은 검색하면 다 나오는군요.<br />
+아래처럼 Jekyll liquid 언어를 블로그에 넣는 방법을 설명드리겠습니다.<br />
+두 가지 방법이 있습니다. 하나는 raw-endraw 구문, 다른 하나는 highlight-endhighlight 구문입니다.</p>
+
+<p>{%- if page.comments -%}<br />
+    {%- include disqus_comments.html -%}<br />
+{%- endif -%}</p>
+
+<p>위 세줄을 .md 파일에 그냥 쓰면 이 글에서 보이지 않을 겁니다. 그럼 어떻게 한 걸까요?<br />
+방법은 정말 간단합니다.<br />
+아래 그림처럼 raw - endraw 구문을 넣으면 됩니다!</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/200822/image1.png" alt="-" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><em>이렇게 말입니다</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>정말 쉽죠?<br />
+liquid 문구 중 raw-endraw 라는 문구를 쓰면, 그 안에서 Jekyll liquid 언어를 작성하더라도<br />
+실제로 렌더링 하는 대신 ‘그대로’ 보여주더군요.</p>
+
+<p>그런데, 너무 코드블록 느낌이 안 나는군요. 어떻게 하면 될까요?<br />
+이 때는 pre, code 문구를 추가로 위아래에 집어넣으면 됩니다. 아래 그림처럼요.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="/assets/200822/image2.png" alt="-" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>그럼 아래처럼 표시할 코드부분만 코드블록 안에 나오게 됩니다.</p>
+
+<pre><code>{%- if page.comments -%}
+    {%- include disqus_comments.html -%}
+{%- endif -%}</code></pre>
+
+<p>이 방법을 통해서 여러분께 liquid 언어 쓰는 방법을 더 자세하게 설명할 수 있게 되었습니다.</p>
+
+<hr />
+<h3 id="html의-경우">html의 경우</h3>
+<p>html 을 코드블록에 표시하는 방법은 두가지입니다.<br />
+첫 번째는 물결 세 개를 쓰고 html이라고 쓰면 되는군요.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="/assets/200822/image3.png" alt="-" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>그럼 이렇게 나옵니다.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://hhj6212.github.io/"</span><span class="nt">&gt;</span>
+   블로그 링크
+<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>혹은 highlight-endhighlight 기능을 사용할 수 있습니다.<br />
+highlight는 특정 언어를 지정하면, 그 언어에 맞는 형식대로 코드블록에서 보여줄 수 있게 해줍니다.<br />
+여기서 표시해야 할 언어는 html 이니, {% highlight html %} 이라고 작성해야 합니다.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="/assets/200822/image4.png" alt="-" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이것도 똑같은 효과를 가져옵니다.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://hhj6212.github.io/"</span><span class="nt">&gt;</span>
+   블로그 링크
+<span class="nt">&lt;/a&gt;</span></code></pre></figure>
+
+<hr />
+<h3 id="markdown-언어의-경우">markdown 언어의 경우</h3>
+<p>markdown 언어는 어떻게 할까요?<br />
+위에서 썼던 방법 중 pre, code 문구를 사용하면 됩니다.<br />
+이렇게 말이죠.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="/assets/200822/image5.png" alt="-" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>그럼 아래처럼 나타나게 됩니다.</p>
+<pre><code>### 하하하</code></pre>
+
+<hr />
+<h3 id="세-언어를-동시에-사용할-때는요">세 언어를 동시에 사용할 때는요?</h3>
+<p>만약 제가 liquid, html, markdown 세 가지 언어로 작성된 .md 파일을 여러분께 그대로 보여드리고 싶을 때는 어떻게 할까요?<br />
+물론 스크린샷을 찍어서 보여드릴 순 있겠죠.<br />
+그렇지만 여러분께서 따라서 연습하고 싶으실 땐 복사-붙여넣기를 하고 싶으실테니까, 좀 더 좋은 방법을 사용해봅시다.</p>
+
+<p>위에서 사용한 세 가지 방법을 잘 조합하면 됩니다!</p>
+<ol>
+  <li>liquid: raw-endraw 문구</li>
+  <li>html: highlight 문구</li>
+  <li>markdown: pre/code 문구</li>
+</ol>
+
+<p>코드를 감쌀 때, 위 세 개의 물고 물리는 관계를 잘 고려해야 합니다.<br />
+예를 들어, pre/code 문구는 html이니, 이건 highlight로 묶기 전에 선언해야 합니다.<br />
+또, highlight 문구는 liquid 언어이므로, raw-endraw로 묶기 전에 선언해야 하죠.</p>
+
+<p>즉 다음과 같은 구조로 짜야 합니다.<br />
+가장 바깥에 pre-code, 그 다음에 highlight, 그리고 raw 로 묶으면 됩니다.<br />
+아래 그림처럼 말이죠.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="/assets/200822/image6.png" alt="-" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>그럼 아래처럼 liquid, html, markdown 세가지 언어가 모두 ‘그대로’ 여러분께 표시됩니다!</p>
+
+<pre><code>
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{%- if page.comments -%}
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"post-disqus"</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+        ### 하하하
+        {%- include disqus_comments.html -%}
+    <span class="nt">&lt;/div&gt;</span>
+{%- endif -%}</code></pre></figure>
+</code></pre>
+
+<p>지금까지 Jekyll 에서 liquid, html, markdown 을 코드블록으로 표시하는 방법을 배워보았습니다.<br />
+여러분의 블로그에서도 잘 활용하셨으면 좋겠습니다.</p>
+
+<p>그럼 다음 시간에 만나요!</p>
+
+  </div><div id="post-disqus" class="container"><div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://hhangitblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><nav><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a><a href="" >
+        
+      </a></nav><a class="u-url" href="/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">Heonjong Han</li>
+          <li><a class="u-email" href="mailto:hhj6212@gmail.com">hhj6212@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

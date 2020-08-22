@@ -11,6 +11,11 @@
       </div>
 
 <!--    {%- include footer.html -%} -->
+{%- if page.comments -%}
+<div id="post-disqus" class="container">
+  {%- include disqus_comments.html -%}
+</div>
+{%- endif -%}
 
   </body>
 
