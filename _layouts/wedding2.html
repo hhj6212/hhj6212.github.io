@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head2.html -%}
+
+  <body>
+
+    {%- include header2.html -%}
+
+  <main class="page-content" aria-label="Content">
+    <div class="post-content e-content" itemprop="articleBody" style="width:90%;margin:auto;text-align:center">
+      {{ content }}
+    </div>
+    <div id="post-disqus" class="container" style="width:90%;margin:auto;">
+      {%- include disqus_comments.html -%}
+    </div>
+  </main>
+
+
+</article>
