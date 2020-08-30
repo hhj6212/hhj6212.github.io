@@ -20,13 +20,17 @@
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="한헌종의 Git Blog" /></head>
-<body><!-- <header class="site-header">
+<body style="background: #fdf3fd;"><!-- <header class="site-header">
 
   <div class="wrapper"></div>
 </header> -->
-<main class="page-content" aria-label="Content">
-    <div itemprop="articleBody" style="width:90%;margin:auto;text-align:center">
-      <h2 id="저희의-결혼식에-초대합니다">저희의 결혼식에 초대합니다</h2>
+<main class="page-content" aria-label="Content" style="padding:10px 0px 10px 0px;">
+    <div class="wedding-content" itemprop="articleBody" style="width:90%;margin:auto;text-align:center;font-family: 'Jua', sans-serif;">
+      <div style="margin:0;">
+<img src="images/flower2.png" style="width:100px;" />
+</div>
+
+<h2 id="저희의-결혼식에-초대합니다">저희의 결혼식에 초대합니다</h2>
 
 <p>2017년 봄날,<br />
 저희 두 사람 평생 함께하기로 약속하였습니다.</p>
@@ -44,13 +48,18 @@
 <p>2020년 11월 8일 일요일 낮 12시<br />
 차바이오 컴플렉스</p>
 
-<hr />
+<div style="margin:0;">
+<img src="images/flower2.png" style="width:100px;" />
+</div>
 
 <h2 id="오시는-길">오시는 길</h2>
 
+<p>경기 성남시 분당구 판교로 335 (우)13488<br />
+삼평동 689</p>
+
 <h3 id="카카오-지도">카카오 지도</h3>
 
-<div id="daumRoughmapContainer1598191113323" class="root_daum_roughmap root_daum_roughmap_landing" style="margin:auto;width:95%;"></div>
+<div id="daumRoughmapContainer1598191113323" class="root_daum_roughmap root_daum_roughmap_landing" style="margin:auto;width:90%;"></div>
 <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
 <!-- 3. 실행 스크립트 -->
@@ -62,9 +71,11 @@
     }).render();
     
     function resizeMap() {
-    var mapContainer = document.getElementById('daumRoughmapContainer1598191113323');
+    var mapContainer = document.getElementById('daumRoughmapContainer1598191113323'),
+      mapOption = { 
+        draggable: false,
+      };
     mapContainer.style.height = '400px'; 
-
     function relayout() {    
     
     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
@@ -75,18 +86,229 @@
 }
 </script>
 
+<script>
+  function setDraggable(draggable) {
+    // 마우스 드래그로 지도 이동 가능여부를 설정합니다
+    map.setDraggable(false);    
+}
+</script>
+
 <p><br /></p>
 
 <h3 id="구글-지도">구글 지도</h3>
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3169.426279087393!2d127.1098301!3d37.4033981!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7f119ef78dd%3A0x3bbcb255bcf35a2d!2z7LCo67CU7J207Jik7Lu07ZSM66CJ7Iqk!5e0!3m2!1sko!2skr!4v1598161329817!5m2!1sko!2skr" frameborder="0" style="border:0;width:95%;height:400px;margin:auto;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3169.426279087393!2d127.1098301!3d37.4033981!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7f119ef78dd%3A0x3bbcb255bcf35a2d!2z7LCo67CU7J207Jik7Lu07ZSM66CJ7Iqk!5e0!3m2!1sko!2skr!4v1598161329817!5m2!1sko!2skr" frameborder="0" style="border:0;width:90%;height:400px;margin:auto;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
-<hr />
+<div style="margin:0;">
+<img src="images/flower2.png" style="width:100px;" />
+</div>
 
-<h2 id="사진">사진</h2>
+<h2 id="photo">Photo</h2>
+
+<div style="width:100%;margin:auto;"><style>
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "prev button" to the left */
+.prev {
+  left: 0;
+  top: 50%;
+  border-radius: 3px 0 0 3px;
+}
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  top: 50%;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+</style>
+
+<div class="container">
+  <div class="mySlides">
+    <div class="numbertext">1 / 6</div>
+    <img src="images/image1.jpg" style="width:100%" />
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">2 / 6</div>
+    <img src="images/image2.jpg" style="width:100%" />
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">3 / 6</div>
+    <img src="images/image3.jpg" style="width:100%" />
+  </div>
+    
+  <div class="mySlides">
+    <div class="numbertext">4 / 6</div>
+    <img src="images/image4.jpg" style="width:100%" />
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">5 / 6</div>
+    <img src="images/image5.jpg" style="width:100%" />
+  </div>
+    
+  <div class="mySlides">
+    <div class="numbertext">6 / 6</div>
+    <img src="images/image6.jpg" style="width:100%" />
+  </div>
+    
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+
+  <div class="row">
+    <!-- <div class="column">
+      <img class="demo cursor" src="images/image1.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+    </div> -->
+    <div class="column">
+      <img class="demo cursor" src="images/image1.jpg" style="width:100%" onclick="currentSlide(1)" />
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/image2.jpg" style="width:100%" onclick="currentSlide(2)" />
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/image3.jpg" style="width:100%" onclick="currentSlide(3)" />
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/image4.jpg" style="width:100%" onclick="currentSlide(4)" />
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="images/image5.jpg" style="width:100%" onclick="currentSlide(5)" />
+    </div>    
+    <div class="column">
+      <img class="demo cursor" src="images/image6.jpg" style="width:100%" onclick="currentSlide(6)" />
+    </div>
+  </div>
+</div>
+
+<script>
+  var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script></div>
+
+<div style="margin:0;">
+<img src="images/flower2.png" style="width:100px;" />
+</div>
+
+<h2 id="모바일-방명록">모바일 방명록</h2>
 
     </div>
-    <div id="post-disqus" class="container" style="width:90%;margin:auto;"><div id="disqus_thread"></div>
+    <div id="post-disqus" class="container" style="width:90%;margin:auto;font-family: 'Jua', sans-serif;"><div id="disqus_thread"></div>
 <script>
 
 /**

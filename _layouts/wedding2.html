@@ -3,15 +3,14 @@
 
   {%- include head2.html -%}
 
-  <body>
-
+  <body style="background: #fdf3fd;">
     {%- include header2.html -%}
 
-  <main class="page-content" aria-label="Content">
-    <div itemprop="articleBody" style="width:90%;margin:auto;text-align:center">
+  <main class="page-content" aria-label="Content" style="padding:10px 0px 10px 0px;">
+    <div class="wedding-content" itemprop="articleBody" style="width:90%;margin:auto;text-align:center;font-family: 'Jua', sans-serif;">
       {{ content }}
     </div>
-    <div id="post-disqus" class="container" style="width:90%;margin:auto;">
+    <div id="post-disqus" class="container" style="width:90%;margin:auto;font-family: 'Jua', sans-serif;">
       {%- include disqus_comments.html -%}
     </div>
   </main>
