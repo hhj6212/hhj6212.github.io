@@ -322,8 +322,4 @@ table td { border: 1px solid #e8e8e8; }
 /** Grid helpers */
 @media screen and (min-width: 800px) { .one-half { width: calc(50% - (30px / 2)); } }
 
-body { font-family: 'Jua', sans-serif; }
-
-p { font-family: 'Jua', sans-serif; }
-
 /*# sourceMappingURL=style.css.map */

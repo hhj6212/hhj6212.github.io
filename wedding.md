@@ -90,4 +90,4 @@ categories: [wedding]
 <img src="images/flower2.png" style="width:100px;">
 </div>
 
-## 모바일 방명록
+## 모바일 방명록을 작성해주세요! (로그인 필요)
