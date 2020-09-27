@@ -47,6 +47,14 @@ categories: [wedding]
 </div>
 
 <div style="margin:0;">
+<img src="images/wedding_photo2.png" style="width:100px;margin:20px 0px;">
+</div>
+
+<div style="width:100%;margin:auto;">
+{%- include wedding_img_slide1.html -%}
+</div>
+
+<div style="margin:0;">
 <img src="images/wedding_location.png" style="width:100px;margin:20px 0px;">
 </div>
 
@@ -95,14 +103,6 @@ categories: [wedding]
 <br>
 2020년 11월 8일 일요일 낮 12시
 차바이오 컴플렉스
-
-<div style="margin:0;">
-<img src="images/wedding_photo2.png" style="width:100px;margin:20px 0px;">
-</div>
-
-<div style="width:100%;margin:auto;">
-{%- include wedding_img_slide1.html -%}
-</div>
 
 <div style="margin:0;">
 <img src="images/wedding_comments.png" style="width:100px;margin:20px 0px;">
