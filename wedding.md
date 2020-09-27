@@ -63,7 +63,7 @@ categories: [wedding]
 
 ### 카카오 지도
 
-<div id="daumRoughmapContainer1598191113323" class="root_daum_roughmap root_daum_roughmap_landing" style="margin:auto;width:90%;"></div>
+<div id="daumRoughmapContainer1598191113323" class="root_daum_roughmap root_daum_roughmap_landing" style="margin:auto;width:80%;"></div>
 <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 <!-- 3. 실행 스크립트 -->
 <script charset="UTF-8">
@@ -98,7 +98,7 @@ categories: [wedding]
 
 ### 구글 지도
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3169.426279087393!2d127.1098301!3d37.4033981!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7f119ef78dd%3A0x3bbcb255bcf35a2d!2z7LCo67CU7J207Jik7Lu07ZSM66CJ7Iqk!5e0!3m2!1sko!2skr!4v1598161329817!5m2!1sko!2skr" frameborder="0" style="border:0;width:90%;height:400px;margin:auto;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3169.426279087393!2d127.1098301!3d37.4033981!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7f119ef78dd%3A0x3bbcb255bcf35a2d!2z7LCo67CU7J207Jik7Lu07ZSM66CJ7Iqk!5e0!3m2!1sko!2skr!4v1598161329817!5m2!1sko!2skr" frameborder="0" style="border:0;width:80%;height:400px;margin:auto;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
 <br>
 2020년 11월 8일 일요일 낮 12시
