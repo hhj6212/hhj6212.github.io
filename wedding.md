@@ -6,9 +6,6 @@ comments: true
 categories: [wedding]
 ---
 
-2020년 11월 8일 일요일 낮 12시
-차바이오 컴플렉스
-
 <!-- <div style="margin:0;">
 <img src="images/flower2.png" style="width:30px;">
 </div> -->
