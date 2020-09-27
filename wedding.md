@@ -1,6 +1,6 @@
 ---
 layout: wedding2
-title: 한헌종 ♥ 정다운의 모바일 청첩장입니다.
+title: Wedding invitation
 permalink: /wedding/
 comments: true
 categories: [wedding]
@@ -72,12 +72,12 @@ categories: [wedding]
 		"key" : "2zqum",
 		"mapHeight" : "400"
     }).render();
-  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
   function resizeMap() {
   var mapContainer = document.getElementById('daumRoughmapContainer1598191113323'),
     mapOption = { 
       draggable: false,
     };
+  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
   mapContainer.style.height = '400px'; 
   function relayout() {    
   
