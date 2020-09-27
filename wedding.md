@@ -23,7 +23,7 @@ categories: [wedding]
 한영길 · 황경숙 의 아들 헌종
 정흥근 · 김은자 의 딸 다운
 
-<div style="border:1px solid gray;border-width:1px;width:100%;margin:auto;padding:15px 5px;font-size:12px">
+<div style="border:1px solid gray;border-width:1px;width:100%;margin:auto;padding:15px 0px;font-size:11px">
 
 코로나19 확산에 따른 안내<br><br>
 안녕하세요. 신랑 한헌종, 신부 정다운입니다.<br>
