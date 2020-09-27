@@ -1,6 +1,6 @@
 ---
 layout: wedding2
-title: 한헌종 ♥ 정다운의 결혼식에 모바일 청첩장입니다.
+title: 한헌종 ♥ 정다운의 모바일 청첩장입니다.
 permalink: /wedding/
 comments: true
 categories: [wedding]
