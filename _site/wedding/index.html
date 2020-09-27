@@ -6,16 +6,16 @@
   <div style="margin:auto;width:90%;font-family: 'Noto Serif KR', serif;">
     <img src="images/wedding_top5.png" style="width:80%;margin:10% 10% 0% 10%">
     <img src="images/wedding_main5.jpg" style="margin:10px 0px;"></div><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Wedding | 한헌종의 Git Blog</title>
+<title>한헌종 ♥ 정다운의 결혼식에 모바일 청첩장입니다. | 한헌종의 Git Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Wedding" />
+<meta property="og:title" content="한헌종 ♥ 정다운의 결혼식에 모바일 청첩장입니다." />
 <meta name="author" content="Heonjong Han" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:4000/wedding/" />
 <meta property="og:url" content="http://localhost:4000/wedding/" />
 <meta property="og:site_name" content="한헌종의 Git Blog" />
 <script type="application/ld+json">
-{"headline":"Wedding","author":{"@type":"Person","name":"Heonjong Han"},"@type":"WebPage","url":"http://localhost:4000/wedding/","@context":"https://schema.org"}</script>
+{"headline":"한헌종 ♥ 정다운의 결혼식에 모바일 청첩장입니다.","author":{"@type":"Person","name":"Heonjong Han"},"@type":"WebPage","url":"http://localhost:4000/wedding/","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css">
   <!-- <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"> -->
@@ -287,15 +287,15 @@ function showSlides(n) {
 		"key" : "2zqum",
 		"mapHeight" : "400"
     }).render();
-    
-    function resizeMap() {
-    var mapContainer = document.getElementById('daumRoughmapContainer1598191113323'),
-      mapOption = { 
-        draggable: false,
-      };
-    mapContainer.style.height = '400px'; 
-    function relayout() {    
-    
+  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+  function resizeMap() {
+  var mapContainer = document.getElementById('daumRoughmapContainer1598191113323'),
+    mapOption = { 
+      draggable: false,
+    };
+  mapContainer.style.height = '400px'; 
+  function relayout() {    
+  
     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
