@@ -1,0 +1,290 @@
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+  width: auto;
+  padding: 6px;
+  margin-top: -50px;
+  color: gray;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "prev button" to the left */
+.prev {
+  left: 0;
+  top: 50%;
+  border-radius: 3px 0 0 3px;
+}
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  top: 50%;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: white;
+  opacity: 0.5;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 20%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+</style>
+
+<div class="container">
+  <div class="mySlides">
+    <div class="numbertext">1 / 20</div>
+    <img src="/wedding/additional/image01.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">2 / 20</div>
+    <img src="/wedding/additional/image02.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">3 / 20</div>
+    <img src="/wedding/additional/image03.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">4 / 20</div>
+    <img src="/wedding/additional/image04.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">5 / 20</div>
+    <img src="/wedding/additional/image05.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">6 / 20</div>
+    <img src="/wedding/additional/image06.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">7 / 20</div>
+    <img src="/wedding/additional/image07.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">8 / 20</div>
+    <img src="/wedding/additional/image08.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">9 / 20</div>
+    <img src="/wedding/additional/image09.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">10 / 20</div>
+    <img src="/wedding/additional/image10.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">11 / 20</div>
+    <img src="/wedding/additional/image11.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">12 / 20</div>
+    <img src="/wedding/additional/image12.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">13 / 20</div>
+    <img src="/wedding/additional/image13.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">14 / 20</div>
+    <img src="/wedding/additional/image14.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">15 / 20</div>
+    <img src="/wedding/additional/image15.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">16 / 20</div>
+    <img src="/wedding/additional/image16.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">17 / 20</div>
+    <img src="/wedding/additional/image17.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">18 / 20</div>
+    <img src="/wedding/additional/image18.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">19 / 20</div>
+    <img src="/wedding/additional/image19.jpg" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">20 / 20</div>
+    <img src="/wedding/additional/image20.jpg" style="width:100%">
+  </div>
+
+
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+
+  <div class="row">
+    <!-- <div class="column">
+      <img class="demo cursor" src="images/image1.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+    </div> -->
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image01_small.jpg" style="width:100%" onclick="currentSlide(1)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image02_small.jpg" style="width:100%" onclick="currentSlide(2)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image03_small.jpg" style="width:100%" onclick="currentSlide(3)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image04_small.jpg" style="width:100%" onclick="currentSlide(4)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image05_small.jpg" style="width:100%" onclick="currentSlide(5)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image06_small.jpg" style="width:100%" onclick="currentSlide(6)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image07_small.jpg" style="width:100%" onclick="currentSlide(7)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image08_small.jpg" style="width:100%" onclick="currentSlide(8)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image09_small.jpg" style="width:100%" onclick="currentSlide(9)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image10_small.jpg" style="width:100%" onclick="currentSlide(10)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image11_small.jpg" style="width:100%" onclick="currentSlide(11)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image12_small.jpg" style="width:100%" onclick="currentSlide(12)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image13_small.jpg" style="width:100%" onclick="currentSlide(13)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image14_small.jpg" style="width:100%" onclick="currentSlide(14)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image15_small.jpg" style="width:100%" onclick="currentSlide(15)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image16_small.jpg" style="width:100%" onclick="currentSlide(16)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image17_small.jpg" style="width:100%" onclick="currentSlide(17)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image18_small.jpg" style="width:100%" onclick="currentSlide(18)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image19_small.jpg" style="width:100%" onclick="currentSlide(19)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/wedding/additional/image20_small.jpg" style="width:100%" onclick="currentSlide(20)">
+    </div>
+  </div>
+</div>
+
+<script>
+  var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>

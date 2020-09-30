@@ -54,6 +54,12 @@ categories: [wedding]
 {%- include wedding_img_slide1.html -%}
 </div>
 
+<div style="margin:10;">
+<a href="/wedding_photo/">
+<img src="images/wedding_photo_more.png" style="width:200px;margin:20px 0px;">
+</a>
+</div>
+
 <div style="margin:0;">
 <img src="images/wedding_location.png" style="width:100px;margin:20px 0px;">
 </div>

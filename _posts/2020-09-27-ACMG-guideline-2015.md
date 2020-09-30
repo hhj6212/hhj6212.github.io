@@ -97,7 +97,7 @@ Pathogenic, Likely pathogenic, Uncertain signifiacne, Likely benign, Benign
 그럼에도 불구하고, 적어도 선택해야 할 변이의 수를 줄여줄 뿐만 아니라 그 변이들에 대한 설명을 제시해준다는 점에서 ACMG guideline은 큰 의미를 가진다고 할 수 있습니다.
 
 오늘도 매우 어려운 내용의 겉핥기를 해보았습니다.
-28개의 rule 들은 서로 연관된 것들이 많으며, 마지막 5가지 class 역시 관련된 이슈가 많습니다.
+ACMG guidelines 는 2015년에 나온 이후로 계속 발전하고 있습니다.
 향후 이런 내용에 대해서도 나중에 자세히 다뤄볼까 합니다.
 
 그럼 여러분, 다음 글에서 만나요!

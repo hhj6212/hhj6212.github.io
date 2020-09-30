@@ -3,19 +3,20 @@
 
   {%- include head2.html -%}
 
-  <body>
-    <img src="images/wedding_main.jpg">
-      <div class="wrapper" style="text-align: center;font-family:Nanum Gothic, sans-serif;">
-        {{ content }}
-      </div>
+  <body style="background: #f4eee1;">
+    {%- include header2.html -%}
 
-<!--    {%- include footer.html -%} -->
-{%- if page.comments -%}
-<div id="post-disqus" class="container" style="width:90%; margin:auto">
-  {%- include disqus_comments.html -%}
-</div>
-{%- endif -%}
+  <meta property="og:url" content="https://hhj6212.github.io/wedding/" />
+  <meta property="og:title" content="한헌종 ♥ 정다운의 모바일 청첩장입니다.">
+  <meta property="og:site_name" content="한헌종 ♥ 정다운의 모바일 청첩장입니다.">
+  <main class="page-content" aria-label="Content" style="padding:10px 0px 10px 0px;">
+    <div class="wedding-content" itemprop="articleBody" style="width:90%;margin:auto;text-align:center;font-family: 'Noto Serif KR', serif;">
+      {{ content }}
+    </div>
+    <div id="post-disqus" class="container" style="width:90%;margin:auto;font-family: 'Jua', sans-serif;">
+      {%- include disqus_comments.html -%}
+    </div>  
+  </main>
 
-  </body>
 
-</html>
+</article>
