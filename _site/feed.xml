@@ -1,4 +1,111 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-11T13:57:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle></subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">ACMG class 를 수치로 표현하는 방법 - bayesian score</title><link href="http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="ACMG class 를 수치로 표현하는 방법 - bayesian score" /><published>2020-10-11T00:00:00+09:00</published><updated>2020-10-11T00:00:00+09:00</updated><id>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html">&lt;p&gt;계산기&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-11T15:58:03+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle></subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">ACMG class 를 수치로 표현하는 방법 - bayesian score 및 ACMG class 계산기</title><link href="http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="ACMG class 를 수치로 표현하는 방법 - bayesian score 및 ACMG class 계산기" /><published>2020-10-11T00:00:00+09:00</published><updated>2020-10-11T00:00:00+09:00</updated><id>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html">&lt;p&gt;안녕하세요. 한헌종입니다.&lt;br /&gt;
+오늘은 지난번에 이어, ACMG pathogenicity class 의 수치적 표현에 대한 이야기를 하려 합니다.&lt;br /&gt;
+글 맨 아래에는 ACMG evidence 조합에 따라 class 와 bayesian score를 구할 수 있는 계산기를 만들어 보았으니 한번 참고해보세요!&lt;/p&gt;
+
+&lt;p&gt;아래 내용은 다음 논문을 참조해서 작성했습니다:&lt;br /&gt;
+Tavtigian, Sean V et al. “Modeling the ACMG/AMP variant classification guidelines as a Bayesian classification framework.” Genetics in medicine : official journal of the American College of Medical Genetics vol. 20,9 (2018): 1054-1060. doi:10.1038/gim.2017.210&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;acmg-class-가-뭐더라&quot;&gt;ACMG class 가 뭐더라&lt;/h3&gt;
+
+&lt;p&gt;지난번에 말씀드린 대로, ACMG/AMP guideline에 따라 각 유전변이의 pathogenicity를 판별할 수 있습니다.&lt;br /&gt;
+규칙에 따라 여러 evidence를 할당하고, 그 결과를 조합해 5가지 class 중 하나를 규정하는 방식이죠.&lt;br /&gt;
+5가지 class는 다음과 같습니다: Pathogenic, Likely pathogenic, vairiant of uncertain significance, Likely benign, Benign.&lt;br /&gt;
+이를 줄여서 P, LP, VUS, LB, B 로 간단히 나타내기도 합니다.&lt;/p&gt;
+
+&lt;p&gt;ACMG guideline을 따르면 pathogenicity를 어느정도 가늠할 수 있게 됩니다.&lt;br /&gt;
+그러나 연구자들은 이를 ‘수치적’으로 나타내기를 원했습니다.&lt;br /&gt;
+이를 위해 연구자들은 Bayesian framework 를 사용해 수치화 하는 방법을 강구해냅니다.&lt;br /&gt;
+바로 다음 식처럼 말이죠.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/201011/figure1.jpg&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Bayesian framework에 따라서, 먼저 알고 있는 prior probability를 여러 조건부확률을 사용해 posterior probability를 계산하는 방식입니다.&lt;br /&gt;
+이 식을 사용하면 특정 변이의 pathogenicity를 0~1 사이의 값으로 나타낼 수 있게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;물론, 결국엔 ACMG guideline 조합에 따른 5가지 class를 사용해서 변이를 설명해야 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;어떻게-계산하는-건가요&quot;&gt;어떻게 계산하는 건가요?&lt;/h3&gt;
+&lt;p&gt;그럼 식에 대해 좀더 알아보겠습니다.&lt;br /&gt;
+위의 공식은 밑에 있는 일반적인 베이즈 규칙에 따라 만들어졌습니다:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/201011/figure2.jpg&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;여기서 P(A) 가 prior probability, 즉 the probability of pathogenicity 가 됩니다.&lt;br /&gt;
+변이가 병원성을 가질 확률이죠.&lt;br /&gt;
+P(B)는 the probability of the evidence for pathogenicity 입니다.&lt;br /&gt;
+P(A|B) 가 여기서 posterior probability 가 되는데요,&lt;br /&gt;
+그 의미는 the probability of pathogenicity given the evidence 즉 주어진 evidence들에 대해 이 변이가 병원성을 가질 확률입니다.&lt;br /&gt;
+P(B|A) 는 the probability of the evidence, given that the variant is pathogenic, 즉 pathogenic 변이가 주어졌을 때 각 evidence를 가질 확률입니다.&lt;/p&gt;
+
+&lt;p&gt;여기서 prior는 0.1을 기본값으로 사용합니다.&lt;br /&gt;
+이는 논문에서 제시한 값으로, 유전자 패널 등에서 병원성 변이를 발견하게 될 확률을 경험적으로 나타낸 것이라고 하는군요.&lt;/p&gt;
+
+&lt;h3 id=&quot;odds_path-는-어떻게-구하는거죠&quot;&gt;Odds_Path 는 어떻게 구하는거죠?&lt;/h3&gt;
+
+&lt;p&gt;Odds_Path 는 odds of pathogenicity 를 나타냅니다.&lt;br /&gt;
+이는 evidence categories 들을 설명하는 방향으로 만들어졌습니다.&lt;br /&gt;
+그래서 이 값이 1 보다 크면 pathogenic evidence가 많다는 것이고, 1보다 작으면 benign evidence 가 많다는 것을 의미입니다.&lt;br /&gt;
+이 Odds_Path 는 다음 식으로 구해집니다:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/201011/figure3.jpg&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;설명드리자면, Odds_Path 는 PVS evidence 의 odds 값을 ‘특정 값’으로 제곱해서 계산합니다.&lt;br /&gt;
+그 ‘특정 값’ 은 각 evidence 의 개수를 활용해 만들어집니다.&lt;br /&gt;
+예를 들어, NPSu 는 pathogenic-supporting evidence의 개수를 말합니다.&lt;/p&gt;
+
+&lt;p&gt;이 evidence의 개수는 그 strength에 따라서 2배씩 줄어들도록 보정이 되는데요,&lt;br /&gt;
+그 결과 very strong evidence 한개의 영향력은 strong evidence 두 개의 영향력과 같게 됩니다.&lt;br /&gt;
+(여기서의 그 ‘두 배’ 라는 값도 역시 논문에서 정해준 값입니다.)&lt;/p&gt;
+
+&lt;p&gt;또한, O(PVSt) 즉  the odds of very strong pathogenicity 는 여기서 350을 사용해서 계산하고 있습니다.&lt;br /&gt;
+이렇게 해서 Odds_path 를 구하는 방식을 알아보았습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;그럼-이-값이-뭘-뜻하나요&quot;&gt;그럼 이 값이 뭘 뜻하나요?&lt;/h3&gt;
+&lt;p&gt;결국 Bayesian score를 구하기 위해서는 다음 두 단계를 거치면 됩니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Odds_Path 를 evidence 개수를 사용해 구한다.&lt;/li&gt;
+  &lt;li&gt;Posterior probability를 bayesian framework에 따라 계산한다.&lt;br /&gt;
+여기서 제시한 O(PVSt)=350, Prior=0.1 를 사용하면 다음과 같은 현상이 나타납니다:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Post_P&lt;/strong&gt; &amp;gt;= 0.99 : &lt;strong&gt;Pathogenic&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;0.99 &amp;gt; &lt;strong&gt;Post_P&lt;/strong&gt; &amp;gt;= 0.90 : &lt;strong&gt;Likely pathogenic&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;0.90 &amp;gt; &lt;strong&gt;Post_P&lt;/strong&gt; &amp;gt; 0.1 : &lt;strong&gt;VUS&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;0.1 &amp;gt;= &lt;strong&gt;Post_P&lt;/strong&gt; &amp;gt; 0.001 : &lt;strong&gt;Likely benign&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;0.001 &amp;gt;= &lt;strong&gt;Post_P&lt;/strong&gt; : &lt;strong&gt;Benign&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;즉 Bayesian score 가 pathogenicity를 나타낼 수 있게 된 거죠.&lt;br /&gt;
+높을 수록 Pathogenic 변이이며, 특정 값을 넘는지를 통해 class 도 알 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;그러나 이 공식으로 구해진 bayesian score는 완벽하지 않아서, 여러 예외상황이 발생하기도 합니다.&lt;br /&gt;
+예를 들어 class 는 VUS 로 분류되지만 bayesian score 는 0.9를 넘는 경우가 발생하기도 하죠.&lt;br /&gt;
+bayesian score는 설명을 돕기 위한 점수일 뿐이고, 결국 ACMG class 를 중점적으로 봐야한답니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;acmg-class-계산기&quot;&gt;ACMG class 계산기&lt;/h3&gt;
+&lt;p&gt;js 를 사용해서 ACMG class 계산기를 만들어보았습니다.&lt;br /&gt;
+해당하는 rule을 클릭해서 조합을 만들면, 밑부분의 결과에 ACMG class 와 bayesian score가 계산되어 나타납니다.&lt;br /&gt;
+한번 직접 사용해보세요!&lt;/p&gt;
 &lt;style&gt;
     table {
         border-collapse: collapse;
@@ -40,13 +147,9 @@
     }
 &lt;/style&gt;
 
-&lt;!-- &lt;script type=&quot;text/javascript&quot;&gt;&lt;/script&gt; --&gt;
-&lt;!-- &lt;script src=&quot;https://code.jquery.com/jquery-3.5.0.js&quot;&gt;&lt;/script&gt; --&gt;
-&lt;h2&gt;ACMG class calculator - made by HJHan&lt;/h2&gt;
-&lt;hr /&gt;
-
-&lt;h3&gt;
-    click rules below:
+&lt;h2&gt;ACMG class calculator&lt;/h2&gt;
+&lt;p&gt;made by HJHan&lt;/p&gt;
+&lt;h3&gt;click rules below:
 &lt;table border=&quot;1&quot; style=&quot;width:100%;&quot;&gt;
     &lt;tr&gt;
         &lt;td id=&quot;PVS1&quot; class=&quot;rulebox&quot; onclick=&quot;rule_button('PVS1')&quot;&gt;PVS1&lt;/td&gt;
@@ -96,7 +199,8 @@
         &lt;td&gt;Score&lt;/td&gt;
         &lt;td id=&quot;score&quot; colspan=&quot;2&quot; style=&quot;width:150px;&quot;&gt;&lt;/td&gt;
     &lt;/tr&gt;
-&lt;/table&gt;&lt;/h3&gt;
+&lt;/table&gt;
+&lt;/h3&gt;
 
 &lt;script&gt;
     function reset(){
@@ -134,7 +238,6 @@
                 else if(rule_str == &quot;PP&quot;){pp += 1;}
                 else if(rule_str == &quot;BS&quot;){bs += 1;}
                 else if(rule_str == &quot;BP&quot;){bp += 1;}
-                cnt = cnt + 1;
             }
         }
         // update result
@@ -183,9 +286,17 @@
         res = Number.parseFloat(res).toPrecision(5);
         return res
     }
-&lt;/script&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="clinical genomics" /><category term="tech" /><summary type="html">계산기 ACMG class calculator - made by HJHan click rules below: PVS1 PS1 PS2 PS3 PS4 PM1 PM2 PM3 PM4 PM5 PM6 PP1 PP2 PP3 PP4 PP5 BS1 BS2 BS3 BS4 BP1 BP2 BP3 BP4 BP5 BP6 BP7 Reset Class Score</summary></entry><entry><title type="html">ACMG guideline 이란 무엇일까</title><link href="http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html" rel="alternate" type="text/html" title="ACMG guideline 이란 무엇일까" /><published>2020-09-27T00:00:00+09:00</published><updated>2020-09-27T00:00:00+09:00</updated><id>http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015</id><content type="html" xml:base="http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html">&lt;h3 id=&quot;acmg-guideline-이란-무엇일까&quot;&gt;ACMG guideline 이란 무엇일까&lt;/h3&gt;
+&lt;/script&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;지금까지 ACMG class 를 수치화 하는 bayesian framework 를 살펴보았습니다.&lt;br /&gt;
+더욱 자세한 내용은 맨 위에 말씀드린 논문에서 찾아볼 수 있습니다.&lt;br /&gt;
+그럼 다음에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="clinical genomics" /><category term="tech" /><summary type="html">안녕하세요. 한헌종입니다. 오늘은 지난번에 이어, ACMG pathogenicity class 의 수치적 표현에 대한 이야기를 하려 합니다. 글 맨 아래에는 ACMG evidence 조합에 따라 class 와 bayesian score를 구할 수 있는 계산기를 만들어 보았으니 한번 참고해보세요!</summary></entry><entry><title type="html">ACMG guideline 이란 무엇일까</title><link href="http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html" rel="alternate" type="text/html" title="ACMG guideline 이란 무엇일까" /><published>2020-09-27T00:00:00+09:00</published><updated>2020-09-27T00:00:00+09:00</updated><id>http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015</id><content type="html" xml:base="http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html">&lt;h3 id=&quot;acmg-guideline-이란-무엇일까&quot;&gt;ACMG guideline 이란 무엇일까&lt;/h3&gt;
 &lt;p&gt;안녕하세요. 한헌종입니다.&lt;br /&gt;
-오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다.&lt;/p&gt;
+오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다.&lt;br /&gt;
+작성한 내용은 다음 논문을 참조해서 작성했습니다:&lt;br /&gt;
+Richards, Sue et al. “Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.” Genetics in medicine : official journal of the American College of Medical Genetics vol. 17,5 (2015): 405-24. doi:10.1038/gim.2015.30&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;p&gt;환자의 유전 질환을 진단하려면 어디서부터 시작해야 할까요?&lt;br /&gt;
@@ -323,7 +434,7 @@ Pathogenic, Likely pathogenic, Uncertain signifiacne, Likely benign, Benign&lt;/
 ACMG guidelines 는 2015년에 나온 이후로 계속 발전하고 있습니다.&lt;br /&gt;
 향후 이런 내용에 대해서도 나중에 자세히 다뤄볼까 합니다.&lt;/p&gt;
 
-&lt;p&gt;그럼 여러분, 다음 글에서 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="clinical genomics" /><summary type="html">ACMG guideline 이란 무엇일까 안녕하세요. 한헌종입니다. 오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다.</summary></entry><entry><title type="html">파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)</title><link href="http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html" rel="alternate" type="text/html" title="파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)" /><published>2020-09-13T00:00:00+09:00</published><updated>2020-09-13T00:00:00+09:00</updated><id>http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2</id><content type="html" xml:base="http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html">&lt;h3 id=&quot;생명정보학-분석에서-자주-만나는-파일-형식을-알아봅시다-2&quot;&gt;생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다 (2)&lt;/h3&gt;
+&lt;p&gt;그럼 여러분, 다음 글에서 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="clinical genomics" /><summary type="html">ACMG guideline 이란 무엇일까 안녕하세요. 한헌종입니다. 오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다. 작성한 내용은 다음 논문을 참조해서 작성했습니다: Richards, Sue et al. “Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.” Genetics in medicine : official journal of the American College of Medical Genetics vol. 17,5 (2015): 405-24. doi:10.1038/gim.2015.30</summary></entry><entry><title type="html">파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)</title><link href="http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html" rel="alternate" type="text/html" title="파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)" /><published>2020-09-13T00:00:00+09:00</published><updated>2020-09-13T00:00:00+09:00</updated><id>http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2</id><content type="html" xml:base="http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html">&lt;h3 id=&quot;생명정보학-분석에서-자주-만나는-파일-형식을-알아봅시다-2&quot;&gt;생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다 (2)&lt;/h3&gt;
 
 &lt;p&gt;안녕하세요, 한헌종입니다.&lt;br /&gt;
 오늘은 저번 포스팅에 이어서 생명정보학 분야에서 자주 만나게 되는 파일 형식을 알아보려 합니다.&lt;br /&gt;

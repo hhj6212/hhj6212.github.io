@@ -8,6 +8,8 @@ categories: [biology,clinical genomics]
 ### ACMG guideline 이란 무엇일까
 안녕하세요. 한헌종입니다.
 오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다.
+작성한 내용은 다음 논문을 참조해서 작성했습니다:
+Richards, Sue et al. “Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.” Genetics in medicine : official journal of the American College of Medical Genetics vol. 17,5 (2015): 405-24. doi:10.1038/gim.2015.30
 
 ---
 환자의 유전 질환을 진단하려면 어디서부터 시작해야 할까요?
