@@ -75,8 +75,8 @@ Benign evidence 가 많으면 odds_path 가 1 이하로 떨어지겠죠?
 결국 Bayesian score를 구하기 위해서는 다음 두 단계를 거치면 됩니다.
 1. Odds_Path 를 evidence 개수를 사용해 구한다.
 1. Posterior probability를 bayesian framework에 따라 계산한다.
-여기서 제시한 O(PVSt)=350, Prior=0.1 를 사용하면 다음과 같은 현상이 나타납니다:
 
+여기서 제시한 O(PVSt)=350, Prior=0.1 를 사용하면 다음과 같은 현상이 나타납니다:
 - **Post_P** >= 0.99 : **Pathogenic**
 - 0.99 > **Post_P** >= 0.90 : **Likely pathogenic**
 - 0.90 > **Post_P** > 0.1 : **VUS**
