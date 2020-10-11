@@ -68,7 +68,7 @@ Odds_Path 는 odds of pathogenicity 를 나타냅니다.
 또한 pathogenic evidence 개수는 덧셈, benign evidence는 뺄셈으로 사용해서 결과값을 보정하고 있습니다.
 Benign evidence 가 많으면 odds_path 가 1 이하로 떨어지겠죠?
 
-또한, O(PVSt) 즉  the odds of very strong pathogenicity 는 여기서 350을 사용해서 계산하고 있습니다.
+여기서, O(PVSt) 즉 the odds of very strong pathogenicity 는 논문에서 350으로 제시하고 있습니다.
 이렇게 해서 Odds_path 를 구하는 방식을 알아보았습니다.
 
 ### 그럼 이 값이 뭘 뜻하나요?
