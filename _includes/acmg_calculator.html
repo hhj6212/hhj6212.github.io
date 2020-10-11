@@ -1,0 +1,188 @@
+
+<style>
+    table {
+        border-collapse: collapse;
+        margin: 10px 0px;
+    }
+    tr {
+        padding: 0px 5px;
+    }
+    td {
+        padding: 0px 5px;
+        text-align: center;
+    }
+    input {
+        text-align: center;
+        border: none;
+        font-size:24px;
+    }
+    input:focus {
+        outline: none;
+    }
+    .rulebox {
+        cursor:pointer;
+    }
+    .rulebox:hover {
+        background-color: gray;
+        opacity: 0.7;
+    }
+    .reset {
+        cursor:pointer;
+    }
+    .reset:hover {
+        background-color: gray;
+        opacity: 0.7;
+    }
+    .rule_on{
+        box-sizing: border-box;
+        outline-offset: -2px;
+        outline: solid 2px green;
+    }
+</style>
+<!-- <script type="text/javascript"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
+<h2>ACMG class calculator</h2>
+<div id="demo"></div>
+<hr>
+<h3>
+    click rules below:
+<table border="1" style="width:800px;">
+    <tr>
+        <td id="PVS1" class="rulebox" onclick="rule_button('PVS1')">PVS1</td>
+    </tr>
+    <tr>
+        <td id="PS1" class="rulebox" onclick="rule_button('PS1')">PS1</td>
+        <td id="PS2" class="rulebox" onclick="rule_button('PS2')">PS2</td>
+        <td id="PS3" class="rulebox" onclick="rule_button('PS3')">PS3</td>
+        <td id="PS4" class="rulebox" onclick="rule_button('PS4')">PS4</td>
+    </tr>
+    <tr>
+        <td id="PM1" class="rulebox" onclick="rule_button('PM1')">PM1</td>
+        <td id="PM2" class="rulebox" onclick="rule_button('PM2')">PM2</td>
+        <td id="PM3" class="rulebox" onclick="rule_button('PM3')">PM3</td>
+        <td id="PM4" class="rulebox" onclick="rule_button('PM4')">PM4</td>
+        <td id="PM5" class="rulebox" onclick="rule_button('PM5')">PM5</td>
+        <td id="PM6" class="rulebox" onclick="rule_button('PM6')">PM6</td>
+    </tr>
+    <tr>
+        <td id="PP1" class="rulebox" onclick="rule_button('PP1')">PP1</td>
+        <td id="PP2" class="rulebox" onclick="rule_button('PP2')">PP2</td>
+        <td id="PP3" class="rulebox" onclick="rule_button('PP3')">PP3</td>
+        <td id="PP4" class="rulebox" onclick="rule_button('PP4')">PP4</td>
+        <td id="PP5" class="rulebox" onclick="rule_button('PP5')">PP5</td>
+    </tr>
+    <tr>
+        <td id="BS1" class="rulebox" onclick="rule_button('BS1')">BS1</td>
+        <td id="BS2" class="rulebox" onclick="rule_button('BS2')">BS2</td>
+        <td id="BS3" class="rulebox" onclick="rule_button('BS3')">BS3</td>
+        <td id="BS4" class="rulebox" onclick="rule_button('BS4')">BS4</td>
+    </tr>
+    <tr>
+        <td id="BP1" class="rulebox" onclick="rule_button('BP1')">BP1</td>
+        <td id="BP2" class="rulebox" onclick="rule_button('BP2')">BP2</td>
+        <td id="BP3" class="rulebox" onclick="rule_button('BP3')">BP3</td>
+        <td id="BP4" class="rulebox" onclick="rule_button('BP4')">BP4</td>
+        <td id="BP5" class="rulebox" onclick="rule_button('BP5')">BP5</td>
+        <td id="BP6" class="rulebox" onclick="rule_button('BP6')">BP6</td>
+        <td id="BP7" class="rulebox" onclick="rule_button('BP7')">BP7</td>
+    </tr>
+    <tr>
+        <td class="reset" colspan=7 onclick="reset()">Reset</td>
+    </tr>
+    <tr>
+        <td>Class</td>
+        <td id="acmgclass" colspan=3></td>
+        <td>Score</td>
+        <td id="score" colspan=2 style="width:150px;"></td>
+    </tr>
+</table></h3>
+
+<script>
+    // test if js works
+    document.getElementById("demo").innerHTML = "Hello JavaScript!";
+    
+    function reset(){
+        document.getElementById('acmgclass').innerHTML = "";
+        document.getElementById('score').innerHTML = "";
+        var rulebuttons = document.getElementsByClassName("rulebox");
+        for(var i=0; i<rulebuttons.length; i++){
+            rulebuttons[i].classList.remove("rule_on");
+        }
+    }
+
+    // on/off color
+    function rule_button(rule_id) {
+        var element = document.getElementById(rule_id);
+        element.classList.toggle("rule_on");
+        update_res();
+    }
+
+    function update_res(){
+        var cnt = 0;
+        var pvs = 0;
+        var ps = 0;
+        var pm = 0;
+        var pp = 0;
+        var bs = 0;
+        var bp = 0;
+        var rulebuttons = document.getElementsByClassName("rulebox");
+        for(var i=0; i<rulebuttons.length; i++){
+            var cond = rulebuttons[i].classList.contains("rule_on")
+            if(cond){
+                var rule_str = rulebuttons[i].id.substring(0,2);
+                if(rule_str == "PV"){pvs += 1;}
+                else if(rule_str == "PS"){ps += 1;}
+                else if(rule_str == "PM"){pm += 1;}
+                else if(rule_str == "PP"){pp += 1;}
+                else if(rule_str == "BS"){bs += 1;}
+                else if(rule_str == "BP"){bp += 1;}
+                cnt = cnt + 1;
+            }
+        }
+        // update result
+        var combined = combine_rule(pvs, ps, pm, pp, bs, bp);
+        document.getElementById('acmgclass').innerHTML = combined;
+        var b_score = cal_bayesian(pvs, ps, pm, pp, bs, bp);
+        document.getElementById('score').innerHTML = b_score;
+    }
+
+    function combine_rule(pvs, ps, pm, pp, bs, bp){
+        var class_res = "VUS";
+        if(pvs >= 1){
+            if(pvs >= 2 || ps >= 1 || pm >= 2 || (pm == 1 && pp == 1) || pp >= 2){
+                class_res = "Pathogenic"
+            }else if(pvs == 1 && pm >= 1){
+                class_res = "Likely pathogenic"
+            }
+        }else if(ps >= 2){
+                class_res = "Pathogenic"
+        }else if(ps == 1){
+            if(pm >= 3 || (pm == 2 && pp >= 2) || pp >= 4){
+                class_res = "Pathogenic"
+            }else if(pm >= 1 || pp >= 2){
+                class_res = "Likely pathogenic"
+            }
+        }else if(pm >= 3 || (pm == 2 && pp >= 2) || pp >= 4){
+            class_res = "Likely pathogenic"
+        }
+        // if the result is not "VUS" then break. pathogenic first.
+        if(class_res !== "VUS"){
+            return class_res
+        }
+        if(bs >= 2){
+            class_res = "Benign";
+        }else if((bs == 1 && bp == 1) || bp >= 2){
+            class_res = "Likely benign";
+        }
+        return class_res
+    }
+
+    function cal_bayesian(pvs, ps, pm, pp, bs, bp){
+        var prior = 0.1;
+        var odd_base = 350;
+        var oddsPath = odd_base ** (pvs + ps/2 + pm/4 + pp/8 - bs/2 - bp/8)
+        var res = oddsPath * prior / ((oddsPath - 1) * prior + 1)
+        res = Number.parseFloat(res).toPrecision(5);
+        return res
+    }
+</script>
