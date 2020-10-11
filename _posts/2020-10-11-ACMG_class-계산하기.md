@@ -46,7 +46,7 @@ P(A|B) 가 여기서 posterior probability 가 되는데요,
 P(B|A) 는 the probability of the evidence, given that the variant is pathogenic, 즉 pathogenic 변이가 주어졌을 때 각 evidence를 가질 확률입니다.
 
 여기서 prior는 0.1을 기본값으로 사용합니다.
-이는 논문에서 제시한 값으로, 유전자 패널 등에서 병원성 변이를 발견하게 될 확률을 경험적으로 나타낸 것이라고 하는군요.
+이는 논문에서 제시한 값으로써, 유전자 패널 등에서 병원성 변이를 발견하게 될 확률을 경험적으로 나타낸 것이라고 하는군요.
 
 ### Odds_Path 는 어떻게 구하는거죠?
 
@@ -64,6 +64,9 @@ Odds_Path 는 odds of pathogenicity 를 나타냅니다.
 이 evidence의 개수는 그 strength에 따라서 2배씩 줄어들도록 보정이 되는데요,
 그 결과 very strong evidence 한개의 영향력은 strong evidence 두 개의 영향력과 같게 됩니다.
 (여기서의 그 '두 배' 라는 값도 역시 논문에서 정해준 값입니다.)
+
+또한 pathogenic evidence 개수는 덧셈, benign evidence는 뺄셈으로 사용해서 결과값을 보정하고 있습니다.
+Benign evidence 가 많으면 odds_path 가 1 이하로 떨어지겠죠?
 
 또한, O(PVSt) 즉  the odds of very strong pathogenicity 는 여기서 350을 사용해서 계산하고 있습니다.
 이렇게 해서 Odds_path 를 구하는 방식을 알아보았습니다.
