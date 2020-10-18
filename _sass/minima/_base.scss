@@ -161,10 +161,14 @@ blockquote {
 pre,
 code {
   font-family: $code-font-family;
-  font-size: 0.9375em;
+  // font-size: 0.9375em;
+  font-size: 12px;
   border: 1px solid $border-color-01;
   border-radius: 3px;
-  background-color: $code-background-color;
+  // background-color: $code-background-color;
+  color: black;
+  // color: rgb(0, 255, 255);
+  background-color: rgb(206, 255, 210);
 }
 
 code {
