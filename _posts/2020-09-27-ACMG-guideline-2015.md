@@ -62,7 +62,7 @@ College of American Pathologist 에서 말이죠.
 BP7 rule 은 특정 변이가 Benign 하다는 것에 관련된 규칙이고, 그 강도가 Supporting으로 약합니다.
 이 규칙들에 따라서 특정 변이에 대해서 evidence 들을 할당하는 과정이 첫 번째 단계라고 할 수 있습니다.
 
-그런데 대체 그 rule 이 뭐죠?
+### 그런데 대체 그 rule 이 뭐죠?
 아래 그림에 28개 rule에 대한 설명 중 일부를 가져와봤습니다.
 
 | ![-]({{"/assets/200927/figure4.jpg"| relative_url}}) | 

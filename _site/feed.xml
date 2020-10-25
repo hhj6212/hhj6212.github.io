@@ -1,4 +1,165 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-18T16:44:10+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">한헌종의 Git Blog</title><subtitle></subtitle><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><entry><title type="html">Samtools 사용법 (1) - 설치, indexing, editing</title><link href="http://localhost:4000/biology/tech/2020/10/18/samtools.html" rel="alternate" type="text/html" title="Samtools 사용법 (1) - 설치, indexing, editing" /><published>2020-10-18T00:00:00+09:00</published><updated>2020-10-18T00:00:00+09:00</updated><id>http://localhost:4000/biology/tech/2020/10/18/samtools</id><content type="html" xml:base="http://localhost:4000/biology/tech/2020/10/18/samtools.html">&lt;p&gt;안녕하세요 한헌종입니다!&lt;br /&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>한헌종의 Git Blog</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 25 Oct 2020 16:17:28 +0900</pubDate>
+    <lastBuildDate>Sun, 25 Oct 2020 16:17:28 +0900</lastBuildDate>
+    <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>mysql 로 데이터 관리하기 - 설치부터 사용법까지</title>
+        <description>&lt;p&gt;최근에 mysql data를 사용할 일이 있어서, 공부를 한번 해봤습니다.&lt;br /&gt;
+생각보다 배워야 할 내용들이 많아서, 아래처럼 정리를 일단 해보았습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;설치는-어떻게-하나요&quot;&gt;설치는 어떻게 하나요?&lt;/h3&gt;
+&lt;p&gt;맥에는 homebrew 라는 패키지 관리 앱이 거의 표준으로 쓰이고 있다고 합니다.&lt;br /&gt;
+제 컴퓨터는 Mac 인데요, 오늘은 이 homebrew를 사용해서 설치해보도록 하겠습니다.&lt;br /&gt;
+명령어는 다음 블로그에 무척 자세하게 정리되어 있어서 참고했습니다: &lt;a href=&quot;https://www.44bits.io/ko/keyword/homebrew&quot;&gt;블로그 링크&lt;/a&gt;&lt;br /&gt;
+아래에는 관련 명령어들을 모두 요약해보았는데요, 이중에서 필요한 부분만 사용해 mysql 을 설치했습니다.&lt;br /&gt;
+(brew 설치, 업데이트, mysql 검색 및 설치)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)&quot; # brew 설치
+brew update             # brew 앱 업데이트
+brew search mysql       # mysql 관련 패키지 검색
+brew install mysql      # mysql 패키지 설치
+brew install mysql@5.5  # mysql 을 특정 버전으로 설치
+brew list               # 설치된 패키지 목록 보기
+brew list mysql         # 설치된 mysql 관련 패키지 목록 보기
+brew info mysql         # 설치된 mysql 패키지의 정보 보기
+brew upgrade mysql      # mysql 버전 업그레이드
+brew upgrade            # 모든 패키지의 버전 업그레이드
+brew remove mysql       # mysql 패키지 삭제
+brew uninstall mysql    # mysql 패키지 삭제 - 위와 동일한 결과
+brew cleanup mysql      # mysql 의 최신버전을 제외한 outdated 버전 삭제
+ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot; # brew 삭제 &lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3 id=&quot;mysql-설치-후-설정하고-시작하기&quot;&gt;mysql 설치 후 설정하고 시작하기&lt;/h3&gt;
+&lt;p&gt;mysql 을 설치하신 뒤에는, 몇가지 설정을 해야 mysql 을 사용할 수 있게 됩니다.&lt;br /&gt;
+mysql 설정 또한 무척 잘 설명된 블로그가 있으니 한번 참고해보세요! &lt;a href=&quot;https://whitepaek.tistory.com/16&quot;&gt;블로그 링크&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql.server start          # mysql 서버 실행하기
+mysql_sequre_installation   # mysql 서버 설정하기 (아래 참조)
+mysql -u root -p            # root 게정으로 mysql 접속, 비밀번호 필요
+exit                        # mysql 로그아웃
+quit                        # mysql 로그아웃
+mysql.server stop           # mysql 서버 중지&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;mysql_sequre_installation 명령어를 입력하면, 몇가지 질문에 대해 yes/no 선택 혹은 설정이 필요합니다.&lt;br /&gt;
+아래를 참고해서 각자 원하시는 방법대로 설정해보세요!&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Would you like to setup VALIDATE PASSWORD component?: yes 인 경우 비밀번호를 어렵게 (숫자문자 조합) 만들어야 함&lt;/li&gt;
+  &lt;li&gt;Please set the password for root here. : 비밀번호를 만들어주세요&lt;/li&gt;
+  &lt;li&gt;Remove anonymous users? : yes 인 경우 접속 시 -u 옵션으로 유저를 지정해야 함&lt;/li&gt;
+  &lt;li&gt;Disallow root login remotely? : yes 인 경우 원격 접속 불가능&lt;/li&gt;
+  &lt;li&gt;Remove test database and access to it?: yes 인 경우 테스트로 미리 만들어져 있는 데이터베이스를 삭제함&lt;/li&gt;
+  &lt;li&gt;Reload privilege tables now?: yes 인 경우 위의 설정을 테이블에 적용.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;설정을 다 하고나면 mysql 접속이 가능해집니다!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;mysql-에-접속해-데이터베이스-생성-및-삭제하기&quot;&gt;mysql 에 접속해 데이터베이스 생성 및 삭제하기&lt;/h3&gt;
+
+&lt;p&gt;아래에 기본적인 명령어들을 모아보았습니다.&lt;br /&gt;
+mysql 접속한 뒤에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt;&lt;/code&gt; 와 같은 콘솔로 바뀝니다.&lt;br /&gt;
+명령어는 대/소문자를 구분하지 않는 것 같고, semi-colon (;) 으로 끝내야 합니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql -u root -p                    # root 게정으로 mysql 접속, 비밀번호 필요
+show databases;                     # 어떤 databases 들이 있는지 확인
+create database example_db;         # example_db 라는 데이터베이스 생성
+remove database example_db;         # example_db 라는 데이터베이스 삭제
+use example_db;                     # example_db 라는 데이터베이스 사용하기
+show tables;                        # example_db 에 있는 테이블 목록 보기
+desc example_table;                 # example_table 테이블의 구조 확인
+show columns from example_table;    # example_table 테이블의 구조 확인&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;mysql-테이블-만들기&quot;&gt;mysql 테이블 만들기&lt;/h3&gt;
+&lt;p&gt;테이블을 만들 때는 기본적으로 다음 형식으로 작성합니다.&lt;br /&gt;
+테이블 이름 다음에는 괄호 안에 필요한 컬럼 이름과 형태를 적어줘야 합니다.&lt;br /&gt;
+comma(,) 로 구분하고, 마지막엔 comma 가 없습니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;create table example_table (
+    name char,
+    weight tinyint,
+    height int,
+    birthday date
+);&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;컬럼에 대한 형태 및 설정은 다음과 같이 하면 됩니다. &lt;a href=&quot;https://www.mysqltutorial.org/mysql-create-table/&quot;&gt;링크 참조&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;column_name data_type(length) [NOT NULL] [DEFAULT value] [AUTO_INCREMENT] column_constraint;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;데이터 타입은 numeric, date and time, string, spatial, JSON 등 다양합니다. 다음 링크에서 확인할 수 있습니다: &lt;a href=&quot;https://dev.mysql.com/doc/refman/8.0/en/data-types.html&quot;&gt;링크&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;데이터의 길이 등을 괄호 안에 지정해줄 수 있는데요, 예를 들어 char(3) 은 최대 3글자 까지 허용해준다는 뜻입니다. &lt;a href=&quot;https://www.w3schools.com/sql/sql_datatypes.asp&quot;&gt;링크&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;NOT NULL 이라고 쓰면, 해당 컬럼에는 NULL 값이 들어갈 수 없게 됩니다.&lt;/li&gt;
+  &lt;li&gt;DEFAULT value 부분에는 입력안했을 때의 기본값을 설정할 수 있습니다.&lt;/li&gt;
+  &lt;li&gt;AUTO_INCREMENT 는 새로운 row가 추가될 때마다 자동으로 1씩 증가한다는 뜻입니다. 각 테이블에는 최대 1개의 AUTO_INCREMENT 컬럼을 만들 수 있습니다. 또한 이 값은 항상 key로 설정해 줘야 합니다.&lt;/li&gt;
+  &lt;li&gt;column constraint 에는 UNIQUE, CHECK, primary key 등을 추가할 수 있습니다. 예를 들어, UNIQUE 는 해당 컬럼 값들이 서로 달라야 한다는 뜻입니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;위 항목을 참고하면 다음과 같이 테이블을 만들 수 있습니다:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;create table example_table (
+    name char(12),
+    sex char(6),
+    id char(20) not null unique,
+    number int AUTO_INCREMENT,
+    weight tinyint,
+    height int,
+    birthday date,
+    primary key(number)
+);&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;mysql-table-을-써보자&quot;&gt;mysql table 을 써보자!&lt;/h3&gt;
+&lt;p&gt;이제 테이블을 만들었으니 사용을 해볼까요?&lt;br /&gt;
+다음 명령어들을 통해 테이블 내용을 수정, 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;show tables;                                              # example_db 에 있는 테이블 목록 조회
+desc example_table;                                       # example_table 테이블의 구조 확인
+show columns from example_table;                          # example_table 테이블의 구조 확인
+select name from example_table;                           # example_table 에서 'name' 컬럼 내용 조회
+select name, birthday from example_table;                 # example_table 에서 'name,birthday' 컬럼 내용 조회
+select * from example_table;                              # example_table 에서 모든 컬럼 내용 조회
+select * from example_table limit 5;                      # 모든 컬럼 내용 중 '5개'만 조회
+select name from example_table where weight &amp;lt; 60;         # weight 가 60 보다 작은 항목의 name 조회
+select height from example_table where name = 'Joey';     # name 이 'Joey' 인 항목의 height 조회
+select sex from example_table group by sex;               # 'sex' 컬럼의 내용을 sex 별로 조회하기
+select sex, avg(height) from example_table group by sex;  # 'sex 와 'height'의 평균값을 sex 별로 조회하기
+select * from example_table order by weight asc;          # 모든 컬럼을 'weight' 오름차순으로 나열해 조회하기
+select * from example_table order by weight desc;         # 모든 컬럼을 'weight' 내림차순으로 나열해 조회하기&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;또한, 다음 명령어들을 사용해서 컬럼의 추가/삭제가 가능합니다.&lt;br /&gt;
+insert 의 경우, NOT NULL 인 컬럼을 제외하고는 모든 값을 추가해줘야 합니다.&lt;br /&gt;
+Update 의 경우 set 명령어 뒤에 바꿀 내용을 작성해주는데요, where 뒤의 조건에 맞는 모든 row에 대해 수정을 진행합니다.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;insert into example_table(name,id) values('Ross','RG123');   # name, id 컬럼이 각각 Ross, RG123 이라는 row 추가하기
+update example_table set id = 'RG1004' where name = 'Ross';  # name 이 'Ross'인 row의 id값을 RG1004로 교체
+delete from example_table where name = 'Ross';               # name 이 'Ross'인 row 삭제&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;일단 기본적인 명령어들을 모아서 정리해보았습니다.&lt;br /&gt;
+생각보다 공부해야 할 내용들이 많은 것 같습니다.&lt;br /&gt;
+다음엔 좀 더 재밌는 내용을 찾아봐야겠군요.&lt;/p&gt;
+
+&lt;p&gt;그럼 다음에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 20 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tech/programming/2020/10/20/brew-mysql.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tech/programming/2020/10/20/brew-mysql.html</guid>
+        
+        
+        <category>tech</category>
+        
+        <category>programming</category>
+        
+      </item>
+    
+      <item>
+        <title>Samtools 사용법 (1) - 설치, indexing, editing</title>
+        <description>&lt;p&gt;안녕하세요 한헌종입니다!&lt;br /&gt;
 오늘은 sequencing data 분석에 굉장히 많이 쓰이는 samtools 라는 툴을 사용하는 예제를 적어보고자 합니다.&lt;br /&gt;
 samtools 는 BAM, SAM 형태의 파일을 읽고, 쓰고, 조작할 수 있게 해줍니다.&lt;br /&gt;
 영어로 된 설명은 여기서 찾아볼 수 있습니다: &lt;a href=&quot;http://www.htslib.org/&quot;&gt;Samtools 사이트 링크&lt;/a&gt;&lt;/p&gt;
@@ -145,7 +306,6 @@ Commands:
   &lt;li&gt;fixmate&lt;br /&gt;
  read alignment 를 수행하는 툴은 여러가지인데요, 이 툴들은 가끔 FLAG 값을 이상하게 만드는 경우가 있습니다.&lt;br /&gt;
  때문에 fixmate 기능으로 read pairing information 을 수정해주는 작업이 필요할 때가 있습니다.&lt;br /&gt;
- fixmate&lt;br /&gt;
  fixmate 를 사용하려면 먼저 read 들이 genomic coordinate 가 아닌, 이름순으로 나열되어 있어야 합니다.&lt;br /&gt;
  다음과 같이 실행하시면 됩니다.
     &lt;pre&gt;&lt;code&gt;samtools view -h example.bam | sort |samtools fixmate - example.fixmate.sam&lt;/code&gt;&lt;/pre&gt;
@@ -185,7 +345,22 @@ samtools sort example.fixmate.bam|samtools markdup - example.markdup.bam&lt;/cod
 명령어가 무척 많아서 한 글에서 다 다루기 힘들군요.&lt;br /&gt;
 앞으로 시간이 더 남으면 뒷부분을 추가해보도록 하겠습니다.&lt;br /&gt;
 samtools view, flagstat 등 유용하게 쓰이는 명령어들이 매우 많거든요.&lt;br /&gt;
-그럼 다음 시간에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="tech" /><summary type="html">안녕하세요 한헌종입니다! 오늘은 sequencing data 분석에 굉장히 많이 쓰이는 samtools 라는 툴을 사용하는 예제를 적어보고자 합니다. samtools 는 BAM, SAM 형태의 파일을 읽고, 쓰고, 조작할 수 있게 해줍니다. 영어로 된 설명은 여기서 찾아볼 수 있습니다: Samtools 사이트 링크</summary></entry><entry><title type="html">ACMG class 를 수치로 표현하는 방법 - bayesian score 및 ACMG class 계산기</title><link href="http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="ACMG class 를 수치로 표현하는 방법 - bayesian score 및 ACMG class 계산기" /><published>2020-10-11T00:00:00+09:00</published><updated>2020-10-11T00:00:00+09:00</updated><id>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html">&lt;p&gt;안녕하세요. 한헌종입니다.&lt;br /&gt;
+그럼 다음 시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 18 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/tech/2020/10/18/samtools.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/tech/2020/10/18/samtools.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>tech</category>
+        
+      </item>
+    
+      <item>
+        <title>ACMG class 를 수치로 표현하는 방법 - bayesian score 및 ACMG class 계산기</title>
+        <description>&lt;p&gt;안녕하세요. 한헌종입니다.&lt;br /&gt;
 오늘은 지난번에 이어, ACMG pathogenicity class 의 수치적 표현에 대한 이야기를 하려 합니다.&lt;br /&gt;
 글 맨 아래에는 ACMG evidence 조합에 따라 class 와 bayesian score를 구할 수 있는 계산기를 만들어 보았으니 한번 참고해보세요!&lt;/p&gt;
 
@@ -482,7 +657,24 @@ bayesian score는 설명을 돕기 위한 점수일 뿐이고, 결국 ACMG class
 
 &lt;p&gt;지금까지 ACMG class 를 수치화 하는 bayesian framework 를 살펴보았습니다.&lt;br /&gt;
 더욱 자세한 내용은 맨 위에 말씀드린 논문에서 찾아볼 수 있습니다.&lt;br /&gt;
-그럼 다음에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="clinical genomics" /><category term="tech" /><summary type="html">안녕하세요. 한헌종입니다. 오늘은 지난번에 이어, ACMG pathogenicity class 의 수치적 표현에 대한 이야기를 하려 합니다. 글 맨 아래에는 ACMG evidence 조합에 따라 class 와 bayesian score를 구할 수 있는 계산기를 만들어 보았으니 한번 참고해보세요!</summary></entry><entry><title type="html">ACMG guideline 이란 무엇일까</title><link href="http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html" rel="alternate" type="text/html" title="ACMG guideline 이란 무엇일까" /><published>2020-09-27T00:00:00+09:00</published><updated>2020-09-27T00:00:00+09:00</updated><id>http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015</id><content type="html" xml:base="http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html">&lt;h3 id=&quot;acmg-guideline-이란-무엇일까&quot;&gt;ACMG guideline 이란 무엇일까&lt;/h3&gt;
+그럼 다음에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 11 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>clinical genomics</category>
+        
+        <category>tech</category>
+        
+      </item>
+    
+      <item>
+        <title>ACMG guideline 이란 무엇일까</title>
+        <description>&lt;h3 id=&quot;acmg-guideline-이란-무엇일까&quot;&gt;ACMG guideline 이란 무엇일까&lt;/h3&gt;
 &lt;p&gt;안녕하세요. 한헌종입니다.&lt;br /&gt;
 오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다.&lt;br /&gt;
 작성한 내용은 다음 논문을 참조해서 작성했습니다:&lt;br /&gt;
@@ -569,8 +761,8 @@ College of American Pathologist 에서 말이죠.&lt;br /&gt;
 BP7 rule 은 특정 변이가 Benign 하다는 것에 관련된 규칙이고, 그 강도가 Supporting으로 약합니다.&lt;br /&gt;
 이 규칙들에 따라서 특정 변이에 대해서 evidence 들을 할당하는 과정이 첫 번째 단계라고 할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;그런데 대체 그 rule 이 뭐죠?&lt;br /&gt;
-아래 그림에 28개 rule에 대한 설명 중 일부를 가져와봤습니다.&lt;/p&gt;
+&lt;h3 id=&quot;그런데-대체-그-rule-이-뭐죠&quot;&gt;그런데 대체 그 rule 이 뭐죠?&lt;/h3&gt;
+&lt;p&gt;아래 그림에 28개 rule에 대한 설명 중 일부를 가져와봤습니다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;tbody&gt;
@@ -624,7 +816,22 @@ Pathogenic, Likely pathogenic, Uncertain signifiacne, Likely benign, Benign&lt;/
 ACMG guidelines 는 2015년에 나온 이후로 계속 발전하고 있습니다.&lt;br /&gt;
 향후 이런 내용에 대해서도 나중에 자세히 다뤄볼까 합니다.&lt;/p&gt;
 
-&lt;p&gt;그럼 여러분, 다음 글에서 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="clinical genomics" /><summary type="html">ACMG guideline 이란 무엇일까 안녕하세요. 한헌종입니다. 오늘은 임상유전학 분야에서 거의 교과서처럼 쓰이고 있는 ACMG guideline에 대해 알아보려 합니다. 작성한 내용은 다음 논문을 참조해서 작성했습니다: Richards, Sue et al. “Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.” Genetics in medicine : official journal of the American College of Medical Genetics vol. 17,5 (2015): 405-24. doi:10.1038/gim.2015.30</summary></entry><entry><title type="html">파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)</title><link href="http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html" rel="alternate" type="text/html" title="파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)" /><published>2020-09-13T00:00:00+09:00</published><updated>2020-09-13T00:00:00+09:00</updated><id>http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2</id><content type="html" xml:base="http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html">&lt;h3 id=&quot;생명정보학-분석에서-자주-만나는-파일-형식을-알아봅시다-2&quot;&gt;생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다 (2)&lt;/h3&gt;
+&lt;p&gt;그럼 여러분, 다음 글에서 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 27 Sep 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>clinical genomics</category>
+        
+      </item>
+    
+      <item>
+        <title>파일 형식을 알아보자! 두번째 (VCF, BED, GTF, GFF)</title>
+        <description>&lt;h3 id=&quot;생명정보학-분석에서-자주-만나는-파일-형식을-알아봅시다-2&quot;&gt;생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다 (2)&lt;/h3&gt;
 
 &lt;p&gt;안녕하세요, 한헌종입니다.&lt;br /&gt;
 오늘은 저번 포스팅에 이어서 생명정보학 분야에서 자주 만나게 되는 파일 형식을 알아보려 합니다.&lt;br /&gt;
@@ -779,7 +986,22 @@ gene_id &quot;ENSG00000223972&quot;; transcript_id &quot;ENST00000456328&quot;; 
 이번 기회에 공부해볼 수 있어서 좋았던 것 같습니다.&lt;/p&gt;
 
 &lt;p&gt;다음에는 또 다른 내용으로 포스팅 해보겠습니다.&lt;br /&gt;
-그럼 다음에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="tech" /><summary type="html">생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다 (2)</summary></entry><entry><title type="html">파일 형식을 알아보자! (FASTA, FASTQ, BAM, SAM)</title><link href="http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats.html" rel="alternate" type="text/html" title="파일 형식을 알아보자! (FASTA, FASTQ, BAM, SAM)" /><published>2020-08-26T00:00:00+09:00</published><updated>2020-08-26T00:00:00+09:00</updated><id>http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats</id><content type="html" xml:base="http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats.html">&lt;h3 id=&quot;생명정보학-분석에서-자주-만나는-파일-형식을-알아봅시다&quot;&gt;생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다&lt;/h3&gt;
+그럼 다음에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 13 Sep 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>tech</category>
+        
+      </item>
+    
+      <item>
+        <title>파일 형식을 알아보자! (FASTA, FASTQ, BAM, SAM)</title>
+        <description>&lt;h3 id=&quot;생명정보학-분석에서-자주-만나는-파일-형식을-알아봅시다&quot;&gt;생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다&lt;/h3&gt;
 
 &lt;p&gt;안녕하세요, 한헌종입니다.&lt;br /&gt;
 오늘은 생명정보학 분야에서 자주 만나게 되는 파일 형식이 어떤 게 있는지 알아봅시다.&lt;/p&gt;
@@ -940,7 +1162,22 @@ alignment 부분이 각 read에 대한 alignment 정보를 제공하는 부분�
 &lt;p&gt;아, 그리고 이 외에도 널리 사용되는 파일 형식들이 많은데요, VCF/BED/GTF 등이 있어요.&lt;br /&gt;
 이 형식들은 다음에 또 알아보도록 할게요.&lt;/p&gt;
 
-&lt;p&gt;그럼 다음시간에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="biology" /><category term="tech" /><summary type="html">생명정보학 분석에서 자주 만나는 파일 형식을 알아봅시다</summary></entry><entry><title type="html">깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!</title><link href="http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!" /><published>2020-08-22T00:00:00+09:00</published><updated>2020-08-22T00:00:00+09:00</updated><id>http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;깃-블로그에서-코드-부분을-볼-수-있게-해보자&quot;&gt;깃 블로그에서 코드 부분을 볼 수 있게 해보자!&lt;/h3&gt;
+&lt;p&gt;그럼 다음시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Wed, 26 Aug 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>tech</category>
+        
+      </item>
+    
+      <item>
+        <title>깃 블로그에서 코드블록 만들기 - liquid, html, markdown을 한 번에!</title>
+        <description>&lt;h3 id=&quot;깃-블로그에서-코드-부분을-볼-수-있게-해보자&quot;&gt;깃 블로그에서 코드 부분을 볼 수 있게 해보자!&lt;/h3&gt;
 
 &lt;p&gt;안녕하세요 한헌종입니다.&lt;br /&gt;
 이번엔 블로그에서 코드를 설명할 때 특정 블록으로 처리하는 방법을 알아보겠습니다.&lt;/p&gt;
@@ -1110,7 +1347,20 @@ highlight는 특정 언어를 지정하면, 그 언어에 맞는 형식대로 �
 &lt;p&gt;지금까지 Jekyll 에서 liquid, html, markdown 을 코드블록으로 표시하는 방법을 배워보았습니다.&lt;br /&gt;
 여러분의 블로그에서도 잘 활용하셨으면 좋겠습니다.&lt;/p&gt;
 
-&lt;p&gt;그럼 다음 시간에 만나요!&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="blog" /><summary type="html">깃 블로그에서 코드 부분을 볼 수 있게 해보자!</summary></entry><entry><title type="html">깃블로그에 댓글창 달기</title><link href="http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그에 댓글창 달기" /><published>2020-08-20T00:00:00+09:00</published><updated>2020-08-20T00:00:00+09:00</updated><id>http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html">&lt;h3 id=&quot;깃허브-블로그에-댓글창을-달아보자&quot;&gt;깃허브 블로그에 댓글창을 달아보자&lt;/h3&gt;
+&lt;p&gt;그럼 다음 시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sat, 22 Aug 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>깃블로그에 댓글창 달기</title>
+        <description>&lt;h3 id=&quot;깃허브-블로그에-댓글창을-달아보자&quot;&gt;깃허브 블로그에 댓글창을 달아보자&lt;/h3&gt;
 &lt;p&gt;안녕하세요. 한헌종입니다.&lt;/p&gt;
 
 &lt;p&gt;이번엔 Jekyll 로 구축된 깃허브 블로그에 댓글창을 넣는 방법을 설명해 보겠습니다.&lt;br /&gt;
@@ -1301,7 +1551,24 @@ Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성
 &lt;/table&gt;
 
 &lt;p&gt;이제 여러분도 댓글창을 만드실 수 있습니다.&lt;br /&gt;
-긴 글 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="blog" /><category term="tech" /><summary type="html">깃허브 블로그에 댓글창을 달아보자 안녕하세요. 한헌종입니다.</summary></entry><entry><title type="html">깃블로그를 시작하며</title><link href="http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="깃블로그를 시작하며" /><published>2020-08-19T00:00:00+09:00</published><updated>2020-08-19T00:00:00+09:00</updated><id>http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">&lt;h3 id=&quot;블로그를-시작하며&quot;&gt;블로그를 시작하며&lt;/h3&gt;
+긴 글 읽어주셔서 감사합니다.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 20 Aug 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/blog/tech/programming/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/tech/programming/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>tech</category>
+        
+        <category>programming</category>
+        
+      </item>
+    
+      <item>
+        <title>깃블로그를 시작하며</title>
+        <description>&lt;h3 id=&quot;블로그를-시작하며&quot;&gt;블로그를 시작하며&lt;/h3&gt;
 &lt;p&gt;얼마전까지만 해도 블로그 하면 네이버 블로그밖에 생각이 안나고, 저랑은 전혀 관련없는 세상이라고 생각했습니다.&lt;br /&gt;
 그런데 최근들어 주변에서 블로그를 시작해보라는 이야기를 많이 해주셨습니다.&lt;br /&gt;
 추천해주신 분들 중에는 이미 몇년간, 혹은 십년 이상 블로그를 운영해오신 분들이 계셨습니다.&lt;br /&gt;
@@ -1340,4 +1607,16 @@ Jekyll 이라는게 뭔지부터 차근차근 공부했다면 시행착오가 �
 &lt;h3 id=&quot;앞으로&quot;&gt;앞으로&lt;/h3&gt;
 &lt;p&gt;블로그는 처음이라 어떻게 가꿔나가야 할지 모르겠습니다.&lt;br /&gt;
 그러나 누군가 이야기해준 것처럼, 정말 작은것부터 하나하나 해나가는게 중요한 것 같습니다.&lt;br /&gt;
-오늘 이렇게 한 페이지를 작성했고, 앞으로 꾸준히 작성해보려 합니다.&lt;/p&gt;</content><author><name>Heonjong Han</name><email>hhj6212@gmail.com</email></author><category term="life" /><summary type="html">블로그를 시작하며 얼마전까지만 해도 블로그 하면 네이버 블로그밖에 생각이 안나고, 저랑은 전혀 관련없는 세상이라고 생각했습니다. 그런데 최근들어 주변에서 블로그를 시작해보라는 이야기를 많이 해주셨습니다. 추천해주신 분들 중에는 이미 몇년간, 혹은 십년 이상 블로그를 운영해오신 분들이 계셨습니다. 그분들을 보며 “와 저렇게 오래 많은 글을 기록하는 건 무척 힘들겠구나” 라며 압도되었습니다. 그때마다 제가 들었던 말은, 바로 가장 작은 것부터 시작해보라는 이야기였습니다. 처음부터 크게 할 생각을 하지 말고, 조금씩 꾸준히 해나가는게 중요하다는 것이었습니다. 그러다보면 어느새 수많은 글을 포스팅하게 되고, 그 분야의 전문가로 인정받을 수 있다는 말이었죠.</summary></entry></feed>
+오늘 이렇게 한 페이지를 작성했고, 앞으로 꾸준히 작성해보려 합니다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 19 Aug 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html</guid>
+        
+        
+        <category>life</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,78 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
-        <loc>http://localhost:4000/biology/tech/2020/10/18/samtools.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/blog/tech/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html</loc>
-    </url>
-    
-    <url>
-        <loc>http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html</loc>
-    </url>
-    
+      <loc>http://localhost:4000/tech/programming/2020/10/20/brew-mysql.html</loc>
+      
+        <lastmod>2020-10-20T00:00:00+09:00</lastmod>
+      
 
-    
-    
-    
-    <url>
-        <loc>http://localhost:4000/acmg_cal/</loc>
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/</loc>
+      <loc>http://localhost:4000/biology/tech/2020/10/18/samtools.html</loc>
+      
+        <lastmod>2020-10-18T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/wedding/</loc>
+      <loc>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html</loc>
+      
+        <lastmod>2020-10-11T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
+  
     <url>
-        <loc>http://localhost:4000/wedding_photo/</loc>
+      <loc>http://localhost:4000/biology/clinical%20genomics/2020/09/27/ACMG-guideline-2015.html</loc>
+      
+        <lastmod>2020-09-27T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
     </url>
-    
-    
-    
-    
-    
-    
-    
+  
+    <url>
+      <loc>http://localhost:4000/biology/tech/2020/09/13/bioinformatics-formats2.html</loc>
+      
+        <lastmod>2020-09-13T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/biology/tech/2020/08/26/Bioinformatics-fileformats.html</loc>
+      
+        <lastmod>2020-08-26T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html</loc>
+      
+        <lastmod>2020-08-22T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/blog/tech/programming/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html</loc>
+      
+        <lastmod>2020-08-20T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html</loc>
+      
+        <lastmod>2020-08-19T00:00:00+09:00</lastmod>
+      
+
+      
+        <changefreq>weekly</changefreq>
+      
+
+      
+          <priority>0.5</priority>
+      
+
+    </url>
+  
 </urlset>
