@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 25 Oct 2020 16:17:28 +0900</pubDate>
-    <lastBuildDate>Sun, 25 Oct 2020 16:17:28 +0900</lastBuildDate>
+    <pubDate>Sun, 01 Nov 2020 21:57:29 +0900</pubDate>
+    <lastBuildDate>Sun, 01 Nov 2020 21:57:29 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -158,11 +158,12 @@ delete from example_table where name = 'Ross';               # name 이 'Ross'�
       </item>
     
       <item>
-        <title>Samtools 사용법 (1) - 설치, indexing, editing</title>
+        <title>Samtools 사용법 총정리!</title>
         <description>&lt;p&gt;안녕하세요 한헌종입니다!&lt;br /&gt;
 오늘은 sequencing data 분석에 굉장히 많이 쓰이는 samtools 라는 툴을 사용하는 예제를 적어보고자 합니다.&lt;br /&gt;
 samtools 는 BAM, SAM 형태의 파일을 읽고, 쓰고, 조작할 수 있게 해줍니다.&lt;br /&gt;
-영어로 된 설명은 여기서 찾아볼 수 있습니다: &lt;a href=&quot;http://www.htslib.org/&quot;&gt;Samtools 사이트 링크&lt;/a&gt;&lt;/p&gt;
+영어로 된 설명은 여기서 찾아볼 수 있습니다: &lt;a href=&quot;http://www.htslib.org/&quot;&gt;Samtools 사이트 링크&lt;/a&gt;&lt;br /&gt;
+내용이 매우 길어서, 아직 미완성이라 계속 보충해 나갈 예정입니다.&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;p&gt;부연설명을 하자면, Samtools 는 BCFtools, HTSLib 와 관계가 있습니다.&lt;br /&gt;
@@ -202,6 +203,7 @@ make install&lt;/code&gt;&lt;/pre&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;hr /&gt;
 &lt;h3 id=&quot;다양한-samtools-명령어들&quot;&gt;다양한 samtools 명령어들&lt;/h3&gt;
 &lt;p&gt;설치가 끝나셨다면 samtools 명령어를 실행해볼까요?&lt;br /&gt;
 터미널에서 samtools라고 작성하면 다음과 같이 나옵니다:&lt;/p&gt;
@@ -255,11 +257,13 @@ Commands:
      view           SAM&amp;lt;-&amp;gt;BAM&amp;lt;-&amp;gt;CRAM conversion
      depad          convert padded BAM to unpadded BAM&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;명령어가 굉장히 많군요!&lt;br /&gt;
-이 명령어들을 하나씩 살펴보기로 하죠.&lt;/p&gt;
+이 명령어들을 하나씩 살펴보기로 하죠.&lt;br /&gt;
+그 전에! BAM/SAM 파일 형식을 잘 숙지하고 계셔야 쉽게 이해가 될 것입니다. &lt;a href=&quot;https://hhj6212.github.io/biology/tech/2020/08/26/Bioinformatics-fileformats.html&quot;&gt;(참고링크)&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;*참고로 데이터는 1000 genome project 에서 NA12878 샘플의 chromosome 20번 데이터를 골라봤습니다. &lt;a href=&quot;https://www.internationalgenome.org/data&quot;&gt;(링크)&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;indexing-fastabam-파일의-index-를-만들고-싶을-때&quot;&gt;indexing: fasta/bam 파일의 index 를 만들고 싶을 때&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;h3 id=&quot;indexing-fastabam-파일의-index-를-만들고-싶을-때&quot;&gt;Indexing: fasta/bam 파일의 index 를 만들고 싶을 때&lt;/h3&gt;
 &lt;ol&gt;
   &lt;li&gt;dict&lt;br /&gt;
  fasta 파일에서 sequence dictionary 를 만들 때 쓰입니다.&lt;br /&gt;
@@ -292,7 +296,8 @@ Commands:
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;editing-bam-파일을-수정하고-싶을-때&quot;&gt;editing: bam 파일을 수정하고 싶을 때&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;h3 id=&quot;editing-bam-파일을-수정하고-싶을-때&quot;&gt;Editing: bam 파일을 수정하고 싶을 때&lt;/h3&gt;
 &lt;ol&gt;
   &lt;li&gt;calmd&lt;br /&gt;
  BAM 파일의 MD tag 와 NM tag 를 다시 계산하고자 할 때 사용하는 명령어입니다.&lt;br /&gt;
@@ -304,14 +309,16 @@ Commands:
     &lt;pre&gt;&lt;code&gt;samtools calmd -b example.bam reference.fa &amp;gt; result.bam&lt;/code&gt;&lt;/pre&gt;
   &lt;/li&gt;
   &lt;li&gt;fixmate&lt;br /&gt;
- read alignment 를 수행하는 툴은 여러가지인데요, 이 툴들은 가끔 FLAG 값을 이상하게 만드는 경우가 있습니다.&lt;br /&gt;
- 때문에 fixmate 기능으로 read pairing information 을 수정해주는 작업이 필요할 때가 있습니다.&lt;br /&gt;
+ read alignment 를 수행하는 툴은 여러가지인데요, 어떤 툴은 가끔 FLAG (2nd column) 값을 이상하게 만드는 경우가 있습니다.&lt;br /&gt;
+ paired-end reads 분석을 위해서는 fragment 를 이루는 read pair 정보를 정확히 가지고 있는것이 중요합니다.&lt;br /&gt;
+ 때문에 fixmate 기능으로 FLAG 값을 수정해주는 작업이 필요할 때가 있습니다.&lt;br /&gt;
  fixmate 를 사용하려면 먼저 read 들이 genomic coordinate 가 아닌, 이름순으로 나열되어 있어야 합니다.&lt;br /&gt;
  다음과 같이 실행하시면 됩니다.
-    &lt;pre&gt;&lt;code&gt;samtools view -h example.bam | sort |samtools fixmate - example.fixmate.sam&lt;/code&gt;&lt;/pre&gt;
-    &lt;p&gt;만약 이름으로 이미 나열되어 있다면 다음과 같이 실행하시면 됩니다.&lt;br /&gt;
- input 은 sam, bam 아무거나 상관이 없는데, output 형태가 bam 파일이 되려면 -O bam 이라는 옵션을 추가해줘야 합니다.&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;samtools sort -n example.bam | samtools fixmate - example.fixmate.sam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;(‘-‘ 표시는 이전 명령어의 standard output을 현재 명령어의 input으로 받는다는 뜻입니다.)&lt;br /&gt;
+ 만약 이름으로 이미 나열되어 있다면 다음과 같이 실행하시면 됩니다.&lt;/p&gt;
     &lt;pre&gt;&lt;code&gt;samtools fixmate -O bam example.bam example.fixmate.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;input 은 sam, bam 아무거나 상관이 없는데, output 형태가 bam 파일이 되려면 -O bam 이라는 옵션을 추가해줘야 합니다.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;reheader&lt;br /&gt;
  bam 파일에 header 가 없거나, header 가 이상해서 이를 수정하고 싶을 때가 있습니다.&lt;br /&gt;
@@ -333,10 +340,199 @@ Commands:
  먼저 input bam file 은 coordinate 순서대로 나열되어 있어야 합니다.&lt;br /&gt;
  또한 위에서 언급한 fixmate 를 -m option 추가한 상태로 돌린 뒤에 가능합니다.&lt;br /&gt;
  그래서 1) name sort 진행 후 2) fixmate -m 진행하고 3) coordinate sort 를 진행한 뒤에 4) markdup 기능을 사용할 수 있습니다.&lt;br /&gt;
- 다음 명령어로 진행합니다: (- 표시는 앞 명령어의 standard output을 다음 명령어의 input으로 받는다는 뜻입니다.)
+ 다음 명령어로 진행합니다: (‘-‘ 표시는 이전 명령어의 standard output을 현재 명령어의 input으로 받는다는 뜻입니다.)
     &lt;pre&gt;&lt;code&gt;samtools sort -n example.bam|samtools fixmate -m - example.fixmate.bam
 samtools sort example.fixmate.bam|samtools markdup - example.markdup.bam&lt;/code&gt;&lt;/pre&gt;
     &lt;p&gt;이 때, duplicated alignments를 없애고 싶다면 markdup 에 -r 옵션을 사용하면 됩니다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;file-operations-bam-파일을-합치고-나누고-나열하는-방법&quot;&gt;File operations: bam 파일을 합치고 나누고, 나열하는 방법&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;collate&lt;br /&gt;
+ collate read 들을 read group 별로 나열해주는 작업입니다.&lt;br /&gt;
+ 이 작업은 ‘read groups’ 를 알고나면 이해하기 쉽습니다. &lt;a href=&quot;https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups&quot;&gt;(관련 링크)&lt;/a&gt;&lt;br /&gt;
+ 요약하면, read group 이란 각 single lane 마다 부여되는 이름입니다.&lt;br /&gt;
+ 최근 시퀀싱 기술은 여러 sample libraries 들을 pooling 해서 한번에 분석하는 경우가 많은데요,&lt;br /&gt;
+ 이런 경우 sample 들을 여러 lane 에 나누어서 분석하는 것을 바로 multiplexed sequencing 이라고 합니다. 더 빠르고, 효율적인 방법이죠.&lt;br /&gt;
+ 결과로 나온 reads 에는 어떤 lane에서 분석된 것인지를 이름으로 구분해주는데요, 우리는 이 정보를 활용해서 각 lane 에서 오는 영향을 관찰하고 활용할 수 있습니다.&lt;br /&gt;
+ collate 는 read 들을 read group 별로, 즉 sequencing lane 별로 묶어서 나열해주는 작업을 진행합니다.&lt;br /&gt;
+ 다음 명령어로 진행합니다.
+    &lt;pre&gt;&lt;code&gt;samtools collate example.bam --output-fmt sam -o example.collate.sam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;output 형식은 –output-fmt 옵션으로 지정해주시고, output 파일은 -o 옵션으로 지정해주시면 됩니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;cat&lt;br /&gt;
+ cat 은 concatenate 의 약자입니다. 이름대로 여러개의 bam 파일을 합칠 때 사용합니다.&lt;br /&gt;
+ 합치는 방식은 정말 간단하게 각 파일을 이전 파일의 맨 뒤에 붙이는 방식으로 진행합니다.&lt;br /&gt;
+ 단, 조건이 있습니다. 먼저 파일들의 형식이 모두 같아야 하고, 파일들은 모두 똑같은 sequence dictionary 를 가져야 합니다.&lt;br /&gt;
+ 사용법은 간단합니다. -o 옵션으로 결과를 저장합니다.
+    &lt;pre&gt;&lt;code&gt;samtools cat example_1.bam example_2.bam -o example_cat.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;합칠 파일들을 특정 텍스트파일에 적어놓고 사용할 수도 있습니다. 한 줄에 파일이름 하나씩 적어놓은 file_list.txt 를 만들고, -b 옵션으로 다음과 같이 쓰시면 됩니다:&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;samtools cat -b file_list.txt -o example_cat.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;header 는 default 로 첫번째 파일의 header 를 사용하나, 이를 -h 옵션으로 다른 파일의 헤더를 사용할 수도 있습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;merge&lt;br /&gt;
+ merge 역시 여러개의 bam 파일을 합칠 때 사용합니다.&lt;br /&gt;
+ cat 명령어와 같다고 생각하실 수 있으나, 한 가지 차이점이 있습니다.&lt;br /&gt;
+ 바로 ‘sorted output’을 결과물로 준다는 것인데요.&lt;br /&gt;
+ 그러기 위해서는 input 파일들이 모두 같은 알고리즘으로 나열되어 있어야 합니다.&lt;br /&gt;
+ 즉, 한 파일을 samtools sort -n 옵션으로 나열했다면, merge 하려는 다른 파일들 역시 -n 옵션으로 나열되어 있어야 합니다.&lt;br /&gt;
+ 사용법은 다음과 같습니다:
+    &lt;pre&gt;&lt;code&gt;samtools merge example_1.bam example_2.bam -o example_cat.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;여기서도 -h 옵션으로 헤더를 지정해줄 수 있는데요, 지정하지 않는 경우엔 input header 들이 모두 합쳐집니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;mpileup&lt;br /&gt;
+ bam 파일을 사용해 pileup 형식의 파일을 만들어내는 명령어입니다.&lt;br /&gt;
+ pileup 형식이란? SNP/indel 등의 variant 정보를 한눈에 확인할 수 있는 파일 형식입니다.&lt;br /&gt;
+ 자세한 설명은 다음 링크에서 확인하실 수 있어요! &lt;a href=&quot;http://samtools.sourceforge.net/pileup.shtml&quot;&gt;(링크)&lt;/a&gt;&lt;br /&gt;
+ 간단한 사용법은 다음과 같습니다. -o 로 output 파일을 만들어 줍니다.
+    &lt;pre&gt;&lt;code&gt;samtools mpileup example.bam -o example.pileup&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;옵션을 살펴보니 몇가지 알아두면 좋을 항목이 있었습니다:&lt;br /&gt;
+ -f [fasta 파일]: indexing 되어있는 reference fasta 파일을 사용할 수 있습니다.&lt;br /&gt;
+ -l [bed 파일]: 지정해준 bed 파일에 나타난 영역에 대해서만 mpileup 을 진행합니다.&lt;br /&gt;
+ -b [bam 파일 목록이 적힌 텍스트 파일]: 여러 bam 파일에 대해 작업할 때, 파일 목록을 만들어서 줄 수 있습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;sort&lt;br /&gt;
+ bam 파일에 있는 read 들을 나열할 때 사용합니다.&lt;br /&gt;
+ 간단한 사용법은 다음과 같습니다. -o 옵션으로 ouput 파일을 지정해 줍니다.
+    &lt;pre&gt;&lt;code&gt;samtools sort example.bam -o example_sorted.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;sort 에는 여러 유용한 옵션들이 있으니 한번 참고해볼까요?&lt;br /&gt;
+ -n: read 를 나열할 때 read name 순으로 나열합니다.&lt;br /&gt;
+ -t: read 를 나열할 때 TAG 숫자 순으로 나열합니다.&lt;br /&gt;
+ -T [prefix]: sort 를 진행하면 temporary 파일들이 많이 사용되는데요, 이 때 temporary 파일의 형식을 지정해준 prefix.nnnn.bam 으로 만들도록 합니다.&lt;br /&gt;
+ -@ [thread 수]: 나열할 때 사용할 thread 를 지정해줍니다.&lt;br /&gt;
+ -m [memory]: 나열할 때 사용할 thread 별 최대 메모리를 지정해줍니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;split&lt;br /&gt;
+ bam 파일에 있는 reads 들을 read group 별 독립된 파일들로 나눠줍니다.&lt;br /&gt;
+ 이 작업은 ‘read groups’ 를 알고나면 이해하기 쉽습니다. &lt;a href=&quot;https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups&quot;&gt;(관련 링크)&lt;/a&gt;&lt;br /&gt;
+ 사용법은 다음과 같습니다.
+    &lt;pre&gt;&lt;code&gt;samtools split example.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;결과물로는 read group 마다 example_0.bam, example_1.bam … 으로 나옵니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;quickcheck&lt;br /&gt;
+ 이름 그대로 bam 파일이 온전한지를 빠르게 체크하는 명령어입니다.&lt;br /&gt;
+ 설명에 따르면 header 를 제대로 가지고 있는지, target sequnece를 최소한 하나 가지고 있는지, 그리고 파일 끝 부분이 EOF (end-of-file) 을 제대로 가지고 있는지를 확인한다고 하는군요.&lt;br /&gt;
+ 파일 하나씩 체크할 수도 있지만, 매뉴얼에는 여러 파일을 한번에 체크하는 방법을 추천하고 있습니다.&lt;br /&gt;
+ 다음 명령어 입니다. 한번 확인해볼까요?
+    &lt;pre&gt;&lt;code&gt;samtools quickcheck example.bam
+samtools quickcheck *.bam &amp;amp;&amp;amp; echo 'all ok' || echo 'fail!'
+samtools quickcheck -qv *.bam &amp;gt; bad_bams.fofn &amp;amp;&amp;amp; echo 'all ok'  || echo 'some files failed check, see bad_bams.fofn'&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;첫 번째 명령어는 파일 하나만 체크하는 방법입니다.&lt;br /&gt;
+ 두 번째 명령어는 모든 bam 파일 확인 후, 정상이라면 ‘all ok’를 출력하고, 그렇지 않으면 ‘fail!’을 출력합니다.&lt;br /&gt;
+ 세 번째 명령어는 모든 bam 파일 확인 후, 비정상 bam 파일 목록은 bad_bams.fofn 에 저장하며, 모두 정상이라면 ‘all ok’를 출력하고, 그렇지 않으면 ‘fail!’을 출력합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;fastq&lt;br /&gt;
+ bam 파일을 fastq 로 바꿔주는 명령어입니다.&lt;br /&gt;
+ 다음 명령어로 사용합니다:
+    &lt;pre&gt;&lt;code&gt;samtools fastq example.bam -o example.fastq&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;만약 paired-end sequencing 데이터라면 read1, read2 파일을 따로 지정해주면 됩니다.&lt;br /&gt;
+ 이 때, 두 개의 fastq 파일에 같은 read 순서로 만들고 싶다면 먼저 collate 혹은 sort -n 으로 나열되어 있어야 합니다.&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;samtools fastq example.bam -1 example_1.fastq -2 example_2.fastq -0 example_0.fastq&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;이 때, read1, read2 이외의 read 들은 standard out으로 출력이 될 겁니다. 어마어마한 reads 들이 출력되기 때문에, 만약 출력하고 싶지 않다면 -0 [파일이름] 으로 지정해주셔야 합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;fasta&lt;br /&gt;
+ bam 파일을 fasta 로 바꿔주는 명령어입니다.&lt;br /&gt;
+ 매뉴얼에서는 samtools fastq 와 samtools fasta 를 같이 설명하고 있군요!&lt;br /&gt;
+ fastq 에서와 마찬가지로 read1, read2, other reads 를 구분해서 쓰시면 되겠습니다.&lt;br /&gt;
+ 다음 명령어로 사용합니다:
+    &lt;pre&gt;&lt;code&gt;samtools fasta example.bam -o example.fasta
+samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fasta&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;statistics-bam-파일의-통계치를-확인하고-싶을-때&quot;&gt;Statistics: bam 파일의 통계치를 확인하고 싶을 때&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;bedcov&lt;br /&gt;
+ 특정 영역에 대해서 read base count 를 세어주는 명령어 입니다.&lt;br /&gt;
+ read base count 는 the sum of per base read depths, 즉 mapping 된 총 base 수를 합친 값입니다.&lt;br /&gt;
+ 영역은 bed 파일로 지정해주면 되고, 각 영역별 read base count 를 세어줍니다.&lt;br /&gt;
+ 다음 명령어로 실행합니다.
+    &lt;pre&gt;&lt;code&gt;&amp;gt; cat example.bed # 이 형태의 bed 파일을 사용한다고 하면...
+20	60000	70000
+20	70000	80000
+20	80000	100000
+&amp;gt; samtools bedcov example.bed example.bam # 이 명령어로 아래와 같은 결과가 나옵니다.
+20	60000	70000	51006
+20	70000	80000	163986
+20	80000	100000	51060&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;coverage&lt;br /&gt;
+ 특정 영역에 대해서 read coverage 를 표시한 histogram 을 만들어주는 명령어 입니다.&lt;br /&gt;
+ 아래 명령어로 실행합니다.
+    &lt;pre&gt;&lt;code&gt;&amp;gt; samtools coverage -r 20:100000-200000 example.bam
+#rname	startpos	endpos	numreads	covbases	coverage	meandepth	meanbaseq	meanmapq
+20	100000	200000	7577	87538	87.5371	5.32686	33.7	54.3
+&amp;gt; samtools coverage -r 20:100000-200000 -m example.bam
+20 (63.03Mbp)
+&amp;gt;  88.57% │ ▆▃  ▄▂▄     ▄▃▁▄▆     ▃█ ▃▁  ▆▅▂▃     ▄ ▃▃  ▄▃  ▄  ▁  ▂▄  █▂│ Number of reads: 7577
+&amp;gt;  78.73% │▅███▁███▅▆ ▇▂█████▂▂  ▃██▆██ █████▇▅▆▅▅████▆███▄▄█▂▃█  ██ ▂██│     (887 filtered)
+&amp;gt;  68.89% │██████████ █████████▄▇███████████████████████████████▅▄██▄███│ Covered bases:   87.5Kbp
+&amp;gt;  59.05% │█████████████████████████████████████████████████████████████│ Percent covered: 87.54%
+&amp;gt;  49.21% │█████████████████████████████████████████████████████████████│ Mean coverage:   5.33x
+&amp;gt;  39.37% │█████████████████████████████████████████████████████████████│ Mean baseQ:      33.7
+&amp;gt;  29.52% │█████████████████████████████████████████████████████████████│ Mean mapQ:       54.3
+&amp;gt;  19.68% │█████████████████████████████████████████████████████████████│
+&amp;gt;   9.84% │█████████████████████████████████████████████████████████████│ Histo bin width: 1.6Kbp
+&amp;gt;   0.00% │█████████████████████████████████████████████████████████████│ Histo max bin:   98.414%
+     100.0K    116.4K    132.8K    149.2K    165.6K    181.9K     200.0K&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;어떤 옵션이 있는지 살펴볼까요?&lt;br /&gt;
+ -r [chromosome:start-end]: -r 옵션으로 영역을 지정해줄 수 있고, 영역을 지정해주지 않으면 모든 chromosome 에 대한 결과를 각각 만들어서 제공해줍니다.&lt;br /&gt;
+ -m : table 형태의 결과 대신 histogram 을 보여줍니다.&lt;br /&gt;
+ -w [bin 개수]: historgram 을 몇 개의 bin 으로 나눠서 보여줄지 결정합니다. &lt;br /&gt;
+ -o [output 파일]: 결과를 output 파일에 저장합니다.&lt;br /&gt;
+ -b [bam 목록 파일]: 여러 bam 파일을 사용할 때, bam 파일들의 이름이 적힌 목록 파일을 사용할 수 있습니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;depth&lt;br /&gt;
+ 지정해준 영역 혹은 position 에 대해 read depth 를 계산해줍니다.&lt;br /&gt;
+ 영역은 bed 파일로 제시해주면 되는데요, 만약 제공하지 않으면 bam 파일이 걸친 모든 영역의 &lt;strong&gt;position 마다&lt;/strong&gt; 결과를 제공합니다.&lt;br /&gt;
+ 그럼 매우 큰 결과가 나오게 되니 주의해주세요!&lt;br /&gt;
+ 다음 명령어를 사용합니다:
+    &lt;pre&gt;&lt;code&gt;samtools depth -b example.bed example.bam -o example_depth.txt&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;옵션들을 한번 살펴보시죠.&lt;br /&gt;
+ -a : 모든 position 에 대해 결과를 제공합니다. 이는 depth 가 0 인 position 도 포함합니다.&lt;br /&gt;
+ -aa : 사용하지 않은 reference sequence에 있는 영역까지, 정말 전체 영역에 대한 결과를 모두 제공합니다.&lt;br /&gt;
+ -b [bed 파일]: 결과를 만들 영역을 bed 파일로 제시해줍니다.&lt;br /&gt;
+ -f [bam 목록파일]: 여러 bam 파일을 사용할 때, 파일 이름을 목록으로 만들어 제시합니다.&lt;br /&gt;
+ -o [output 파일]: 결과를 output 파일에 저장합니다.&lt;br /&gt;
+ -g [flags]: 특정 flag 를 가진 read 는 제외합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;flagstat&lt;br /&gt;
+ bam 파일의 기본적인 상태를 보여줍니다.&lt;br /&gt;
+ 주로 몇 개의 read 중 몇 개가 mapping 되었는지 등의 결과를 확인하고자 할 때 쓰입니다.&lt;br /&gt;
+ 설명하기 보다, 아래 결과를 보시면 더욱 이해가 쉬우실 겁니다!
+    &lt;pre&gt;&lt;code&gt;&amp;gt; samtools flagstat example.bam
+4579959 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 secondary
+0 + 0 supplementary
+371078 + 0 duplicates
+4532991 + 0 mapped (98.97% : N/A)
+4569463 + 0 paired in sequencing
+2284756 + 0 read1
+2284707 + 0 read2
+4413160 + 0 properly paired (96.58% : N/A)
+4475527 + 0 with itself and mate mapped
+46968 + 0 singletons (1.03% : N/A)
+21515 + 0 with mate mapped to a different chr
+15292 + 0 with mate mapped to a different chr (mapQ&amp;gt;=5)&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;idxstats&lt;br /&gt;
+ bam 파일의 통계 결과를 index 파일에서 찾아 출력해줍니다.&lt;br /&gt;
+ 즉, 이 명령어를 쓰기 위해서는 samtools index 가 선행되어야 합니다.&lt;br /&gt;
+ 결과는 다음 네 개의 컬럼으로 나옵니다.&lt;br /&gt;
+ 1) reference sequence name, 2)sequence length, 3) # mapped read-segments, 4)# unmapped read-segments&lt;br /&gt;
+ 다음 명령어로 실행합니다.
+    &lt;pre&gt;&lt;code&gt;&amp;gt; samtools idxstats example.bam
+1	249250621	0	0
+2	243199373	0	0
+...
+19	59128983	0	0
+20	63025520	4532991	46968
+21	48129895	0	0
+22	51304566	0	0&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;20번 염색체에 대한 bam 파일을 가져와서 결과가 하나밖에 안나오는군요.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -660,8 +856,8 @@ bayesian score는 설명을 돕기 위한 점수일 뿐이고, 결국 ACMG class
 그럼 다음에 만나요!&lt;/p&gt;
 </description>
         <pubDate>Sun, 11 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/ACMG_class-%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html</guid>
+        <link>http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/calculating-ACMG-class.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/clinical%20genomics/tech/2020/10/11/calculating-ACMG-class.html</guid>
         
         
         <category>biology</category>
@@ -1350,8 +1546,8 @@ highlight는 특정 언어를 지정하면, 그 언어에 맞는 형식대로 �
 &lt;p&gt;그럼 다음 시간에 만나요!&lt;/p&gt;
 </description>
         <pubDate>Sat, 22 Aug 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/2020/08/22/Jekyll%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%B8%94%EB%A1%9D-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8%ED%95%98%EA%B8%B0.html</guid>
+        <link>http://localhost:4000/blog/2020/08/22/Jekyll-highlight-codeblock.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2020/08/22/Jekyll-highlight-codeblock.html</guid>
         
         
         <category>blog</category>
@@ -1554,8 +1750,8 @@ Post를 작성할 때 _post/ 디렉터리에 yyyy-mm-dd-name.md 문서를 작성
 긴 글 읽어주셔서 감사합니다.&lt;/p&gt;
 </description>
         <pubDate>Thu, 20 Aug 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/blog/tech/programming/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/tech/programming/2020/08/20/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-%EB%8C%93%EA%B8%80%EC%B0%BD%EB%8B%AC%EA%B8%B0.html</guid>
+        <link>http://localhost:4000/blog/tech/programming/2020/08/20/comments-section-gitblog.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/tech/programming/2020/08/20/comments-section-gitblog.html</guid>
         
         
         <category>blog</category>
@@ -1610,8 +1806,8 @@ Jekyll 이라는게 뭔지부터 차근차근 공부했다면 시행착오가 �
 오늘 이렇게 한 페이지를 작성했고, 앞으로 꾸준히 작성해보려 합니다.&lt;/p&gt;
 </description>
         <pubDate>Wed, 19 Aug 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/life/2020/08/19/%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html</guid>
+        <link>http://localhost:4000/life/2020/08/19/beginning_gitblog.html</link>
+        <guid isPermaLink="true">http://localhost:4000/life/2020/08/19/beginning_gitblog.html</guid>
         
         
         <category>life</category>
