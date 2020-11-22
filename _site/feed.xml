@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 01 Nov 2020 21:57:29 +0900</pubDate>
-    <lastBuildDate>Sun, 01 Nov 2020 21:57:29 +0900</lastBuildDate>
+    <pubDate>Sun, 22 Nov 2020 22:33:49 +0900</pubDate>
+    <lastBuildDate>Sun, 22 Nov 2020 22:33:49 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -263,7 +263,7 @@ Commands:
 &lt;p&gt;*참고로 데이터는 1000 genome project 에서 NA12878 샘플의 chromosome 20번 데이터를 골라봤습니다. &lt;a href=&quot;https://www.internationalgenome.org/data&quot;&gt;(링크)&lt;/a&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;h3 id=&quot;indexing-fastabam-파일의-index-를-만들고-싶을-때&quot;&gt;Indexing: fasta/bam 파일의 index 를 만들고 싶을 때&lt;/h3&gt;
+&lt;h3 id=&quot;indexing-fastafastqbam-파일의-index-를-만들고-싶을-때&quot;&gt;Indexing: fasta/fastq/bam 파일의 index 를 만들고 싶을 때&lt;/h3&gt;
 &lt;ol&gt;
   &lt;li&gt;dict&lt;br /&gt;
  fasta 파일에서 sequence dictionary 를 만들 때 쓰입니다.&lt;br /&gt;
@@ -284,7 +284,7 @@ Commands:
  fqidx 는 fastq 로 되어있는 reference sequence 의 index를 만들 때 쓰입니다.&lt;br /&gt;
  fastq 형태로 된 reference sequence는 전 아직 본적 없지만요…&lt;br /&gt;
  이 명령어의 경우, short reads 가 많은 fastq를 사용하면 거의 원본만큼의 크기를 가진 큰 idx 파일이 나오고, 이를 통해 연산할 경우 메모리를 매우 많이 잡아먹는다고 합니다.&lt;br /&gt;
- 그래서 input으로는 적은 수의 sequence 를 가진 fastq 파일이 필요합니다.
+ 그래서 input으로는 적은 수의 sequence 를 가진 fastq 파일을 쓰는 것이 좋습니다.
     &lt;pre&gt;&lt;code&gt;samtools fqidx reference.fq&lt;/code&gt;&lt;/pre&gt;
   &lt;/li&gt;
   &lt;li&gt;index&lt;br /&gt;
@@ -303,10 +303,10 @@ Commands:
  BAM 파일의 MD tag 와 NM tag 를 다시 계산하고자 할 때 사용하는 명령어입니다.&lt;br /&gt;
  MD tag 는 reference sequence 와 얼마나 일치하는지를 표현하는 방법입니다. &lt;a href=&quot;https://oktopbang.tistory.com/entry/MD-tag-and-cigar&quot;&gt;링크 참조&lt;/a&gt;&lt;br /&gt;
  NM tag 는 edit distance to reference 라는건데요, 쉽게 말해서 number of mismatches 입니다.&lt;br /&gt;
- 사용법은 다음과 같습니다.&lt;br /&gt;
- 결과물이 standard output으로 나오므로, output file 을 지정해주는 것이 좋습니다.&lt;br /&gt;
- 또한, default output 형식은 sam 파일이므로, -b 옵션을 설정해주면 bam 결과물을 얻을 수 있습니다.
+ 사용법은 다음과 같습니다.
     &lt;pre&gt;&lt;code&gt;samtools calmd -b example.bam reference.fa &amp;gt; result.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;결과물이 standard output으로 나오므로, output file 을 지정해주는 것이 좋습니다.&lt;br /&gt;
+ 또한, default output 형식은 sam 파일이므로, -b 옵션을 설정해주면 bam 결과물을 얻을 수 있습니다.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;fixmate&lt;br /&gt;
  read alignment 를 수행하는 툴은 여러가지인데요, 어떤 툴은 가끔 FLAG (2nd column) 값을 이상하게 만드는 경우가 있습니다.&lt;br /&gt;
@@ -341,8 +341,8 @@ Commands:
  또한 위에서 언급한 fixmate 를 -m option 추가한 상태로 돌린 뒤에 가능합니다.&lt;br /&gt;
  그래서 1) name sort 진행 후 2) fixmate -m 진행하고 3) coordinate sort 를 진행한 뒤에 4) markdup 기능을 사용할 수 있습니다.&lt;br /&gt;
  다음 명령어로 진행합니다: (‘-‘ 표시는 이전 명령어의 standard output을 현재 명령어의 input으로 받는다는 뜻입니다.)
-    &lt;pre&gt;&lt;code&gt;samtools sort -n example.bam|samtools fixmate -m - example.fixmate.bam
-samtools sort example.fixmate.bam|samtools markdup - example.markdup.bam&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre&gt;&lt;code&gt;samtools sort -n example.bam | samtools fixmate -m - example.fixmate.bam
+samtools sort example.fixmate.bam | samtools markdup - example.markdup.bam&lt;/code&gt;&lt;/pre&gt;
     &lt;p&gt;이 때, duplicated alignments를 없애고 싶다면 markdup 에 -r 옵션을 사용하면 됩니다.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -356,8 +356,8 @@ samtools sort example.fixmate.bam|samtools markdup - example.markdup.bam&lt;/cod
  요약하면, read group 이란 각 single lane 마다 부여되는 이름입니다.&lt;br /&gt;
  최근 시퀀싱 기술은 여러 sample libraries 들을 pooling 해서 한번에 분석하는 경우가 많은데요,&lt;br /&gt;
  이런 경우 sample 들을 여러 lane 에 나누어서 분석하는 것을 바로 multiplexed sequencing 이라고 합니다. 더 빠르고, 효율적인 방법이죠.&lt;br /&gt;
- 결과로 나온 reads 에는 어떤 lane에서 분석된 것인지를 이름으로 구분해주는데요, 우리는 이 정보를 활용해서 각 lane 에서 오는 영향을 관찰하고 활용할 수 있습니다.&lt;br /&gt;
- collate 는 read 들을 read group 별로, 즉 sequencing lane 별로 묶어서 나열해주는 작업을 진행합니다.&lt;br /&gt;
+ 결과로 나온 reads 에는 어떤 lane에서 분석된 것인지를 이름으로 구분해주는데요, 우리는 이 정보를 활용해서 각 lane 에서 오는 영향(bias 등)을 관찰하고 활용할 수 있습니다.&lt;br /&gt;
+ collate 는 read 들을 이런 read group 별로, 즉 sequencing lane 별로 묶어서 나열해주는 작업을 진행합니다.&lt;br /&gt;
  다음 명령어로 진행합니다.
     &lt;pre&gt;&lt;code&gt;samtools collate example.bam --output-fmt sam -o example.collate.sam&lt;/code&gt;&lt;/pre&gt;
     &lt;p&gt;output 형식은 –output-fmt 옵션으로 지정해주시고, output 파일은 -o 옵션으로 지정해주시면 됩니다.&lt;/p&gt;
@@ -400,7 +400,7 @@ samtools sort example.fixmate.bam|samtools markdup - example.markdup.bam&lt;/cod
     &lt;p&gt;sort 에는 여러 유용한 옵션들이 있으니 한번 참고해볼까요?&lt;br /&gt;
  -n: read 를 나열할 때 read name 순으로 나열합니다.&lt;br /&gt;
  -t: read 를 나열할 때 TAG 숫자 순으로 나열합니다.&lt;br /&gt;
- -T [prefix]: sort 를 진행하면 temporary 파일들이 많이 사용되는데요, 이 때 temporary 파일의 형식을 지정해준 prefix.nnnn.bam 으로 만들도록 합니다.&lt;br /&gt;
+ -T [prefix]: sort 를 진행하면 temporary 파일들이 많이 사용되는데요, 이 때 temporary 파일의 이름을 지정해서 prefix.nnnn.bam 으로 만들도록 합니다.&lt;br /&gt;
  -@ [thread 수]: 나열할 때 사용할 thread 를 지정해줍니다.&lt;br /&gt;
  -m [memory]: 나열할 때 사용할 thread 별 최대 메모리를 지정해줍니다.&lt;/p&gt;
   &lt;/li&gt;
@@ -430,7 +430,8 @@ samtools quickcheck -qv *.bam &amp;gt; bad_bams.fofn &amp;amp;&amp;amp; echo 'al
     &lt;p&gt;만약 paired-end sequencing 데이터라면 read1, read2 파일을 따로 지정해주면 됩니다.&lt;br /&gt;
  이 때, 두 개의 fastq 파일에 같은 read 순서로 만들고 싶다면 먼저 collate 혹은 sort -n 으로 나열되어 있어야 합니다.&lt;/p&gt;
     &lt;pre&gt;&lt;code&gt;samtools fastq example.bam -1 example_1.fastq -2 example_2.fastq -0 example_0.fastq&lt;/code&gt;&lt;/pre&gt;
-    &lt;p&gt;이 때, read1, read2 이외의 read 들은 standard out으로 출력이 될 겁니다. 어마어마한 reads 들이 출력되기 때문에, 만약 출력하고 싶지 않다면 -0 [파일이름] 으로 지정해주셔야 합니다.&lt;/p&gt;
+    &lt;p&gt;이 때, read1, read2 이외의 read 들은 standard out으로 출력이 될 겁니다. &lt;br /&gt;
+ 어마어마한 수의 reads 정보가 출력될 것이기 때문에, 만약 출력하고 싶지 않다면 위 예시처럼 숫자 ‘0’ 옵션을 사용해서 -0 [파일이름] 으로 지정해주셔야 합니다.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;fasta&lt;br /&gt;
  bam 파일을 fasta 로 바꿔주는 명령어입니다.&lt;br /&gt;
@@ -450,11 +451,11 @@ samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fa
  read base count 는 the sum of per base read depths, 즉 mapping 된 총 base 수를 합친 값입니다.&lt;br /&gt;
  영역은 bed 파일로 지정해주면 되고, 각 영역별 read base count 를 세어줍니다.&lt;br /&gt;
  다음 명령어로 실행합니다.
-    &lt;pre&gt;&lt;code&gt;&amp;gt; cat example.bed # 이 형태의 bed 파일을 사용한다고 하면...
+    &lt;pre&gt;&lt;code&gt;$ cat example.bed # 이 형태의 bed 파일을 사용한다고 하면...
 20	60000	70000
 20	70000	80000
 20	80000	100000
-&amp;gt; samtools bedcov example.bed example.bam # 이 명령어로 아래와 같은 결과가 나옵니다.
+$ samtools bedcov example.bed example.bam # 이 명령어로 아래와 같은 결과가 나옵니다.
 20	60000	70000	51006
 20	70000	80000	163986
 20	80000	100000	51060&lt;/code&gt;&lt;/pre&gt;
@@ -462,10 +463,10 @@ samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fa
   &lt;li&gt;coverage&lt;br /&gt;
  특정 영역에 대해서 read coverage 를 표시한 histogram 을 만들어주는 명령어 입니다.&lt;br /&gt;
  아래 명령어로 실행합니다.
-    &lt;pre&gt;&lt;code&gt;&amp;gt; samtools coverage -r 20:100000-200000 example.bam
+    &lt;pre&gt;&lt;code&gt;$ samtools coverage -r 20:100000-200000 example.bam
 #rname	startpos	endpos	numreads	covbases	coverage	meandepth	meanbaseq	meanmapq
 20	100000	200000	7577	87538	87.5371	5.32686	33.7	54.3
-&amp;gt; samtools coverage -r 20:100000-200000 -m example.bam
+$ samtools coverage -r 20:100000-200000 -m example.bam
 20 (63.03Mbp)
 &amp;gt;  88.57% │ ▆▃  ▄▂▄     ▄▃▁▄▆     ▃█ ▃▁  ▆▅▂▃     ▄ ▃▃  ▄▃  ▄  ▁  ▂▄  █▂│ Number of reads: 7577
 &amp;gt;  78.73% │▅███▁███▅▆ ▇▂█████▂▂  ▃██▆██ █████▇▅▆▅▅████▆███▄▄█▂▃█  ██ ▂██│     (887 filtered)
@@ -503,7 +504,7 @@ samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fa
  bam 파일의 기본적인 상태를 보여줍니다.&lt;br /&gt;
  주로 몇 개의 read 중 몇 개가 mapping 되었는지 등의 결과를 확인하고자 할 때 쓰입니다.&lt;br /&gt;
  설명하기 보다, 아래 결과를 보시면 더욱 이해가 쉬우실 겁니다!
-    &lt;pre&gt;&lt;code&gt;&amp;gt; samtools flagstat example.bam
+    &lt;pre&gt;&lt;code&gt;$ samtools flagstat example.bam
 4579959 + 0 in total (QC-passed reads + QC-failed reads)
 0 + 0 secondary
 0 + 0 supplementary
@@ -517,6 +518,8 @@ samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fa
 46968 + 0 singletons (1.03% : N/A)
 21515 + 0 with mate mapped to a different chr
 15292 + 0 with mate mapped to a different chr (mapQ&amp;gt;=5)&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;결과를 살펴보면, 약 450만 개의 read 가 bam 파일에서 발견되었군요.&lt;br /&gt;
+그 중 371078 개는 duplicate 으로 밝혀졌구요, 대부분의 reads (98.97%) 가 reference genome 에 mapping 된 것을 알 수 있습니다.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;idxstats&lt;br /&gt;
  bam 파일의 통계 결과를 index 파일에서 찾아 출력해줍니다.&lt;br /&gt;
@@ -524,7 +527,7 @@ samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fa
  결과는 다음 네 개의 컬럼으로 나옵니다.&lt;br /&gt;
  1) reference sequence name, 2)sequence length, 3) # mapped read-segments, 4)# unmapped read-segments&lt;br /&gt;
  다음 명령어로 실행합니다.
-    &lt;pre&gt;&lt;code&gt;&amp;gt; samtools idxstats example.bam
+    &lt;pre&gt;&lt;code&gt;$ samtools idxstats example.bam
 1	249250621	0	0
 2	243199373	0	0
 ...
@@ -532,15 +535,109 @@ samtools fasta example.bam -1 example_1.fasta -2 example_2.fasta -0 example_0.fa
 20	63025520	4532991	46968
 21	48129895	0	0
 22	51304566	0	0&lt;/code&gt;&lt;/pre&gt;
-    &lt;p&gt;20번 염색체에 대한 bam 파일을 가져와서 결과가 하나밖에 안나오는군요.&lt;/p&gt;
+    &lt;p&gt;제 예시 파일에는 20번 염색체에 대한 정보밖에 없어서 결과가 하나밖에 안나오는군요. ^^&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;phase&lt;br /&gt;
+ 이 기능에 대해서 알려면, 먼저 phasing 을 이해하고 있어야 합니다. &lt;a href=&quot;https://en.wikipedia.org/wiki/Haplotype_estimation&quot;&gt;Wikipedia 링크&lt;/a&gt;&lt;br /&gt;
+ 간단히 말하면, 우리가 얻은 genotype 이 두 상동염색체 중 어느쪽에서 왔는지 알아내는 과정을 phasing (혹은 haplotype estimation) 이라고 합니다.&lt;br /&gt;
+ 일반적인 시퀀싱 정보로는, 각 reads 들이 두 상동염색체 중 어느쪽에서 온건지 알 수 없습니다.&lt;br /&gt;
+ 그런데 특정 시퀀싱 기술을 통해서, 각 염색체에서 온 reads 들을 서로 다른 barcode 를 달아주면 reads 들을 두 그룹으로 나눌 수 있습니다.&lt;br /&gt;
+ 이 정보를 haplotype이라고 하는데요, 이런 실험기법을 통해 reads 들의 haplotype 정보를 알 수 있게 되는거죠. (이 과정을 phasing 이라고 합니다.)&lt;br /&gt;
+ samtools phase 명령어는, 만약 우리가 가진 bam 파일이 phasing 되어 있는 파일이라면, bam 파일에서 변이를 찾아주고 이 중 heterozygous SNPs 에 대해서 haplotype 을 표시해주는 기능입니다.&lt;br /&gt;
+ 다음 명령어로 사용합니다:
+    &lt;pre&gt;&lt;code&gt;samtools phase example.bam &amp;gt; example.phase&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;만약 우리가 가지고 있는 bam 파일의 2,3,8번째에 heterozygous SNPs 들이 존재하고, 한쪽 allele (0번) 은 각각 A,C,T 이며 다른쪽 allele (1번) 은 각각 T,A,C 라면 결과물은 다음과 같이 나옵니다.&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;CC  M?   chr    PS     pos  allele0 allele1 hetIndex #supports0 #errors0 #supp1 #err1
+CC
+CC
+PS      frame-1   2    9
+M1      frame-1  60    2      A       T       1       3       0       23      0
+M1      frame-1  60    3      C       A       2       35      1       24      0
+M1      frame-1  60    8      T       C       3       46      0       30      0&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;stats&lt;br /&gt;
+ stats 명령어는 bam 파일의 통계치를 텍스트 파일로 제공해줍니다.&lt;br /&gt;
+ 위의 flagstat 가 alignment 관련 정보를 제공했다면, stats 명령어는 checksum, read quality, ATGC contents 등의 정보를 보여줍니다.&lt;br /&gt;
+ 다음 명령어로 사용합니다:
+    &lt;pre&gt;&lt;code&gt;samtools stats example.bam &amp;gt; example.stats&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;output 은 텍스트 파일로 나오므로, 이를 “&amp;gt;” 로 저장해주는 것이 좋습니다.&lt;br /&gt;
+ 결과로 나오는 항목은 매우 많습니다. &lt;a href=&quot;http://www.htslib.org/doc/samtools-stats.html&quot;&gt;링크&lt;/a&gt;를 참조해보세요.&lt;br /&gt;
+ 몇가지를 확인해보면 다음과 같습니다:&lt;br /&gt;
+ CHK:    파일 checksum&lt;br /&gt;
+ SN:     Summary numbers&lt;br /&gt;
+ FFQ:	First fragment qualities&lt;br /&gt;
+ LFQ:   	Last fragment qualities&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;viewing-bam-파일을-실제로-읽어보고-싶을-때&quot;&gt;Viewing: bam 파일을 실제로 읽어보고 싶을 때&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;flags&lt;br /&gt;
+ flags 는 bam 파일의 FLAG 정보를 설명해줍니다.&lt;br /&gt;
+ bam 파일에 존재하는 두번째 column 은 flag 값인데요, 숫자 하나로 되어있지만 사실은 2진법 정보의 합으로 되어있는 것입니다. &lt;a href=&quot;https://en.wikipedia.org/wiki/SAM_(file_format)#Bitwise_flags&quot;&gt;(링크 참조)&lt;/a&gt;&lt;br /&gt;
+ 예를 들어, 어떤 read 가 pair 되어 있고, read1 이 unmapped 상태라는 두 가지 상태에 있다고 가정합시다.&lt;br /&gt;
+ 그러면 해당 read 는 1 + 4 = 5 라는 값을 가지게 됩니다.&lt;br /&gt;
+ 이런 FLAG 에 어떤 이진법 조건이 있는지 samtools flags 를 통해 알 수 있습니다.&lt;br /&gt;
+ 다음 명령어로 사용합니다:
+    &lt;pre&gt;&lt;code&gt;$ samtools flags
+ Flags:
+ 0x1	PAIRED        .. paired-end (or multiple-segment) sequencing technology
+ 0x2	PROPER_PAIR   .. each segment properly aligned according to the aligner
+ 0x4	UNMAP         .. segment unmapped
+ 0x8	MUNMAP        .. next segment in the template unmapped
+ 0x10	REVERSE       .. SEQ is reverse complemented
+ 0x20	MREVERSE      .. SEQ of the next segment in the template is reversed
+ 0x40	READ1         .. the first segment in the template
+ 0x80	READ2         .. the last segment in the template
+ 0x100	SECONDARY     .. secondary alignment
+ 0x200	QCFAIL        .. not passing quality controls
+ 0x400	DUP           .. PCR or optical duplicate
+ 0x800	SUPPLEMENTARY .. supplementary alignment&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;tview&lt;br /&gt;
+ tview 명령어는 interactive mode 로 특정 genomic region 에서 reads 들의 상태를 볼 수 있게 해줍니다.&lt;br /&gt;
+ 특정 위치를 지정하고 upstream, downstream 으로 이동하면서 reads 들이 어느 위치에 mapping 되어 있는지, 변이가 있는지, read quality는 어떤지 등을 직접 확인할 수 있죠.&lt;br /&gt;
+ 일반적으로는 genome 이 너무 크기도 하고, bam 파일에 있는 read 수도 매우 많기 때문에 잘 사용하지는 않지만, 가끔 variant call 이 제대로 되었는지 확인하는 용도로 사용할 수 있습니다.&lt;br /&gt;
+ tip. 이 명령어를 사용할 때는 reference genome 을 같이 제공해주는 것이 좋습니다.&lt;br /&gt;
+ 다음 명령어로 사용합니다:
+    &lt;pre&gt;&lt;code&gt;samtools tview example.bam reference.fa&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;명령어를 실헹하고 나면, 터미널 창에 아래와 같은 검은 화면이 뜰 겁니다.&lt;br /&gt;
+ 여기서 slash ‘/’를 입력하고 20:341931 등의 위치를 입력하면 원하는 위치의 view를 볼 수 있습니다.&lt;br /&gt;
+ 키보드 방향키로 움직일 수 있고, 해당 위치에 mapping 된 reads 정보 및 variant 정보를 확인할 수 있죠.&lt;br /&gt;
+ 연속된 글자들이 하나의 read를 나타냅니다.&lt;br /&gt;
+ 다음과 같은 화면이 나타나게 됩니다:&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;   341931    341941    341951    341961    341971    341981
+ccaggctctgtactcagtccatcacatacattaggtcttgcagtcctcataccaccataaggt
+....................R..........................................
+, ..................G.................
+.......................... ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,g,,,,,,
+,,,,,,,,,,,,,,,,,,,,g,,,,,,,,,,,,,,,,,,
+,                   g,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,g,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,g,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;view&lt;br /&gt;
+ view 명령어는 두 가지 용도로 사용됩니다.&lt;br /&gt;
+ 첫 번째로는 bam 파일의 데이터를 특정 조건(위치, quality 등등)에 맞는 것만  뽑아내는 용도입니다.&lt;br /&gt;
+ 두 번째는 파일 형식을 BAM-SAM-CRAM 으로 바꿔주는 용도입니다.&lt;br /&gt;
+ BAM -&amp;gt; SAM 파일도 가능하고, SAM -&amp;gt; BAM 으로도 가능합니다.&lt;br /&gt;
+ 기본적인 명령어는 다음과 같습니다:
+    &lt;pre&gt;&lt;code&gt;# 1번 용도
+ samtools view example.bam 2:10000-50000 -o example.sub.bam
+ # 2번 용도 1 - bam 파일을 sam 파일로 바꿀 때
+ samtools view example.bam -o output.sam
+ # 2번 용도 2 - sam 파일을 bam 파일로 바꿀 때
+ samtools view -b example.sam -o output.bam&lt;/code&gt;&lt;/pre&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;hr /&gt;
 &lt;p&gt;여기까지 samtools 설치부터 indexing, editing 까지 살펴보았습니다.&lt;br /&gt;
-명령어가 무척 많아서 한 글에서 다 다루기 힘들군요.&lt;br /&gt;
-앞으로 시간이 더 남으면 뒷부분을 추가해보도록 하겠습니다.&lt;br /&gt;
-samtools view, flagstat 등 유용하게 쓰이는 명령어들이 매우 많거든요.&lt;br /&gt;
+명령어가 무척 많아서 한 글에서 다 다루는게 매우 힘들군요.&lt;br /&gt;
+부족한 부분이 많을텐데, 앞으로 조금씩 보완해나가도록 하겠습니다.&lt;br /&gt;
+samtools view, flagstat 등은 여러 방면에서 유용하게 쓰이는 명령어이므로 알아두시면 편리하실 거에요.&lt;br /&gt;
 그럼 다음 시간에 만나요!&lt;/p&gt;
 </description>
         <pubDate>Sun, 18 Oct 2020 00:00:00 +0900</pubDate>
