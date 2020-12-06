@@ -58,7 +58,7 @@ ChIP-seq 기술은 특정 단백질이 붙어있는 DNA 영역을 알아낼 때 
 DNA 의 cytosine 서열의 경우 methyl기가 붙기도 하는데요, 이런 부분들은 보통 DNA가 서로 엉겨서 inactive region 이 됩니다.
 즉 주변의 유전자들이 repression, 비활성화 된다는 뜻인데요.
 이렇게 DNA-methylation 작용은 유전자 조절에 중요하기 때문에, methylated sites 를 알아내기 위한 연구가 계속되어 왔습니다.
-작성해놓은 기술보다 더 다양한 기술들이 많은데요, 관심있으신 분들은 (링크)[https://dx.doi.org/10.1186%2Fs13072-016-0075-3]를 참조해보세요!
+작성해놓은 기술보다 더 다양한 기술들이 많은데요, 관심있으신 분들은 [링크](https://dx.doi.org/10.1186%2Fs13072-016-0075-3)를 참조해보세요!
 
 각 기술들의 차이를 간단히 살펴보면 다음과 같습니다.
 MeDIP-seq 은 ChIP-seq 과 유사하게, anti-methylcytosine antibody 를 사용해 methylated DNA를 침전시켜 얻어냅니다.
