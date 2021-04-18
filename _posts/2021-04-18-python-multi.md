@@ -260,6 +260,7 @@ join() 을 하고 나니 모든 thread 가 잘 종료되었군요.
 ---
 ### 예제 3: multiprocessing 모듈
 이번엔 multiprocessing 모듈로 간단하게 병렬처리를 확인해보겠습니다.
+원본 문서는 다음 링크를 참조해주세요: [문서 링크](https://docs.python.org/3.8/library/multiprocessing.html)
 설명 글에는 대부분의 API 가 threading 모듈과 비슷하게 작성되었다고 하네요.
 
 multiprocessing 으로 작업하는 방법이 두 가지 있습니다.
