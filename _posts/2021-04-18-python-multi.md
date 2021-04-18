@@ -12,7 +12,7 @@ categories: [programming, python]
 
 ---
 이번 글은 많은 글들을 참조해서 작성했습니다.
-주로 Gennaro S. Rodrigues 가 작년에 작성한 글에서 따와서 번역해가며 적어보려 해요: [링크](https://towardsdatascience.com/multithreading-vs-multiprocessing-in-python-3afeb73e105f)
+주로 Gennaro S. Rodrigues 가 작년에 작성한 글에서 따와서 번역해가며 적어보려 해요: [문서 링크](https://towardsdatascience.com/multithreading-vs-multiprocessing-in-python-3afeb73e105f)
 
 ---
 
