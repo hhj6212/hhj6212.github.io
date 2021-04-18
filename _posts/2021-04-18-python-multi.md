@@ -79,7 +79,7 @@ multiprocessing 은 말 그대로 새로운 process 를 만들어서 계산할 �
 ### 간단한 예제들
 이제 아래에서는 정말 간단한 예제 몇개를 찾아보려 합니다.
 어떻게 작동시키는지만 확인하는 코드라 실제 효율을 체크해보진 않았어요.
-실제로 얼마나 효율이 좋은지는 원문의 jupyter notebook 으로 된 예제를 한번 살펴보시는걸 추천합니다!
+실제로 얼마나 효율이 좋은지는 원문의 jupyter notebook 으로 된 예제를 한번 살펴보시는걸 추천합니다! [해당 링크](https://github.com/gennsev/Python_MultiProc_Examples/blob/master/Example.ipynb)
 
 병렬 처리를 할 수 있는 python module 이 여러가지가 있습니다.
 여기서는 
