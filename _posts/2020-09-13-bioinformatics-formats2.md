@@ -18,7 +18,8 @@ Genome 상에서 어느 위치에 원래는 어떤 서열인데 어떤 유전변
 이 VCF 파일 형식은 1000 genome project와 같이 대규모 시퀀싱 프로젝트가 진행되면서 만들어졌다고 해요.
 VCF 파일은 아래와 같이 생겼습니다. 크게 두 부분으로 나뉘어져 있죠. header 와 body 입니다. 
 
-<pre><code>##fileformat=VCFv4.3
+~~~shell
+##fileformat=VCFv4.3
 ##fileDate=20090805
 ##source=myImputationProgramV3.1
 ##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta
@@ -41,7 +42,8 @@ VCF 파일은 아래와 같이 생겼습니다. 크게 두 부분으로 나뉘�
 20     17330    .          T     A      3     q10     NS=3;DP=11;AF=0.017               GT:GQ:DP:HQ  0|0:49:3:58,50  0|1:3:5:65,3     0/0:41:3
 20     1110696  rs6040355  A     G,T    67    PASS    NS=2;DP=10;AF=0.333,0.667;AA=T;DB GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2     2/2:35:4
 20     1230237  .          T     .      47    PASS    NS=3;DP=13;AA=T                   GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51   0/0:61:2
-20     1234567  microsat1  GTC   G,GTCT 50    PASS    NS=3;DP=9;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2         1/1:40:3</code></pre>
+20     1234567  microsat1  GTC   G,GTCT 50    PASS    NS=3;DP=9;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2         1/1:40:3
+~~~
 *VCF 파일의 예시. header 20줄과 body 6줄로 이루어져 있군요.*
 
 **header** 는 샵 두개 (##)으로 시작하는 VCF의 가장 윗부분을 말합니다.
@@ -76,9 +78,11 @@ bed 파일은 최소 3개의 컬럼만 있으면 되는데, 이에 컬럼이 추
 용도에 따라 필요한 컬럼 수가 다른거죠.
 그래서 컬럼 수에 따라서 확장자 이름을 bed3, bed4, bed12 등으로 나타내기도 합니다.
 
-<pre><code>track name=pairedReads description="Clone Paired Reads" useScore=1
+~~~shell
+track name=pairedReads description="Clone Paired Reads" useScore=1
 chr22 1000 5000 cloneA 960 + 1000 5000 0 2 567,488, 0,3512
-chr22 2000 6000 cloneB 900 - 2000 6000 0 2 433,399, 0,3601</code></pre>
+chr22 2000 6000 cloneB 900 - 2000 6000 0 2 433,399, 0,3601
+~~~
 *일반적인 bed 파일의 예시.*
 
 bed 파일도 header 와 body 로 나뉘어져 있습니다.
@@ -86,11 +90,13 @@ bed 파일도 header 와 body 로 나뉘어져 있습니다.
 그런데 이 bed 파일이 UCSC genome browser 등에서 쓰이는 경우, header 에는 추가적인 정보가 들어가기도 합니다.
 추가적인 정보는 browser에서 이 파일을 사용했을 때, 어느 위치를 보여줄 것인지, 어떤 포맷으로 보여줄지 등 다양합니다.
 
-<pre><code>browser position chr7:127471196-127495720
+~~~shell
+browser position chr7:127471196-127495720
 browser hide all
 track name="ItemRGBDemo" description="Item RGB demonstration" visibility=2 itemRgb="On"
 chr7    127471196  127472363  Pos1  0  +  127471196  127472363  255,0,0
-chr7    127472363  127473530  Pos2  0  +  127472363  127473530  255,0,0</code></pre>
+chr7    127472363  127473530  Pos2  0  +  127472363  127473530  255,0,0
+~~~
 *추가 정보가 header 에 들어있는 bed 파일의 예시.*
 
 **body** 부분은 탭으로 나뉘어져 있습니다.
@@ -113,8 +119,10 @@ chr7    127472363  127473530  Pos2  0  +  127472363  127473530  255,0,0</code></
 GFF 는 DNA/RNA/protein 서열을 설명할 때 사용되는 파일 형식입니다.
 한 줄에는 한 영역 (feature) 에 대한 설명이 9개 컬럼에 걸쳐서 적혀있습니다.
 아래는 그 예시입니다:
-<pre><code>chr22	TeleGene	enhancer	10000000	10001000	500	+	.	touch1
-chr22	TeleGene	promoter	10010000	10010100	900	+	.	touch1</code></pre>
+~~~shell
+chr22	TeleGene	enhancer	10000000	10001000	500	+	.	touch1
+chr22	TeleGene	promoter	10010000	10010100	900	+	.	touch1
+~~~
 
 각 컬럼이 어떤건지 살펴볼까요?
 1. sequence: 해당 서열의 이름
@@ -140,8 +148,10 @@ GTF 파일에는 gene, exon 등의 feature 말고도 5'UTR, 3'UTR, inter, intron
 각 attribute 는 해당 feature에 대한 설명이 type-value 짝을 이루어서 적혀 있어요.
 
 9번째 컬럼만 보면 다음과 같이 되어 있습니다.
-<pre><code>gene_id "ENSG00000223972"; gene_name "DDX11L1"; gene_source "havana"; gene_biotype "transcribed_unprocessed_pseudogene"; 
-gene_id "ENSG00000223972"; transcript_id "ENST00000456328"; gene_name "DDX11L1"; gene_sourc e "havana"; gene_biotype "transcribed_unprocessed_pseudogene"; transcript_name "DDX11L1-002"; transcript_source "havana";</code></pre>
+~~~shell
+gene_id "ENSG00000223972"; gene_name "DDX11L1"; gene_source "havana"; gene_biotype "transcribed_unprocessed_pseudogene"; 
+gene_id "ENSG00000223972"; transcript_id "ENST00000456328"; gene_name "DDX11L1"; gene_sourc e "havana"; gene_biotype "transcribed_unprocessed_pseudogene"; transcript_name "DDX11L1-002"; transcript_source "havana";
+~~~
 
 GTF 에는 해당 feature에 대해 더 자세한 설명이 적혀있는 걸 알 수 있습니다.
 
