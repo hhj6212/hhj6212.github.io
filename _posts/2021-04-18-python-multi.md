@@ -98,7 +98,8 @@ concurrent.features 모듈은 여러 작업을 비동기로 실행할 수 있는
 아래 예제는 3초 기다렸다가 두 숫자의 합을 출력하는 print_sum 이라는 함수를 병렬처리하는 예제입니다.
 먼저 multi-threading 으로 진행 해보았습니다.
 
-<pre><code>import time
+~~~python
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 def print_sum(num1, num2):
@@ -113,23 +114,27 @@ def main():
     print("done!")
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()
+~~~
 
 executor 라는 오브젝트를 만들고, 각 함수를 submit 이라는 메서드로 실행했습니다.
 print_sum 함수를 세 번 실행하고, 각각의 실행마다 현재 시간을 같이 출력하게 했습니다.
 만약 병렬처리가 정말로 잘 이루어졌다면 이 세 번의 함수 실행이 거의 동일한 시간을 출력해주겠죠?
 병렬처리가 안되고 순서대로 출력된다면 서로 3초의 시간 간격이 있을 거에요.
 결과는 이렇습니다:
-<pre><code><b>$ python3 threading1.py</b>
+~~~shell
+$ python3 threading1.py
 3 Sun Apr 18 14:30:27 2021
 5 Sun Apr 18 14:30:27 2021
 7 Sun Apr 18 14:30:27 2021
-done!</code></pre>
+done!
+~~~
 출력된 시간을 보니 초단위가 같군요. 함수가 병렬로 실행됐음을 확인할 수 있습니다.
 
 똑같은 작업을 multi-processing 으로 진행해봤습니다.
 
-<pre><code>import time
+~~~python
+import time
 from concurrent.futures import ProcessPoolExecutor
 
 def print_sum(num1, num2):
@@ -144,14 +149,17 @@ def main():
     print("done!")
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()
+~~~
 
 실행 결과입니다:
-<pre><code><b>$ python3 processing1.py</b>
+~~~shell
+$ python3 processing1.py
 3 Sun Apr 18 14:35:48 2021
 5 Sun Apr 18 14:35:48 2021
 7 Sun Apr 18 14:35:48 2021
-done!</code></pre>
+done!
+~~~
 
 multiprocessing 역시 동시에 잘 진행되는 것을 확인했습니다.
 이제 여러 작업이 있을 때 IO-bound tasks 인지 CPU-bound tasks 인지에 따라 선택해서 작업하면 되겠군요.
@@ -166,7 +174,8 @@ threading library 에 대한 원본 문서는 [이 링크](https://docs.python.o
 Thread 오브젝트를 만든 뒤, start() 메서드를 사용하면 해당 작업이 실행됩니다.
 이 역시 병렬처리가 제대로 되었는지 확인하기 위해 시간을 출력해보았습니다.
 
-<pre><code>import threading
+~~~python
+import threading
 import time
 
 def print_sum(num1, num2):
@@ -184,13 +193,16 @@ def main():
     print("done!")
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()
+~~~
 실행 결과입니다:
-<pre><code>$ python3 threading2.py
+~~~shell
+$ python3 threading2.py
 done!
 3 Sun Apr 18 15:15:59 2021
 5 Sun Apr 18 15:15:59 2021
-7 Sun Apr 18 15:15:59 2021</code></pre>
+7 Sun Apr 18 15:15:59 2021
+~~~
 똑같은 시간이 출력된 걸 보니 병렬처리가 잘 이루어졌군요.
 그리고 맨 아래에 출력하게 한 "done1" 부분이 가장 먼저 출력된 것을 보니, start()를 하면 thread 하나가 독립적으로 작업을 시작하나 봅니다.
 
@@ -206,7 +218,8 @@ main thread 는 내부적으로 모든 thread 가 다 끝날때까지 기다립�
 이 때, main thread 자체는 join 할 수 없기 때문에 넘어가야 합니다.
 
 예제를 한번 살펴보겠습니다:
-<pre><code>import threading
+~~~python
+import threading
 import time
 
 def print_sum(num1, num2):
@@ -227,23 +240,25 @@ def main():
         if thread is main_thread:
             continue
         thread.join()
-        print(thread.name, thread.isAlive())
+        print(thread.name, thread.is_alive())
 
     print("done!")
 
     for thread in threading.enumerate():
-        print(thread.name, thread.isAlive())
+        print(thread.name, thread.is_alive())
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()
+~~~
 먼저 현재 가지고 있는 모든 thread 를 threading.enumerate() 로 얻어옵니다.
 그 다음, 각 thread 작업을 join() 메서드로 종료를 기다립니다.
 이 때, main thread 는 넘어가도록 합니다.
-각 thread 의 이름을 확인하기 위해 thread.name 으로 출력하고, 각 thread 가 잘 종료되었는지 (아직 살아있는지) isAlive() 로 확인합니다.
+각 thread 의 이름을 확인하기 위해 thread.name 으로 출력하고, 각 thread 가 잘 종료되었는지 (아직 살아있는지) is_alive() 로 확인합니다.
 마지막으로, join 으로 모두 끝낸 다음 (print("done!") 까지 한 다음) thread 가 어떤 것이 남아있는지 출력해서 확인했습니다.
 
 다음은 실행 결과입니다:
-<pre><code><b>$ python3 threading3.py</b>
+~~~shell
+$ python3 threading3.py
 3 Sun Apr 18 16:31:41 2021
 5 Sun Apr 18 16:31:41 2021
 7 Sun Apr 18 16:31:41 2021
@@ -251,7 +266,8 @@ Thread-1 False
 Thread-2 False
 Thread-3 False
 done!
-MainThread True</code></pre>
+MainThread True
+~~~
 병렬처리는 잘 진행됐습니다.
 join() 을 하고 나니 모든 thread 가 잘 종료되었군요.
 그리고 "done!" 이 출력된 이후 나머지 thread 가 뭐가 있는지 확인해보니 MainThread 말고는 없군요.
@@ -269,7 +285,8 @@ Pool 은 a pool of worker processes 를 나타낸다고 하네요.
 Pool 에 있는 다양한 메서드로 병렬처리가 가능합니다. map, apply 등등..
 여기서는 starmap 이라는 걸 사용해서 진행해보도록 하겠습니다.
 
-<pre><code>import multiprocessing
+~~~python
+import multiprocessing
 import time
 
 def print_sum(num1, num2):
@@ -281,22 +298,26 @@ def main():
         pool.starmap(print_sum, [(1, 2), (2, 3), (3, 4)])
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()
+~~~
 
 starmap 은 해당 함수에 인자를 전달해주는데, map 과 다른 점은 여러 개의 인자를 한번에 전달할 수 있다는 것입니다.
 여기서 Pool(3) 은 총 세 개 까지의 worker process 를 사용한다는 뜻입니다.
 즉 process 를 최대 3개 까지만 사용한다는 거죠.
 다음은 실행 결과입니다.
-<pre><code><b>$ python3 processing1.py</b>
+~~~shell
+$ python3 processing1.py
 3 Sun Apr 18 16:54:27 2021
 5 Sun Apr 18 16:54:27 2021
-7 Sun Apr 18 16:54:27 2021</code></pre>
+7 Sun Apr 18 16:54:27 2021
+~~~
 동시에 잘 진행된 것 같네요.
 
 이번엔 Pool 이 아닌 **Process** 클래스를 사용해볼게요.
 이 작업에서는 위에서 봤던 threading 과 비슷한 메서드들이 많이 나옵니다.
 
-<pre><code>import multiprocessing
+~~~python
+import multiprocessing
 import time
 
 
@@ -318,15 +339,18 @@ def main():
 
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()
+~~~
 
 아까 threading 에서 본 코드와 매우 유사하죠?
 실행 결과도 다음과 같이 거의 같습니다:
-<pre><code><b>$ python3 processing2.py</b>
+~~~shell
+$ python3 processing2.py
 done!
 3 Sun Apr 18 16:59:00 2021
 5 Sun Apr 18 16:59:00 2021
-7 Sun Apr 18 16:59:00 2021</code></pre>
+7 Sun Apr 18 16:59:00 2021
+~~~
 아까처럼 "done!" 이 가장 먼저 출력됐네요.
 
 
@@ -335,7 +359,8 @@ done!
 다만 multiprocessing 에는 threading 의 enumerate 메서드 대신 active_children() 이 있습니다.
 이걸로 아까처럼 모든 child process 를 join() 으로 종료해보도록 할게요.
 
-<pre><code>import multiprocessing
+~~~python
+import multiprocessing
 import time
 
 def print_sum(num1, num2):
@@ -361,17 +386,19 @@ def main():
         print(process.name, process.is_alive())
 
 if __name__ == "__main__":
-    main()</code></pre>
-threading 이랑 좀 다른 점이, threading 에서는 isAlive() 였는데 여기서는 is_alive() 네요. 왜 다르게 했을까...
+    main()
+~~~
 다음은 실행 결과입니다:
-<pre><code><b>$ python3 processing3.py</b>
+~~~shell
+$ python3 processing3.py
 5 Sun Apr 18 17:17:21 2021
 3 Sun Apr 18 17:17:21 2021
 7 Sun Apr 18 17:17:21 2021
 Process-3 55166 False
 Process-2 55165 False
 Process-1 55164 False
-done!</code></pre>
+done!
+~~~
 
 아까 threading 이랑의 차이점이라 하면, threading 은 '모든 thread' 를 가져오는 메서드가 있다면 여기서는 '모든 active children process' 를 가져오는 메서드라는 것이죠.
 따라서 여기서 main process 인지 검사할 필요가 없습니다.

@@ -168,7 +168,7 @@ blockquote > :last-child { margin-bottom: 0; }
 blockquote i, blockquote em { font-style: normal; }
 
 /** Code formatting */
-pre, code { font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace; font-size: 12px; border: 1px solid #e8e8e8; border-radius: 3px; color: black; background-color: #ceffd2; }
+pre, code { font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace; font-size: 12px; border: 1px solid #e8e8e8; border-radius: 3px; color: black; }
 
 code { padding: 1px 5px; }
 
