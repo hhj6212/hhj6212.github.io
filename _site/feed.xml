@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 09 May 2021 22:29:25 +0900</pubDate>
-    <lastBuildDate>Sun, 09 May 2021 22:29:25 +0900</lastBuildDate>
+    <pubDate>Sun, 16 May 2021 22:17:41 +0900</pubDate>
+    <lastBuildDate>Sun, 16 May 2021 22:17:41 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -3529,14 +3529,19 @@ VCF 파일은 아래와 같이 생겼습니다. 크게 두 부분으로 나뉘�
 20     1230237  &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;          T     &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;      47    PASS    &lt;span class=&quot;nv&quot;&gt;NS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;13&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;AA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;T                   GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51   0/0:61:2
 20     1234567  microsat1  GTC   G,GTCT 50    PASS    &lt;span class=&quot;nv&quot;&gt;NS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;9&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;AA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;G                    GT:GQ:DP     0/1:35:4        0/2:17:2         1/1:40:3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;VCF 파일의 예시. header 20줄과 body 6줄로 이루어져 있군요.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;VCF 파일의 예시. header 21줄과 body 5줄로 이루어져 있군요.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;header&lt;/strong&gt; 는 샵 두개 (##)으로 시작하는 VCF의 가장 윗부분을 말합니다.&lt;br /&gt;
-header 부분은 VCF 파일의 전반적인 정보를 가지고 있습니다.&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;header&lt;/strong&gt; 는 샵 (#)으로 시작하는 VCF의 가장 윗부분을 말합니다.&lt;br /&gt;
+샵 두개 (##) 로 시작하는 metadata 부분과, 샵 하나 (#)로 시작하는 header 으로 되어있죠.&lt;/p&gt;
+
+&lt;p&gt;metadata 부분은 VCF 파일의 전반적인 정보를 가지고 있습니다.&lt;br /&gt;
 파일 형식, 날짜, 그리고 body의 INFO/FORMAT column에서 사용되는 단어들에 대한 설명이 포함되어 있죠.&lt;br /&gt;
 예를 들어 body 의 INFO column에 있는 정보 중 NS=3 이란 정보가 있는데, header의 설명을 보면 INFO=&amp;lt;ID=NS, … Description=”Number of Samples With Data”&amp;gt; 라고 되어있으니 NS가 샘플 수라는 걸 알 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;body&lt;/strong&gt; 부분은 샵 하나 (#)로 시작하는 컬럼 제목부분과 실제 데이터부분으로 되어있습니다.&lt;br /&gt;
+&lt;p&gt;header 부분은 body 에 적혀있는 데이터의 각 열이 어떤 걸 뜻하는지를 나타내는 컬럼 제목부분 입니다.&lt;br /&gt;
+즉 이 부분은 body 의 데이터와 같은 수의 항목을 가지고 있지요.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;body&lt;/strong&gt; 부분은 실제 변이들의 데이터로 되어있습니다.&lt;br /&gt;
 body에는 꼭 들어가야 하는 8개의 컬럼이 있는데요, 순서대로 다음과 같습니다:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;#CHROM: 염색체 정보&lt;/li&gt;
