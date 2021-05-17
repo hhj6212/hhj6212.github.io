@@ -46,12 +46,16 @@ VCF 파일은 아래와 같이 생겼습니다. 크게 두 부분으로 나뉘�
 ~~~
 *VCF 파일의 예시. header 21줄과 body 5줄로 이루어져 있군요.*
 
-**header** 는 샵 (#)으로 시작하는 VCF의 가장 윗부분을 말합니다.
+**header** 는 샵 (#) 으로 시작하는 VCF의 가장 윗부분을 말합니다.
 샵 두개 (##) 로 시작하는 metadata 부분과, 샵 하나 (#)로 시작하는 header 으로 되어있죠.
 
 metadata 부분은 VCF 파일의 전반적인 정보를 가지고 있습니다.
 파일 형식, 날짜, 그리고 body의 INFO/FORMAT column에서 사용되는 단어들에 대한 설명이 포함되어 있죠.
-예를 들어 body 의 INFO column에 있는 정보 중 NS=3 이란 정보가 있는데, header의 설명을 보면 INFO=<ID=NS, ... Description="Number of Samples With Data"> 라고 되어있으니 NS가 샘플 수라는 걸 알 수 있습니다.
+예를 들어 body 의 INFO column에 있는 정보 중 NS=3 이란 정보가 있는데, header의 설명을 보면
+~~~shell
+INFO=<ID=NS, ... Description="Number of Samples With Data">
+~~~
+라고 되어 있으니 NS가 샘플 수라는 걸 알 수 있습니다.
 
 header 부분은 body 에 적혀있는 데이터의 각 열이 어떤 걸 뜻하는지를 나타내는 컬럼 제목부분 입니다.
 즉 이 부분은 body 의 데이터와 같은 수의 항목을 가지고 있지요.
