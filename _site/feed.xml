@@ -5,9 +5,363 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 16 May 2021 22:19:11 +0900</pubDate>
-    <lastBuildDate>Sun, 16 May 2021 22:19:11 +0900</lastBuildDate>
+    <pubDate>Sun, 30 May 2021 15:29:09 +0900</pubDate>
+    <lastBuildDate>Sun, 30 May 2021 15:29:09 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>Human reference genome - GRCh37 과 GRCh38 에 대하여</title>
+        <description>&lt;p&gt;안녕하세요 한헌종입니다.&lt;br /&gt;
+오늘은 사람의 reference genome 에 대해 이야기하려 해요.&lt;br /&gt;
+그리고 가장 널리 쓰이는 GRCh37 와 GRCh38 이 어떻게 다른지 이야기해보려 합니다.&lt;br /&gt;
+이 내용은 다음 논문의 내용을 요약한 것입니다: &lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0888754317300058?via%3Dihub&quot;&gt;Guo et al., Genomics, 2017&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;reference genome 을 간단히 설명하자면,&lt;br /&gt;
+어떤 개체의 genome 서열을 대표하는 뉴클레오티드 서열 데이터를 말합니다.&lt;br /&gt;
+이중 사람의 reference genome 도 존재하죠.&lt;br /&gt;
+그런데, 사람마다 서열이 조금씩 다르기 때문에 사람의 reference genome 서열과 나의 서열은 약간 다를 것입니다.&lt;br /&gt;
+사람의 reference genome 은 ‘대표’되는 서열을 만들기 위해 여러명이 기증한 샘플로 만들어낸 거죠.&lt;/p&gt;
+
+&lt;p&gt;reference genome 을 만드는 기관은 &lt;strong&gt;GRC (Genome Reference Consortium)&lt;/strong&gt; 입니다.&lt;br /&gt;
+그리고 여기서 만든 reference genome 중 &lt;strong&gt;사람 (h)&lt;/strong&gt; 의 &lt;strong&gt;버전 38&lt;/strong&gt; 에 해당하는 것이 바로 우리가 흔히 보는 &lt;strong&gt;GRCh38&lt;/strong&gt; 인 겁니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;그럼 reference genome 은 어떻게 만들까요?&lt;/strong&gt;&lt;br /&gt;
+genome 을 알아내기 위해서는 ‘genome assembly’ 라는 과정을 거쳐야 합니다.&lt;br /&gt;
+이는 짧은 서열인 read 들을 서로 공통된 부분끼리 붙여서 점점 길게 붙여나가는 과정이죠.&lt;br /&gt;
+아래 그림에 간단히 설명되어 있습니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/210530/figure1.jpeg&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;출처: Guo et al., Genomics (2017)&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그림을 보시면 Reads 를 붙여서 contig 를 만들고, 다시 contig 들을 붙여서 scaffold 를 만들고,&lt;br /&gt;
+마지막으로 이 scaffold 들을 붙여 염색체 하나를 이루게 되는 것입니다.&lt;/p&gt;
+
+&lt;p&gt;현재 기술로는 ‘완벽하게 정확한’ genome sequence 를 알아내는 것이 힘듭니다.&lt;br /&gt;
+그래서 계속 수정에 수정을 거쳐 더 정확한 reference genome 버전이 만들어지는 것이죠.&lt;br /&gt;
+완벽한 genome sequence 를 만들기 힘든 이유를 간단히 말하자면, &lt;br /&gt;
+&lt;strong&gt;Error-prone short reads 를 통해 error-prone repeat 을 가진 large sequence 를 조립하는 것이 매우 힘들기 때문입니다.&lt;/strong&gt;&lt;br /&gt;
+그래서 가장 최신 버전인 GRCh38 조차도 아직 서열을 알 수 없는 Gap 부분이 많이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;최근 GRC 에서 이런 에러와 gap 을 해결한 human reference genoem 을 만들었다고 하네요&lt;/strong&gt;&lt;br /&gt;
+얼마전까지만 해도 완벽하게 만들 수 없다고 생각했는데 말이죠.&lt;br /&gt;
+관심 있으신 분들은 이 논문을 참고해보세요: &lt;a href=&quot;https://www.biorxiv.org/content/10.1101/2021.05.26.445798v1&quot;&gt;링크&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;grch37-과-grch38-의-차이점&quot;&gt;GRCh37 과 GRCh38 의 차이점&lt;/h3&gt;
+&lt;p&gt;이제 본론으로 돌아와서, GRCh37 과 GRCh38 이 어떻게 다른지 이야기 해볼게요.&lt;br /&gt;
+2009 년, GRC 는 HG19 라고도 불리는 새로운 버전의 human reference genome GRCh37 을 발표합니다.&lt;br /&gt;
+이 때는 일루미나의 high-throughput sequencing 기술을 사용했습니다.&lt;br /&gt;
+몇년 뒤인 2013년, GRC 는 또 다른 reference genome 인 GRCh38 을 발표하게 됩니다.&lt;br /&gt;
+이 때는 &lt;strong&gt;더 많은 donor sample&lt;/strong&gt; 을 사용했으며, &lt;strong&gt;Sanger sequencing&lt;/strong&gt; 기술을 사용해 더 길고 정확한 reads 를 만들었습니다.&lt;br /&gt;
+당연히 더 정확한 서열을 만들어냈겠죠?&lt;br /&gt;
+실제로 GRCh37 이 가지고 있던 문제들을 1000개 이상 해결했다고 합니다.&lt;/p&gt;
+
+&lt;p&gt;그럼 이 두 가지 reference genome 이 실제 분석상으로 어떤 차이가 있을까요?&lt;br /&gt;
+논문에서 언급한 두 reference genome 의 차이점을 아래 표에 간단히 정리해보았어요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Feature&lt;/th&gt;
+      &lt;th&gt;GRCh37&lt;/th&gt;
+      &lt;th&gt;GRCh38&lt;/th&gt;
+      &lt;th&gt;change&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Total nucleotides&lt;/td&gt;
+      &lt;td&gt;3,095,677,412&lt;/td&gt;
+      &lt;td&gt;3,088,269,832&lt;/td&gt;
+      &lt;td&gt;7,407,580 ▼&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;# of “N” (gap / unannotated regions)&lt;/td&gt;
+      &lt;td&gt;234,350,281&lt;/td&gt;
+      &lt;td&gt;150,630,719&lt;/td&gt;
+      &lt;td&gt;83,719,562 ▼&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GC contents&lt;/td&gt;
+      &lt;td&gt;1,170,371,008&lt;/td&gt;
+      &lt;td&gt;1,200,551,672&lt;/td&gt;
+      &lt;td&gt;30,180,664 ▲&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Exome size&lt;/td&gt;
+      &lt;td&gt;75,231,228&lt;/td&gt;
+      &lt;td&gt;95,505,476&lt;/td&gt;
+      &lt;td&gt;20,274,248 ▲&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;# of total exon&lt;/td&gt;
+      &lt;td&gt;327,058&lt;/td&gt;
+      &lt;td&gt;457,748&lt;/td&gt;
+      &lt;td&gt;130,690▲&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;median # of exons per gene&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+      &lt;td&gt;19&lt;/td&gt;
+      &lt;td&gt;6▲&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;median # of nucleotides per exon&lt;/td&gt;
+      &lt;td&gt;140&lt;/td&gt;
+      &lt;td&gt;146&lt;/td&gt;
+      &lt;td&gt;6▲&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;결과를 보시면, 먼저 전체 nucleotide 수는 0.2% 정도 줄어들었습니다.&lt;br /&gt;
+그런데 이보다 더 중요한 건, 바로 “N” 으로 표시된 &lt;strong&gt;gap 이 줄어들었다는 겁니다.&lt;/strong&gt;&lt;br /&gt;
+gap 은 centromere 나 telomere 같이 알아내기 힘든 영역을 일단 N 이라고 표시한 부분인데요,&lt;br /&gt;
+GRCh37 보다 GRCh38 에서는 이런 N 의 수가 8천만개 이상 줄었다는 것을 알 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;여기서 또 주목할 점은 바로 &lt;strong&gt;늘어난 Exome 의 크기&lt;/strong&gt;입니다.&lt;br /&gt;
+GRCh37 에 비해 GRCh38 에서 2천만 base pair 만큼, 약 26% 나 늘어난 것을 알 수 있습니다.&lt;br /&gt;
+Exon 의 개수도 32만 개에서 45만 개로 40% 정도 늘어났습니다.&lt;br /&gt;
+Exome 영역은 genome annotation 에 큰 영향을 주기 때문에, 이렇게 Exome 영역이 늘어났다는 것은 우리가 genome 에서 더 많은 정보를 얻을 수 있게 되었다는 뜻입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;실제-분석에-사용했을-때도-좋을까&quot;&gt;실제 분석에 사용했을 때도 좋을까?&lt;/h3&gt;
+&lt;p&gt;위의 정리된 표만 봐서는 아직 GRCh38 이 얼마나 더 좋은건지 알기 힘들 수 있습니다.&lt;br /&gt;
+그래서 위 논문에서는 실제 Alignment, Variant call 등의 분석을 진행했을 때 얼마나 좋아지는지도 연구해놓았어요.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Alignment rate 비교&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;먼저 해본 것은 30개 샘플에서 얻은 WES 데이터를 각 reference genome 에 alignment 해본 거에요.&lt;br /&gt;
+아래 그림에는 이 샘플들의 Mapping rate, Capture efficiency 등을 비교한 결과가 정리되어 있습니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/210530/figure2.jpg&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;출처: Guo et al., Genomics (2017)&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이 결과를 보시면, 먼저 mapping 자체는 두 reference genome 에서 큰 차이가 없는 걸 알 수 있어요.&lt;br /&gt;
+&lt;strong&gt;대신, Capture efficiency, 즉 Exome 에 mapping 된 read 비율이 3.2 % 정도 증가했습니다 (그림 B).&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;또한, Intron mapping rate 의 비율은 2.7 % 정도 줄어들었다고 하는군요 (그림 D).&lt;/strong&gt;&lt;br /&gt;
+이는 GRCh38 에서 exome 이 더 잘 정의되어 있기 때문에 생긴 결과라고 볼 수 있습니다.&lt;br /&gt;
+mapping rate 가 높아지면 더 정확한 분석을 할 수 있으니, GRCh38 을 사용하는게 더 좋을 것입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Variant calling 비교&lt;/strong&gt;&lt;br /&gt;
+alignment 를 진행한 뒤, 논문에서는 30 샘플의 WES 데이터에 어떤 변이가 각각 얼마나 있는지를 알아봤다고 합니다.&lt;br /&gt;
+alignment 결과를 보고 reference genome 과 비교해서 변이를 찾는 과정을 &lt;strong&gt;variant calling&lt;/strong&gt; 이라고 합니다.&lt;br /&gt;
+과연 GRCh37 을 썼을 때와 GRCh38 을 썼을 때 결과가 어떻게 달라졌을까요?&lt;br /&gt;
+아래 표는 30개 WES 샘플에서 발견한 SNV 변이의 종류와 그 수를 나타낸 거에요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Categories&lt;/th&gt;
+      &lt;th&gt;Grch37&lt;/th&gt;
+      &lt;th&gt;Grch38&lt;/th&gt;
+      &lt;th&gt;Difference&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Downstream&lt;/td&gt;
+      &lt;td&gt;29,647&lt;/td&gt;
+      &lt;td&gt;29,841&lt;/td&gt;
+      &lt;td&gt;194&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Exonic&lt;/td&gt;
+      &lt;td&gt;46,524&lt;/td&gt;
+      &lt;td&gt;46,363&lt;/td&gt;
+      &lt;td&gt;− 161&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Exonic; splicing&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Intergenic&lt;/td&gt;
+      &lt;td&gt;2,627,378&lt;/td&gt;
+      &lt;td&gt;2,585,510&lt;/td&gt;
+      &lt;td&gt;− 41,868&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Intronic&lt;/td&gt;
+      &lt;td&gt;1,651,974&lt;/td&gt;
+      &lt;td&gt;1,642,466&lt;/td&gt;
+      &lt;td&gt;− 9508&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ncrna_exonic&lt;/td&gt;
+      &lt;td&gt;14,881&lt;/td&gt;
+      &lt;td&gt;15,107&lt;/td&gt;
+      &lt;td&gt;226&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ncrna_exonic; splicing&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ncrna_intronic&lt;/td&gt;
+      &lt;td&gt;215,486&lt;/td&gt;
+      &lt;td&gt;228,021&lt;/td&gt;
+      &lt;td&gt;12,535&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ncrna_splicing&lt;/td&gt;
+      &lt;td&gt;77&lt;/td&gt;
+      &lt;td&gt;76&lt;/td&gt;
+      &lt;td&gt;− 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Splicing&lt;/td&gt;
+      &lt;td&gt;146&lt;/td&gt;
+      &lt;td&gt;138&lt;/td&gt;
+      &lt;td&gt;− 8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Upstream&lt;/td&gt;
+      &lt;td&gt;26,203&lt;/td&gt;
+      &lt;td&gt;25,884&lt;/td&gt;
+      &lt;td&gt;− 319&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Upstream; downstream&lt;/td&gt;
+      &lt;td&gt;971&lt;/td&gt;
+      &lt;td&gt;1213&lt;/td&gt;
+      &lt;td&gt;242&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Utr3&lt;/td&gt;
+      &lt;td&gt;36,065&lt;/td&gt;
+      &lt;td&gt;36,031&lt;/td&gt;
+      &lt;td&gt;− 34&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Utr5&lt;/td&gt;
+      &lt;td&gt;7076&lt;/td&gt;
+      &lt;td&gt;7176&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Utr5; Utr3&lt;/td&gt;
+      &lt;td&gt;17&lt;/td&gt;
+      &lt;td&gt;17&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Total&lt;/td&gt;
+      &lt;td&gt;4,656,461&lt;/td&gt;
+      &lt;td&gt;4,617,859&lt;/td&gt;
+      &lt;td&gt;− 38,602&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;가장 마지막에 있는 Total 을 보시면, 발견한 SNV 변이의 수가 GRCh38 에서 38,602 개 만큼 줄었어요.&lt;br /&gt;
+그리고 Exonic, 즉 exon 영역에 발생한 변이의 수 역시 161 개 줄었네요.&lt;br /&gt;
+이렇게만 보면 “GRCh38 을 써서 더 적은 변이를 발견했으니 안좋은 거 아닐까?” 라고 생각할 수 있어요.&lt;/p&gt;
+
+&lt;p&gt;하지만 다음 표를 보시면, GRCh38 에서 더 많은 정보를 얻을 수 있었다는 걸 알 수 있습니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Categories&lt;/th&gt;
+      &lt;th&gt;GRCh37&lt;/th&gt;
+      &lt;th&gt;GRCh38&lt;/th&gt;
+      &lt;th&gt;Difference&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nonsynonymous&lt;/td&gt;
+      &lt;td&gt;22,372&lt;/td&gt;
+      &lt;td&gt;22,538&lt;/td&gt;
+      &lt;td&gt;166&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Stopgain&lt;/td&gt;
+      &lt;td&gt;223&lt;/td&gt;
+      &lt;td&gt;231&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Stoploss&lt;/td&gt;
+      &lt;td&gt;27&lt;/td&gt;
+      &lt;td&gt;27&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Synonymous&lt;/td&gt;
+      &lt;td&gt;23,178&lt;/td&gt;
+      &lt;td&gt;23,270&lt;/td&gt;
+      &lt;td&gt;92&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Unknown&lt;/td&gt;
+      &lt;td&gt;735&lt;/td&gt;
+      &lt;td&gt;308&lt;/td&gt;
+      &lt;td&gt;− 427&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;total&lt;/td&gt;
+      &lt;td&gt;46,535&lt;/td&gt;
+      &lt;td&gt;46,374&lt;/td&gt;
+      &lt;td&gt;− 161&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이 표는 exon 영역 및 splicing 영역에서 일어난 SNV 들의 종류를 보여주고 있습니다.&lt;br /&gt;
+GRCh38 을 사용했을 때 전체 SNV 개수는 줄었지만, &lt;strong&gt;nonsynonymous 변이는 늘고 unknown 변이는 줄었어요.&lt;/strong&gt;&lt;br /&gt;
+즉, 아미노산 변화를 일으키는 변이를 더 찾을 수 있었고, 뭔지 알 수 없는 변이의 수가 줄었다는 거죠.&lt;br /&gt;
+이렇게 GRCh38 을 사용했을 때 더 많은 정보를 얻을 수 있게 되었다는 것을 논문을 통해 알 수 있었습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;결론-grch38-을-사용하는-것이-더-좋다&quot;&gt;결론: GRCh38 을 사용하는 것이 더 좋다&lt;/h3&gt;
+&lt;p&gt;논문의 결론 부분에서는 다음과 같이 언급하고 있습니다.&lt;br /&gt;
+“… we can safely conclude that GRCh38 is an improvement over GRCh37 and these improvements resulted in more accurate genomic analysis results. …”&lt;br /&gt;
+유전체 분석을 더 정확히 할 수 있다는 관점에서 GRCh38 이 GRCh37 보다 더 향상되었다는 것입니다.&lt;br /&gt;
+물론 아직 많은 연구기관에서 GRCh37 데이터를 생산 및 분석하고 있지만, 결국에는 GRCh38 혹은 그보다 더 발전된 버전의 reference genome 을 사용해야 하고, 머지않아 그렇게 될 겁니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 human reference genome 두 종류와, 그들이 어떻게 다른지, 그리고 분석에 어떤 영향을 미칠 수 있는지를 간단히 알아보았어요.&lt;br /&gt;
+더 자세한 내용은 논문에 있으니 한번 참고해보세요! 링크: &lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0888754317300058?via%3Dihub&quot;&gt;Guo et al., Genomics, 2017&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;그럼 다음 시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 30 May 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/tech/2021/05/30/grch37-grch38.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/tech/2021/05/30/grch37-grch38.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>tech</category>
+        
+      </item>
     
       <item>
         <title>pytest - 효율적인 테스트 코드 작성을 위한 모듈</title>
@@ -3531,12 +3885,15 @@ VCF 파일은 아래와 같이 생겼습니다. 크게 두 부분으로 나뉘�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;em&gt;VCF 파일의 예시. header 21줄과 body 5줄로 이루어져 있군요.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;header&lt;/strong&gt; 는 샵 (#)으로 시작하는 VCF의 가장 윗부분을 말합니다.&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;header&lt;/strong&gt; 는 샵 (#) 으로 시작하는 VCF의 가장 윗부분을 말합니다.&lt;br /&gt;
 샵 두개 (##) 로 시작하는 metadata 부분과, 샵 하나 (#)로 시작하는 header 으로 되어있죠.&lt;/p&gt;
 
 &lt;p&gt;metadata 부분은 VCF 파일의 전반적인 정보를 가지고 있습니다.&lt;br /&gt;
 파일 형식, 날짜, 그리고 body의 INFO/FORMAT column에서 사용되는 단어들에 대한 설명이 포함되어 있죠.&lt;br /&gt;
-예를 들어 body 의 INFO column에 있는 정보 중 NS=3 이란 정보가 있는데, header의 설명을 보면 INFO=&amp;lt;ID=NS, … Description=”Number of Samples With Data”&amp;gt; 라고 되어있으니 NS가 샘플 수라는 걸 알 수 있습니다.&lt;/p&gt;
+예를 들어 body 의 INFO column에 있는 정보 중 NS=3 이란 정보가 있는데, header의 설명을 보면&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;&lt;span class=&quot;nv&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;NS, ... &lt;span class=&quot;nv&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Number of Samples With Data&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;라고 되어 있으니 NS가 샘플 수라는 걸 알 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;header 부분은 body 에 적혀있는 데이터의 각 열이 어떤 걸 뜻하는지를 나타내는 컬럼 제목부분 입니다.&lt;br /&gt;
 즉 이 부분은 body 의 데이터와 같은 수의 항목을 가지고 있지요.&lt;/p&gt;
