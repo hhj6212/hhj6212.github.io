@@ -5,9 +5,345 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 30 May 2021 15:29:09 +0900</pubDate>
-    <lastBuildDate>Sun, 30 May 2021 15:29:09 +0900</lastBuildDate>
+    <pubDate>Sun, 13 Jun 2021 18:48:32 +0900</pubDate>
+    <lastBuildDate>Sun, 13 Jun 2021 18:48:32 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>BAM/SAM 의 flag 정보, samtools flagstat 설명</title>
+        <description>&lt;p&gt;안녕하세요 한헌종입니다.&lt;br /&gt;
+오늘은 bam / sam 파일에 있는 flag 에 대해, 그리고 이 flag 정보를 요약해 보여주는 samtools flagstat 결과에 대해 알아보겠습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;bam--sam-파일의-flag-란&quot;&gt;BAM / SAM 파일의 flag 란?&lt;/h3&gt;
+&lt;p&gt;flag 란 무엇일까요?&lt;br /&gt;
+flag 는 bam / sam 파일에서 각 read alignment 에 대한 설명을 숫자로 나타낸 것이에요.&lt;br /&gt;
+이 flag 는 0 ~ 4095 사이의 숫자인데요, SAM 파일의 두 번째 컬럼이 가지고 있는 숫자를 말해요.&lt;br /&gt;
+이전 포스트에 있는 그림을 다시 보여드릴게요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/200826/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;SAM 파일의 예시. 2 번째 컬럼 (B) 에 적힌 숫자가 각 read 에 대한 flag 입니다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;read1 의 flag 는 16, read2 의 flag 는 1032 이군요.&lt;br /&gt;
+그럼 이 숫자가 무엇을 뜻하는 걸까요?&lt;br /&gt;
+이걸 알아내려면 flag 를 이진수로 나타내봐야 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;flag-를-이진수로-나타내기&quot;&gt;flag 를 이진수로 나타내기&lt;/h3&gt;
+&lt;p&gt;flag 는 0~4095 사이의 숫자라고 했죠?&lt;br /&gt;
+이를 2진수로 바꾸면 최대 12자리 이진수가 됩니다. (이때 빈 자릿수는 0으로 채워서 12자리를 맞춰줍니다.)&lt;br /&gt;
+예를 들어 16 이라는 flag 값을 2진수로 나타내면 0000000&lt;strong&gt;1&lt;/strong&gt;0000 가 되구요,&lt;br /&gt;
+1032 라는 flag 값을 2진수로 나타내면 0&lt;strong&gt;1&lt;/strong&gt;000000&lt;strong&gt;1&lt;/strong&gt;&lt;strong&gt;1&lt;/strong&gt;00 가 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;왜-flag-값을-12자리의-2진수로-바꾸는-걸까요&quot;&gt;왜 flag 값을 12자리의 2진수로 바꾸는 걸까요?&lt;/h3&gt;
+&lt;p&gt;이는 read alignment 가 가질 수 있는 12가지 특성 각각이 있느냐, 없느냐를 표현하기 위해서에요.&lt;br /&gt;
+2진수로 바꾼 flag 값에서 &lt;strong&gt;각 자리수는 각 특성을 나타내고, 1 이 의미하는 것은 해당 특성을 가지고 있다는 뜻&lt;/strong&gt;이에요.&lt;br /&gt;
+예를 들어 1032 라는 flag 값을 이진수로 나타낸 &lt;strong&gt;010000001100&lt;/strong&gt; 를 보시죠.&lt;br /&gt;
+이 숫자를 보면, &lt;strong&gt;뒤에서&lt;/strong&gt; 3번째 / 4번째 / 11번째 숫자가 1이고, 나머지는 모두 0이네요. (뒤에서부터 세어야 합니다)&lt;br /&gt;
+즉, 이 read alignment 는 12가지 특성 중 3번째 / 4번째 / 11번째 특성을 가지고 있다는 뜻이에요.&lt;/p&gt;
+
+&lt;h3 id=&quot;flag-의-각-자리수는-어떤-특성을-가리키나요&quot;&gt;flag 의 각 자리수는 어떤 특성을 가리키나요?&lt;/h3&gt;
+&lt;p&gt;다음 표에는 각 자리수가 의미하는 바를 정리해보았어요.&lt;br /&gt;
+이는 SAM format specification 문서에 있는 표를 참고했습니다. &lt;a href=&quot;https://samtools.github.io/hts-specs/SAMv1.pdf&quot;&gt;(SAM format specification 문서 링크)&lt;/a&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;bit&lt;/th&gt;
+      &lt;th&gt;2진수&lt;/th&gt;
+      &lt;th&gt;16진수&lt;/th&gt;
+      &lt;th&gt;의미&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;/td&gt;
+      &lt;td&gt;0x1&lt;/td&gt;
+      &lt;td&gt;template having multiple segments in sequencing&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;000000000010&lt;/td&gt;
+      &lt;td&gt;0x2&lt;/td&gt;
+      &lt;td&gt;each segment properly aligned according to the aligner&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;000000000100&lt;/td&gt;
+      &lt;td&gt;0x4&lt;/td&gt;
+      &lt;td&gt;segment unmapped&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;000000001000&lt;/td&gt;
+      &lt;td&gt;0x8&lt;/td&gt;
+      &lt;td&gt;next segment in the template unmapped&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;16&lt;/td&gt;
+      &lt;td&gt;000000010000&lt;/td&gt;
+      &lt;td&gt;0x10&lt;/td&gt;
+      &lt;td&gt;SEQ being reverse complemented&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;000000100000&lt;/td&gt;
+      &lt;td&gt;0x20&lt;/td&gt;
+      &lt;td&gt;SEQ of the next segment in the template being reverse complemented&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;000001000000&lt;/td&gt;
+      &lt;td&gt;0x40&lt;/td&gt;
+      &lt;td&gt;the first segment in the template&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;128&lt;/td&gt;
+      &lt;td&gt;000010000000&lt;/td&gt;
+      &lt;td&gt;0x80&lt;/td&gt;
+      &lt;td&gt;the last segment in the template&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;256&lt;/td&gt;
+      &lt;td&gt;000100000000&lt;/td&gt;
+      &lt;td&gt;0x100&lt;/td&gt;
+      &lt;td&gt;secondary alignment&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;512&lt;/td&gt;
+      &lt;td&gt;001000000000&lt;/td&gt;
+      &lt;td&gt;0x200&lt;/td&gt;
+      &lt;td&gt;not passing filters, such as platform/vendor quality controls&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1024&lt;/td&gt;
+      &lt;td&gt;010000000000&lt;/td&gt;
+      &lt;td&gt;0x400&lt;/td&gt;
+      &lt;td&gt;PCR or optical duplicate&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2048&lt;/td&gt;
+      &lt;td&gt;100000000000&lt;/td&gt;
+      &lt;td&gt;0x800&lt;/td&gt;
+      &lt;td&gt;supplementary alignment&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그러면 1032 라는 flag 는 무엇을 뜻할까요?&lt;br /&gt;
+아까 말씀드렸듯, 이 read alignment 는 12가지 특성 중 3번째 / 4번째 / 11번째 특성을 가지고 있다는 뜻이므로&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;segment unmapped: 이 read 는 alignment 가 되지 않은 read 라는 뜻입니다.&lt;/li&gt;
+  &lt;li&gt;next segment in the template unmapped: 이 read 는 paired-end 인데, pair 를 이루는 다른 한쪽의 read 도 alignment 가 되지 않았다는 뜻입니다.&lt;/li&gt;
+  &lt;li&gt;PCR or optical duplicate: 이 read 는 PCR 과정에서 만들어진 중복 read 라는 뜻입니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;따라서, flag 가 1032 라는 것은 이 read 가 1) unmapped 이고 2) pair 역시 unmapped 이며 3) duplicate read 라는것을 뜻해요.&lt;br /&gt;
+이렇게 flag 로 read 의 특성을 알 수 있답니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;samtools-의-flagstat-보는-방법&quot;&gt;samtools 의 flagstat 보는 방법&lt;/h3&gt;
+&lt;p&gt;이전 포스트에서 설명드렸듯, samtools 의 여러 기능 중 하나는 flagstat 이라는 명령어로 특정 read 들의 요약된 정보를 보는거에요.&lt;br /&gt;
+&lt;a href=&quot;https://hhj6212.github.io/biology/tech/2020/10/18/samtools.html&quot;&gt;(이전 samtools 명령어에 대한 링크 참조)&lt;/a&gt;&lt;br /&gt;
+다음 예시를 보세요.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;samtools flagstat example.bam
+4579959 + 0 &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;total &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;QC-passed reads + QC-failed reads&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+0 + 0 secondary
+0 + 0 supplementary
+371078 + 0 duplicates
+4532991 + 0 mapped &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;98.97% : N/A&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+4569463 + 0 paired &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;sequencing
+2284756 + 0 read1
+2284707 + 0 read2
+4413160 + 0 properly paired &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;96.58% : N/A&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+4475527 + 0 with itself and mate mapped
+46968 + 0 singletons &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1.03% : N/A&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+21515 + 0 with mate mapped to a different chr
+15292 + 0 with mate mapped to a different chr &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;mapQ&amp;gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;예시로 만든 bam 파일의 flagstat 결과에요.&lt;br /&gt;
+여기 나온 특성들은 위의 flag 에 설명드린 특성이랑 맞는것도 있는것 같고, 아닌것도 있는 것 같죠?&lt;br /&gt;
+samtools 문서를 보면 아래처럼 나와있습니다. &lt;a href=&quot;http://www.htslib.org/doc/samtools-flagstat.html&quot;&gt;링크&lt;/a&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;결과 이름&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;secondary&lt;/td&gt;
+      &lt;td&gt;0x100 bit set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;supplementary&lt;/td&gt;
+      &lt;td&gt;0x800 bit set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;duplicates&lt;/td&gt;
+      &lt;td&gt;0x400 bit set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mapped&lt;/td&gt;
+      &lt;td&gt;0x4 bit not set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;paired in sequencing&lt;/td&gt;
+      &lt;td&gt;0x1 bit set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;read1&lt;/td&gt;
+      &lt;td&gt;both 0x1 and 0x40 bits set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;read2&lt;/td&gt;
+      &lt;td&gt;both 0x1 and 0x80 bits set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;properly paired&lt;/td&gt;
+      &lt;td&gt;both 0x1 and 0x2 bits set and 0x4 bit not set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;with itself and mate mapped&lt;/td&gt;
+      &lt;td&gt;0x1 bit set and neither 0x4 nor 0x8 bits set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;singletons&lt;/td&gt;
+      &lt;td&gt;both 0x1 and 0x8 bits set and bit 0x4 not set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;with mate mapped to a different chr&lt;/td&gt;
+      &lt;td&gt;0x1 bit set and neither 0x4 nor 0x8 bits set and MRNM not equal to RNAME&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;with mate mapped to a different chr (mapQ&amp;gt;=5)&lt;/td&gt;
+      &lt;td&gt;0x1 bit set and neither 0x4 nor 0x8 bits set and MRNM not equal to RNAME and MAPQ &amp;gt;= 5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;왜인지 몰라도 16진수로 써놨어요.&lt;br /&gt;
+밑에는 16진수 표기가 아닌 bit 와 2진수에 따라서 좀 더 보기 편하게 표를 정리해봤어요.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;결과 이름&lt;/th&gt;
+      &lt;th&gt;bit&lt;/th&gt;
+      &lt;th&gt;2진수&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;secondary&lt;/td&gt;
+      &lt;td&gt;256&lt;/td&gt;
+      &lt;td&gt;000100000000&lt;/td&gt;
+      &lt;td&gt;secondary alignment&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;supplementary&lt;/td&gt;
+      &lt;td&gt;2048&lt;/td&gt;
+      &lt;td&gt;100000000000&lt;/td&gt;
+      &lt;td&gt;supplementary alignment&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;duplicates&lt;/td&gt;
+      &lt;td&gt;1024&lt;/td&gt;
+      &lt;td&gt;010000000000&lt;/td&gt;
+      &lt;td&gt;PCR or optical duplicate&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mapped&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;000000000100&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;NOT&lt;/strong&gt; segment unmapped&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;paired in sequencing&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;/td&gt;
+      &lt;td&gt;template having multiple segments in sequencing&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;read1&lt;/td&gt;
+      &lt;td&gt;1 AND 64&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000001000000&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- the first segment in the template&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;read2&lt;/td&gt;
+      &lt;td&gt;1 AND 128&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000010000000&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- the last segment in the template&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;properly paired&lt;/td&gt;
+      &lt;td&gt;1 AND 2 AND &lt;strong&gt;NOT&lt;/strong&gt; 4&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000000000010&lt;br /&gt;000000000100&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- each segment properly aligned according to the aligner&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; segment unmapped&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;with itself and mate mapped&lt;/td&gt;
+      &lt;td&gt;1 AND &lt;strong&gt;NOT&lt;/strong&gt; 4 AND &lt;strong&gt;NOT&lt;/strong&gt; 8&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000000000100&lt;br /&gt;000000001000&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; segment unmapped&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; next segment in the template unmapped&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;singletons&lt;/td&gt;
+      &lt;td&gt;1 AND 8 AND &lt;strong&gt;NOT&lt;/strong&gt; 4&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000000001000&lt;br /&gt;000000000100&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- next segment in the template unmapped&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; segment unmapped&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;with mate mapped to a different chr&lt;/td&gt;
+      &lt;td&gt;1 AND &lt;strong&gt;NOT&lt;/strong&gt; 4 AND &lt;strong&gt;NOT&lt;/strong&gt; 8&lt;br /&gt;and MRNM not equal to RNAME&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000000000100&lt;br /&gt;000000001000&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; segment unmapped&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; next segment in the template unmapped&lt;br /&gt;- mate reference name != references sequence name&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;with mate mapped to a different chr (mapQ&amp;gt;=5)&lt;/td&gt;
+      &lt;td&gt;1 AND &lt;strong&gt;NOT&lt;/strong&gt; 4 AND &lt;strong&gt;NOT&lt;/strong&gt; 8&lt;br /&gt;and MRNM not equal to RNAME&lt;br /&gt;and MAPQ &amp;gt;= 5&lt;/td&gt;
+      &lt;td&gt;000000000001&lt;br /&gt;000000000100&lt;br /&gt;000000001000&lt;/td&gt;
+      &lt;td&gt;- template having multiple segments in sequencing&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; segment unmapped&lt;br /&gt;- &lt;strong&gt;NOT&lt;/strong&gt; next segment in the template unmapped&lt;br /&gt;- mate reference name != references sequence name&lt;br /&gt;- mapping quality &amp;gt;= 5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;저도 각 결과값이 뭔지 세세히는 알지 못했는데, 이렇게 정리하고 나니 어떤 flag 를 사용해 만들어진 결과인지 알 수 있었습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;오늘은 bam/sam 에 있는 flag 에 대한 설명과, flagstat 결과가 ‘실제로’ 무엇을 의미하는지 살펴봤습니다.&lt;br /&gt;
+표로 정리해봤는데 더 복잡해 보이기도 하네요 ^^;&lt;br /&gt;
+그러나 그냥 결과를 보고’그런가보다’ 하는것보다, 실제로 어떤 걸 가리키는 값인지 이해하면 더 좋겠죠?&lt;/p&gt;
+
+&lt;p&gt;그럼 다음에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 13 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/biology/tech/2021/06/13/samtools-flagstat.html</link>
+        <guid isPermaLink="true">http://localhost:4000/biology/tech/2021/06/13/samtools-flagstat.html</guid>
+        
+        
+        <category>biology</category>
+        
+        <category>tech</category>
+        
+      </item>
     
       <item>
         <title>Human reference genome - GRCh37 과 GRCh38 에 대하여</title>
@@ -53,7 +389,7 @@ genome 을 알아내기 위해서는 ‘genome assembly’ 라는 과정을 거�
 &lt;strong&gt;Error-prone short reads 를 통해 error-prone repeat 을 가진 large sequence 를 조립하는 것이 매우 힘들기 때문입니다.&lt;/strong&gt;&lt;br /&gt;
 그래서 가장 최신 버전인 GRCh38 조차도 아직 서열을 알 수 없는 Gap 부분이 많이 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;최근 GRC 에서 이런 에러와 gap 을 해결한 human reference genoem 을 만들었다고 하네요&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;최근 GRC 에서 이런 에러와 gap 을 해결한 human reference genome 을 만들었다고 하네요.&lt;/strong&gt;&lt;br /&gt;
 얼마전까지만 해도 완벽하게 만들 수 없다고 생각했는데 말이죠.&lt;br /&gt;
 관심 있으신 분들은 이 논문을 참고해보세요: &lt;a href=&quot;https://www.biorxiv.org/content/10.1101/2021.05.26.445798v1&quot;&gt;링크&lt;/a&gt;&lt;/p&gt;
 
@@ -501,9 +837,9 @@ get_sum 함수가 잘 작동하는지 여러가지 경우의 수를 테스트해
 
 &lt;p&gt;이 코드를 해석해보자면 다음과 같습니다.&lt;br /&gt;
 &lt;em&gt;첫 번째 테스트에는 num1 = 1, num2 = 2, expected = 3 으로 테스트하고,&lt;br /&gt;
-첫 번째 테스트에는 num1 = 2, num2 = 3, expected = 5 으로 테스트하고,&lt;br /&gt;
-첫 번째 테스트에는 num1 = 10, num2 = 15, expected = 25 으로 테스트하고,&lt;br /&gt;
-첫 번째 테스트에는 num1 = “1”, num2 = “2”, expected = 3 으로 테스트하자.&lt;/em&gt;&lt;/p&gt;
+두 번째 테스트에는 num1 = 2, num2 = 3, expected = 5 으로 테스트하고,&lt;br /&gt;
+세 번째 테스트에는 num1 = 10, num2 = 15, expected = 25 으로 테스트하고,&lt;br /&gt;
+네 번째 테스트에는 num1 = “1”, num2 = “2”, expected = 3 으로 테스트하자.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;이를 실행해보면 다음과 같은 결과가 나옵니다:&lt;/p&gt;
 
@@ -3215,7 +3551,8 @@ Commands:
   &lt;li&gt;flagstat&lt;br /&gt;
  bam 파일의 기본적인 상태를 보여줍니다.&lt;br /&gt;
  주로 몇 개의 read 중 몇 개가 mapping 되었는지 등의 결과를 확인하고자 할 때 쓰입니다.&lt;br /&gt;
- 설명하기 보다, 아래 결과를 보시면 더욱 이해가 쉬우실 겁니다!
+ &lt;strong&gt;flagstat 에 대한 더 자세한 설명은 &lt;a href=&quot;https://hhj6212.github.io/biology/tech/2021/06/13/samtools-flagstat.html&quot;&gt;이 포스트&lt;/a&gt; 를 참고해보세요!&lt;/strong&gt;&lt;br /&gt;
+ 아래 결과를 보시면 더욱 이해가 쉬우실 겁니다.
     &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;samtools flagstat example.bam
 4579959 + 0 &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;total &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;QC-passed reads + QC-failed reads&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 0 + 0 secondary
