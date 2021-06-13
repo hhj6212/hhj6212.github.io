@@ -61,7 +61,7 @@ flag 는 0~4095 사이의 숫자라고 했죠?
 2. next segment in the template unmapped: 이 read 는 paired-end 인데, pair 를 이루는 다른 한쪽의 read 도 alignment 가 되지 않았다는 뜻입니다.
 3. PCR or optical duplicate: 이 read 는 PCR 과정에서 만들어진 중복 read 라는 뜻입니다.
 
-따라서, flag 가 1032 라는 것은 이 read 가 1) unmapped 이고 2) pair 역시 unmapped 이며 3) duplicate read 라는것을 뜻해요.
+따라서, **flag 가 1032 라는 것은 이 read 가 1) unmapped 이고 2) pair 역시 unmapped 이며 3) duplicate read 라는것**을 뜻해요.
 이렇게 flag 로 read 의 특성을 알 수 있답니다.
 
 ---
@@ -121,8 +121,8 @@ samtools 문서를 보면 아래처럼 나와있습니다. [링크](http://www.h
 | properly paired | 1 AND 2 AND **NOT** 4 | 000000000001<br>000000000010<br>000000000100 | - template having multiple segments in sequencing<br>- each segment properly aligned according to the aligner<br>- **NOT** segment unmapped |
 | with itself and mate mapped | 1 AND **NOT** 4 AND **NOT** 8 | 000000000001<br>000000000100<br>000000001000 | - template having multiple segments in sequencing<br>- **NOT** segment unmapped<br>- **NOT** next segment in the template unmapped |
 | singletons | 1 AND 8 AND **NOT** 4 | 000000000001<br>000000001000<br>000000000100 | - template having multiple segments in sequencing<br>- next segment in the template unmapped<br>- **NOT** segment unmapped
-| with mate mapped to a different chr | 1 AND **NOT** 4 AND **NOT** 8<br>and MRNM not equal to RNAME | 000000000001<br>000000000100<br>000000001000 | - template having multiple segments in sequencing<br>- **NOT** segment unmapped<br>- **NOT** next segment in the template unmapped<br>- mate reference name != references sequence name |
-| with mate mapped to a different chr (mapQ>=5) | 1 AND **NOT** 4 AND **NOT** 8<br>and MRNM not equal to RNAME<br>and MAPQ >= 5 | 000000000001<br>000000000100<br>000000001000 | - template having multiple segments in sequencing<br>- **NOT** segment unmapped<br>- **NOT** next segment in the template unmapped<br>- mate reference name != references sequence name<br>- mapping quality >= 5 |
+| with mate mapped to a different chr | 1 AND **NOT** 4 AND **NOT** 8<br>AND MRNM not equal to RNAME | 000000000001<br>000000000100<br>000000001000 | - template having multiple segments in sequencing<br>- **NOT** segment unmapped<br>- **NOT** next segment in the template unmapped<br>- mate reference name != references sequence name |
+| with mate mapped to a different chr (mapQ>=5) | 1 AND **NOT** 4 AND **NOT** 8<br>AND MRNM not equal to RNAME<br>AND MAPQ >= 5 | 000000000001<br>000000000100<br>000000001000 | - template having multiple segments in sequencing<br>- **NOT** segment unmapped<br>- **NOT** next segment in the template unmapped<br>- mate reference name != references sequence name<br>- mapping quality >= 5 |
 
 저도 각 결과값이 뭔지 세세히는 알지 못했는데, 이렇게 정리하고 나니 어떤 flag 를 사용해 만들어진 결과인지 알 수 있었습니다.
 
