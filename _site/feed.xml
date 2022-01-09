@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 09 Jan 2022 22:03:19 +0900</pubDate>
-    <lastBuildDate>Sun, 09 Jan 2022 22:03:19 +0900</lastBuildDate>
+    <pubDate>Sun, 09 Jan 2022 22:12:33 +0900</pubDate>
+    <lastBuildDate>Sun, 09 Jan 2022 22:12:33 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -83,14 +83,14 @@ routes.py 모듈에서는 myapp 패키지의 app 변수를 import 합니다.&lt;
 
 &lt;hr /&gt;
 &lt;h3 id=&quot;2-html-rendering-및-html-상속&quot;&gt;2. html rendering 및 html 상속&lt;/h3&gt;
-&lt;p&gt;위에서 만들어진 웹 페이지는 html 구조도 없는 상태였습니다.&lt;br /&gt;
+&lt;p&gt;위에서 만들어진 웹 페이지는 html 구조 없이 문자열만 출력한 상태였습니다.&lt;br /&gt;
 이제 html 을 사용해 웹 페이지의 구조를 만들어보도록 하겠습니다.&lt;/p&gt;
 
 &lt;p&gt;이 때, 이 웹사이트는 하나가 아닌 여러 페이지로 구성되겠죠?&lt;br /&gt;
 그런데 각 페이지를 만들 때마다 매번 html 을 복사해야 한다면 매우 귀찮을 겁니다.&lt;br /&gt;
-따라서 이를 여러번 반복하지 않고 하나의 html 을 여러곳에서 활용할 수 있게 해봅시다.&lt;/p&gt;
+따라서 이를 여러번 반복하지 않고 templates 를 사용해 하나의 html 을 여러곳에서 활용할 수 있게 해봅시다.&lt;/p&gt;
 
-&lt;p&gt;만들어진 html 을 렌더링하기 위해서는 flask 의&lt;/p&gt;
+&lt;p&gt;만들어진 html 을 렌더링하기 위해 flask 의 render_template 함수가 사용됩니다.&lt;/p&gt;
 
 &lt;h4 id=&quot;폴더-구조-1&quot;&gt;폴더 구조:&lt;/h4&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myapp/
@@ -191,8 +191,8 @@ head 에는 title 항목을 가지고 있고, body 에는 웹사이트의 두 �
   &lt;li&gt;url 은 이후 동적 요소를 가질 수 있는데, 이를 위해 url concatenation 으로 작업하면 틀리기 쉽습니다. url_for 는 이런 복잡한 url 을 만들어줄 수 있습니다.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;이후 아래쪽에 {% block content %}{% endblock %} 부분은 통해 이 부분에 다른 content 가 올 수 있음을 알려주고 있습니다.&lt;br /&gt;
-“{% 명령어 %}” 구문은 Jinja2 template engine 이 사용하는 expression/logic 구문입니다.&lt;/p&gt;
+&lt;p&gt;이후 아래쪽에 {% block content %}{% endblock %} 구문은 이 부분에 다른 content 가 올 수 있음을 알려주고 있습니다.&lt;br /&gt;
+이런 “{% 명령어 %}” 구문은 Jinja2 template engine 이 사용하는 expression/logic 구문입니다.&lt;/p&gt;
 
 &lt;p&gt;이렇게 만들어진 base.html 은 각각 index.html 과 somepage.html 에서 사용하고 있습니다.&lt;br /&gt;
 {% extends “base.html” %} 구문을 통해 base.html 을 가져오고 있고,&lt;br /&gt;
@@ -303,16 +303,17 @@ render_template() 은 Jinja2 template engine 을 사용해 웹페이지를 보�
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;이제 설명을 드려야겠죠.&lt;br /&gt;
+&lt;p&gt;위 코드를 설명드리도록 할게요.&lt;br /&gt;
 사용자가 전달하는 request 를 받기 위해 먼저 flask 의 request 함수를 import 합니다.&lt;br /&gt;
 routes.py 에서 some_func 의 decorator 를 보면, methods 두 가지가 가능한 것을 설정해 두었습니다.&lt;br /&gt;
 여기서 request.method 는 사용자가 전달한 request 에 따라 “GET” 혹은 “POST” 값을 가질 수 있죠.&lt;br /&gt;
 이 때 값을 전달하는 POST method 를 받게 되면, 아래 if 문 안으로 들어가게 됩니다.&lt;/p&gt;
 
-&lt;p&gt;한 편, request.form 에는 html 에서 form 구문에서 전달하는 값들의 “name” 과 “value” 가 각각 dictionary 형태로 전달됩니다.&lt;br /&gt;
-여기서는 {“number1”: “3”, “number2”: “4”, “button”: “mul”} 이라는 값이 전달되는 거죠.&lt;br /&gt;
-따라서 이 값을 받아 적절히 계산한 뒤, 다시 somepage.html 을 렌더링하는 겂니다.&lt;br /&gt;
-이 때, 인자로 result 값을 전달하는데요, somepage.html 에서는 이 result 라는 값을 받아서 사용할 수 있게 됩니다.&lt;/p&gt;
+&lt;p&gt;request.form 에는 html 에서 form 구문에서 전달하는 값들의 “name” 과 “value” 가 각각 dictionary 형태로 전달됩니다.&lt;br /&gt;
+somepage.html 페이지에서 숫자 두 개를 입력하고 버튼을 누르게 되면, form 구문을 통해 POST 명령어가 전달되는데요.&lt;br /&gt;
+이를 통해 {“number1”: “3”, “number2”: “4”, “button”: “mul”} 이라는 데이터가 request.form 에 dictionary 형태로 전달되는 거죠.&lt;br /&gt;
+따라서 이 값을 받아 적절히 계산한 뒤 다시 somepage.html 에 전달해 페이지를 렌더링하는 겁니다.&lt;br /&gt;
+이 때는 인자로 result 값을 전달하는데요, somepage.html 에서는 이 result 라는 값을 받아서 사용할 수 있게 됩니다.&lt;/p&gt;
 
 &lt;p&gt;somepage.html 을 보면, {% if result %} 로 시작하는 구문이 보이는데요,&lt;br /&gt;
 이것이 result 값이 있는지를 확인하는 부분입니다.&lt;br /&gt;
