@@ -5,7 +5,6 @@ author:
 description: > # this means to ignore newlines until "show_excerpts:"\
 
 url: https://hhj6212.github.io/
-
 show_excerpts: false # set to true to show excerpts on the homepage
 
 # Minima date format
