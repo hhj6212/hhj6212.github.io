@@ -5,14 +5,14 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Jan 2022 20:17:09 +0900</pubDate>
-    <lastBuildDate>Mon, 17 Jan 2022 20:17:09 +0900</lastBuildDate>
+    <pubDate>Wed, 19 Jan 2022 21:26:32 +0900</pubDate>
+    <lastBuildDate>Wed, 19 Jan 2022 21:26:32 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
-        <title>Flask - bootstrap 으로 예쁜 웹페이지 만들기</title>
+        <title>bootstrap 으로 예쁜 웹페이지 만들기</title>
         <description>&lt;p&gt;안녕하세요 한헌종입니다.&lt;br /&gt;
-오늘은 지난 시간에 이어서 flask 를 좀더 이쁘게 만드는 작업을 해볼겁니다.&lt;/p&gt;
+오늘은 지난 시간에 이어서 웹페이지를 좀 더 이쁘게 만드는 작업을 해볼겁니다.&lt;/p&gt;
 
 &lt;p&gt;저는 디자인과 거리가 먼 사람이라 이쁘게 CSS 를 구성하는 방법은 잘 모릅니다.&lt;br /&gt;
 그럼 어떻게 이쁜 웹사이트를 만들 수 있을까요? 바로 CSS framework 를 사용하는 겁니다.&lt;br /&gt;
