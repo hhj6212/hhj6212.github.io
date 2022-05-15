@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 14 May 2022 20:41:12 +0900</pubDate>
-    <lastBuildDate>Sat, 14 May 2022 20:41:12 +0900</lastBuildDate>
+    <pubDate>Sun, 15 May 2022 20:56:15 +0900</pubDate>
+    <lastBuildDate>Sun, 15 May 2022 20:56:15 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -183,7 +183,7 @@ Cloud formation 은 AWS 의 무료 서비스이므로, 추가 요금이 발생�
 &lt;span class=&quot;kt&quot;&gt;!Ref&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;AWS::Region&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;3-mappings&quot;&gt;3. Mappings&lt;/h4&gt;
+&lt;h4 id=&quot;3-findinmap--mappings-로-정의한-변수에-접근&quot;&gt;3. FindInMap : Mappings 로 정의한 변수에 접근&lt;/h4&gt;
 &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Fn::FindInMap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MapName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;TopLevelKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SecondLevelKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Fn::FindInMap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RegionMap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;us-east-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AMI&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;RegionMap&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;의&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;us-east&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;에&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;대한&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;AMI&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;값을&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;반환&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -203,6 +203,15 @@ Cloud formation 은 AWS 의 무료 서비스이므로, 추가 요금이 발생�
     &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;PublicDnsName&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;hr /&gt;
+
+&lt;p&gt;아래에는 CloudFormation 의 요소들을 정리함.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Multiple resources&lt;/li&gt;
+  &lt;li&gt;Pseudo parameters&lt;/li&gt;
+  &lt;li&gt;Mappings&lt;/li&gt;
+  &lt;li&gt;Input Parameters&lt;/li&gt;
+  &lt;li&gt;Outputs&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&quot;multiple-resources&quot;&gt;Multiple resources&lt;/h3&gt;
 &lt;p&gt;CloudFormation 은 여러 자원을 다룰 때 유용함.&lt;br /&gt;
@@ -302,6 +311,8 @@ Ref 라는 function 을 통해 참조할 수 있다.&lt;/p&gt;
 &lt;strong&gt;AWS::Region&lt;/strong&gt; : 자원이 생성된 AWS Region 을 나타내는 문자열을 반환한다.&lt;br /&gt;
 그 외의 paramter 에 대한 설명은 다음 링크를 참조해보자: &lt;a href=&quot;https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html&quot;&gt;&lt;strong&gt;링크&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;hr /&gt;
+
 &lt;h3 id=&quot;mappings&quot;&gt;Mappings&lt;/h3&gt;
 &lt;p&gt;Mapping 은 input 을 사용해 다른 값을 결정할 수 있게 만들어준다.&lt;br /&gt;
 예를 들어 AMI ID 를 region 에 따라 결정하고자 할 때 Mapping 을 사용할 수 있다.&lt;br /&gt;
@@ -351,7 +362,7 @@ default value 를 설정할 수도 있다.&lt;br /&gt;
 &lt;ul&gt;
   &lt;li&gt;String&lt;/li&gt;
   &lt;li&gt;Number&lt;/li&gt;
-  &lt;li&gt;List&lt;Number&gt;&lt;/Number&gt;&lt;/li&gt;
+  &lt;li&gt;List&amp;lt;Number&amp;gt;&lt;/li&gt;
   &lt;li&gt;CommaDelimitedList&lt;/li&gt;
   &lt;li&gt;AWS-specific types (AWS::EC2::Image::Id 등)&lt;/li&gt;
   &lt;li&gt;Systems MAnager Parameter types&lt;/li&gt;
@@ -472,6 +483,276 @@ Outputs 역시 Input 과 마찬가지로 template top level 에 정의한다.&lt
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;예시-ec2-instance-setting-up&quot;&gt;예시: EC2 instance setting up&lt;/h3&gt;
+
+&lt;p&gt;EC2 설치를 위해 필요한 요소들:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Starting services&lt;/li&gt;
+  &lt;li&gt;Configuration&lt;/li&gt;
+  &lt;li&gt;Creating users / groups&lt;/li&gt;
+  &lt;li&gt;Downloading and installing your application&lt;/li&gt;
+  &lt;li&gt;Downloading and installing dependencies / packages&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아래는 다음 세 가지를 이용해 EC2 instance 를 만드는 예시를 보여줌.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;UserData&lt;/li&gt;
+  &lt;li&gt;helper script&lt;/li&gt;
+  &lt;li&gt;Init metadata&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;userdata&quot;&gt;UserData&lt;/h4&gt;
+
+&lt;p&gt;AWS::EC2::Instance 타입의 자원은 UserData 라는 property 를 가지고 있다.&lt;br /&gt;
+이는 template 의 Properties section 에 나타난다.&lt;br /&gt;
+UserData 는 Base64 encoded 되어있으며, Linux 와 Windows 에서 약간 다르지만 둘 다 적용된다.&lt;br /&gt;
+First boot cycle 에서만 실행된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UserData for Windows:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Run as local administrator&lt;/li&gt;
+  &lt;li&gt;Can be Batch Commands and / or Powershell&lt;/li&gt;
+  &lt;li&gt;Executed by EC2Config or EC@Launch (Output logs vary)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-script&quot;&gt;echo Current date and time &amp;gt;&amp;gt; %SystemRoot%\Temp\test.log
+echo %DATE% %TIME% &amp;gt;&amp;gt; %SystemRoot%\Temp\test.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;UserData for Linux:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Run as root (no need for sudo)&lt;/li&gt;
+  &lt;li&gt;Not run interactively (no user feedback)&lt;/li&gt;
+  &lt;li&gt;Logs output to /var/log/cloud-init-output.log&lt;/li&gt;
+  &lt;li&gt;Start with #! and the interpreter&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+yum update &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; httpd
+service httpd start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 내용을 yaml template 에 담으면 아래와 같이 쓸 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;EC2Instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;AWS::EC2::Instance&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;Properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;UserData&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;!Base64&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
+                    &lt;span class=&quot;s&quot;&gt;#!/bin/bash -xe&lt;/span&gt;
+                    &lt;span class=&quot;s&quot;&gt;yum update -y&lt;/span&gt;
+                    &lt;span class=&quot;s&quot;&gt;yum install httpd -y&lt;/span&gt;
+                    &lt;span class=&quot;s&quot;&gt;service httpd start&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;helper-script&quot;&gt;Helper script&lt;/h4&gt;
+&lt;p&gt;Procedural scripting (절차지향) 코딩은 쉽게 더러워지기 때문에 ideal 하지 않다.&lt;br /&gt;
+이를 최적화하기 위해 CloudFormation 은 파이썬 기반의 “helper scripts” 를 제공한다.&lt;br /&gt;
+이는 Amazon Linux 에 이미 설치되어서 온다.&lt;br /&gt;
+또한 이 스크립트들은 자동으로 실행되지 않기 때문에 template 에서 호출해야 한다.&lt;br /&gt;
+Helper script 는 주기적으로 업데이트되며, 다음 명령어로 업데이트할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; aws-cfn-bootstrap
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;CloudFormation 에서 제공하는 Helper scripts 는 다음 네 가지가 있다.&lt;br /&gt;
+&lt;strong&gt;cfn-init&lt;/strong&gt;: Reads and interprets Metadata to execute AWS::CLoudFormation::Init&lt;br /&gt;
+&lt;strong&gt;cfn-signal&lt;/strong&gt;: Used to signal when resource ro application is ready&lt;br /&gt;
+&lt;strong&gt;cfn-get-metadata&lt;/strong&gt;: Used to retrieve metadata based on a specific key&lt;br /&gt;
+&lt;strong&gt;cfn-hup&lt;/strong&gt;: Used to check for updates to metadata and execute custom hooks&lt;/p&gt;
+
+&lt;h4 id=&quot;cloudformation-init-cfn-init&quot;&gt;CloudFormation Init: cfn-init&lt;/h4&gt;
+&lt;p&gt;cfn-init helper script 는 AWS::CloudFormation::Init 을 사용할 수 있게 해준다:&lt;/p&gt;
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;Resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;MyInstance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;AWS::EC2::Instance&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;Metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;AWS::CloudFormation::Init:&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 다양한 config key 를 가질 수 있음.&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;groups&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;sources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;Properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여기서 config key 가 하나일 때는 “config” 라고 하고, 여러개인 경우 “Configsets” 를 사용한다.&lt;br /&gt;
+Configsets 는 config key 목록을 가지고 있으며, 원하는 실행 순서대로 나열되어 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;installweb&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;yum&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;sysvinit&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;ensureRunning&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;installphp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;yum&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;php&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[]&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;AWS::CloudFormation::Init:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;configSets&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;webphp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;installphp&quot;&lt;/span&gt;
+            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;installweb&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위의 예시에서, httpd package 를 먼저 설치하고 httpd 에 활성화되고 실행될 수 있도록 요청한다.&lt;br /&gt;
+한편 php 를 설치하고 yum repository 가 이를 설치하도록 해야한다.&lt;br /&gt;
+이 경우 configSets 를 사용하면 이 config key 들을 어떤 순서로 실행할지 알려줄 수 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;helper-script-의-config-key-설명&quot;&gt;helper script 의 config key 설명:&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;packages&lt;/strong&gt;: Downlaod and install pre-packaged applications and components&lt;br /&gt;
+&lt;strong&gt;groups&lt;/strong&gt;: Create linux/UNIX groups and to assign group IDs&lt;br /&gt;
+&lt;strong&gt;users&lt;/strong&gt;: Create Linux/UNIX users on the EC2 instance&lt;br /&gt;
+&lt;strong&gt;sources&lt;/strong&gt;: Download an archive file and unpack it in a target directory on the EC2&lt;br /&gt;
+&lt;strong&gt;files&lt;/strong&gt;: Create files on the EC2 instance&lt;br /&gt;
+&lt;strong&gt;commands&lt;/strong&gt;: Execute commands on the EC2 instance&lt;br /&gt;
+&lt;strong&gt;services&lt;/strong&gt;: Define which services should be enabled or disabled when the instance is launched&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;change-sets&quot;&gt;Change Sets&lt;/h3&gt;
+&lt;p&gt;기존에 존재하는 stack 을 갱신 (update) 하는 작업은 위험할 수 있다.&lt;br /&gt;
+이 변화들이 자원에 어떤 영향을 줄지 알 수 있어야 한다.&lt;br /&gt;
+Change Sets 는 이를 가능하게 해준다.&lt;br /&gt;
+아래는 SQS Queue 의 이름을 바꿀 때 생길 수 있는 일이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image11.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;SQS Queue 의 이름을 바꾸는 경우, Publisher 와 Consumer 가 어떤 queue 를 사용해야 할지 알고 있을까?&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Change Set 의 4 가지 operations:&lt;br /&gt;
+&lt;strong&gt;Create&lt;/strong&gt;: 기존에 존재하는 stack 에 대해 수정된 template 을 제시해 change set 을 생성. 기존의 stack 을 수정하지 않는다.&lt;br /&gt;
+&lt;strong&gt;View&lt;/strong&gt;: 생성 후, 제시된 changes 들을 확인할 수 있다.&lt;br /&gt;
+&lt;strong&gt;Execute&lt;/strong&gt;: Change Set 를 실행하면, 기존에 존재하는 stack 에 해당 change 를 적용한다.&lt;br /&gt;
+&lt;strong&gt;Delete&lt;/strong&gt;: 해당 changes 를 실행하지 않고 Change Set 을 삭제한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;change-set-에서-사용-가능한-data&quot;&gt;Change Set 에서 사용 가능한 data&lt;/h4&gt;
+&lt;p&gt;Change Set 은 “Array of Resource change data types” 이다.&lt;br /&gt;
+아래는 resource change data type 를 구성하는 요소들을 나열하였다.&lt;br /&gt;
+&lt;strong&gt;Action&lt;/strong&gt;: action taken on the resource (Add | Modify | Remove)&lt;br /&gt;
+&lt;strong&gt;LogicalResourceId &amp;amp; PhysicalResourceId&lt;/strong&gt;: Resource’s logcial ID (EC2Instance) and physical ID (i-0a29e20fd8a1b308b)&lt;br /&gt;
+&lt;strong&gt;ResourceType&lt;/strong&gt;: The type of CloudFormation resource (AWS::EC2::Instance)&lt;br /&gt;
+&lt;strong&gt;Replacement&lt;/strong&gt;: For modify action, will CloudFormation delete the old resource and create a new one&lt;br /&gt;
+&lt;strong&gt;Scope&lt;/strong&gt;: Which resource attribute is triggering the update&lt;br /&gt;
+&lt;strong&gt;Details&lt;/strong&gt;: Description of the chagne ot the resource&lt;/p&gt;
+
+&lt;p&gt;아래는 EC2 Instance 에 tag 를 추가했을 때의 Change Set 의 예시이다.&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;resourceChange&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;resourceType&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AWS::EC2::Instance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;logicalResourceId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EC2Instance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;physicalResourceId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;i-0a29e20fd8a1b308b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Modify&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;replacement&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;False&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;detials&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;target&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;requiresRecreation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Never&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;attribute&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Tags&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;causingEntity&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;evaluation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Static&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;changeSource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;DirectModification&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scope&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Tags&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;change-set-을-실제로-사용하는-에시&quot;&gt;Change Set 을 실제로 사용하는 에시:&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image12.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;SecurityGroup 을 왼쪽 template 내용에서 오른쪽 template 내용으로 바꾸고자 한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image13.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;CloudFormation 에서 stack 선택 후 Create Change Set 을 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image14.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;바꾸고자 하는 template 을 업로드 하고 next 를 누른다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image15.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Changes 에는 어떤 내용이 바뀌게 될 것인지 나타난다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image16.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Details 를 누르면 “Array of Resource change data types” 형태로 상세한 변화 내역이 나오게 된다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image17.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;변경 내역을 확인한 뒤, 위쪽에서 Change Set 을 새로 만들거나, 현재 Change Set 을 삭제하거나, 이 변경 내역을 적용하도록 Execute 할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;오늘은 AWS CloudFormation 을 공부한 내용을 정리해봤습니다.&lt;br /&gt;
+그럼 다음 시간에 만나요!&lt;/p&gt;
 </description>
         <pubDate>Sat, 14 May 2022 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/tech/programming/2022/05/14/cloud-formation.html</link>

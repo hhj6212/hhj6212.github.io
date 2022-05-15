@@ -142,7 +142,7 @@ stack 을 관리할 때 사용할 수 있는 built-in functions 정리
 !Ref AWS::Region
 ```
 
-#### 3. Mappings
+#### 3. FindInMap : Mappings 로 정의한 변수에 접근
 ```json
 // json
 {"Fn::FindInMap": ["MapName", "TopLevelKey", "SecondLevelKey"]}
@@ -166,6 +166,13 @@ stack 을 관리할 때 사용할 수 있는 built-in functions 정리
     - PublicDnsName
 ```
 ---
+
+아래에는 CloudFormation 의 요소들을 정리함.
+1. Multiple resources
+2. Pseudo parameters
+3. Mappings
+4. Input Parameters
+5. Outputs
 
 ### Multiple resources
 CloudFormation 은 여러 자원을 다룰 때 유용함.
@@ -259,6 +266,8 @@ Resources:
 **AWS::Region** : 자원이 생성된 AWS Region 을 나타내는 문자열을 반환한다.
 그 외의 paramter 에 대한 설명은 다음 링크를 참조해보자: [**링크**](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html)
 
+---
+
 ### Mappings
 Mapping 은 input 을 사용해 다른 값을 결정할 수 있게 만들어준다.
 예를 들어 AMI ID 를 region 에 따라 결정하고자 할 때 Mapping 을 사용할 수 있다.
@@ -309,7 +318,7 @@ default value 를 설정할 수도 있다.
 지원되는 Type 의 목록:
 - String
 - Number
-- List<Number>
+- List\<Number\>
 - CommaDelimitedList
 - AWS-specific types (AWS::EC2::Image::Id 등)
 - Systems MAnager Parameter types
@@ -413,3 +422,225 @@ Outputs:
 위 yaml template 을 사용해 cloudFormation 에서 update 를 하면, 아래와 같이 Outputs 탭에서 새로운 key 와 value 가 만들어진 것을 확인할 수 있다.
 
 | ![-]({{"/assets/220514/image10.png"| relative_url}}) | 
+
+---
+
+### 예시: EC2 instance setting up
+
+EC2 설치를 위해 필요한 요소들:
+- Starting services
+- Configuration
+- Creating users / groups
+- Downloading and installing your application
+- Downloading and installing dependencies / packages
+
+아래는 다음 세 가지를 이용해 EC2 instance 를 만드는 예시를 보여줌.
+1. UserData
+2. helper script
+3. Init metadata
+
+#### UserData
+
+AWS::EC2::Instance 타입의 자원은 UserData 라는 property 를 가지고 있다.
+이는 template 의 Properties section 에 나타난다.
+UserData 는 Base64 encoded 되어있으며, Linux 와 Windows 에서 약간 다르지만 둘 다 적용된다.
+First boot cycle 에서만 실행된다.
+
+**UserData for Windows:**
+- Run as local administrator
+- Can be Batch Commands and / or Powershell
+- Executed by EC2Config or EC@Launch (Output logs vary)
+
+```script
+echo Current date and time >> %SystemRoot%\Temp\test.log
+echo %DATE% %TIME% >> %SystemRoot%\Temp\test.log
+```
+
+**UserData for Linux:**
+- Run as root (no need for sudo)
+- Not run interactively (no user feedback)
+- Logs output to /var/log/cloud-init-output.log
+- Start with #! and the interpreter
+
+```bash
+#!/bin/bash
+yum update -y
+yum install -y httpd
+service httpd start
+```
+
+위 내용을 yaml template 에 담으면 아래와 같이 쓸 수 있다.
+
+```yaml
+# yaml
+Resources:
+    EC2Instance:
+        Type: AWS::EC2::Instance
+        Properties:
+            UserData:
+                !Base64 |
+                    #!/bin/bash -xe
+                    yum update -y
+                    yum install httpd -y
+                    service httpd start
+```
+
+#### Helper script
+Procedural scripting (절차지향) 코딩은 쉽게 더러워지기 때문에 ideal 하지 않다.
+이를 최적화하기 위해 CloudFormation 은 파이썬 기반의 "helper scripts" 를 제공한다.
+이는 Amazon Linux 에 이미 설치되어서 온다.
+또한 이 스크립트들은 자동으로 실행되지 않기 때문에 template 에서 호출해야 한다.
+Helper script 는 주기적으로 업데이트되며, 다음 명령어로 업데이트할 수 있다.
+```bash
+yum install -y aws-cfn-bootstrap
+```
+
+CloudFormation 에서 제공하는 Helper scripts 는 다음 네 가지가 있다.
+**cfn-init**: Reads and interprets Metadata to execute AWS::CLoudFormation::Init
+**cfn-signal**: Used to signal when resource ro application is ready
+**cfn-get-metadata**: Used to retrieve metadata based on a specific key
+**cfn-hup**: Used to check for updates to metadata and execute custom hooks
+
+#### CloudFormation Init: cfn-init
+cfn-init helper script 는 AWS::CloudFormation::Init 을 사용할 수 있게 해준다:
+```yaml
+# yaml
+Resources:
+    MyInstance:
+        Type: "AWS::EC2::Instance"
+        Metadata:
+            AWS::CloudFormation::Init:
+                config: # 다양한 config key 를 가질 수 있음.
+                    packages:
+                    groups:
+                    users:
+                    sources:
+                    files:
+                    commands:
+                    services:
+        Properties:
+```
+
+여기서 config key 가 하나일 때는 "config" 라고 하고, 여러개인 경우 "Configsets" 를 사용한다.
+Configsets 는 config key 목록을 가지고 있으며, 원하는 실행 순서대로 나열되어 있다.
+
+```yaml
+installweb:
+    packages:
+        yum:
+            httpd: []
+    services:
+        sysvinit:
+            httpd:
+                enabled: true
+                ensureRunning: true
+...
+installphp:
+    packages:
+        yum:
+            php: []
+
+...
+AWS::CloudFormation::Init:
+    configSets:
+        webphp:
+            - "installphp"
+            - "installweb"
+```
+위의 예시에서, httpd package 를 먼저 설치하고 httpd 에 활성화되고 실행될 수 있도록 요청한다.
+한편 php 를 설치하고 yum repository 가 이를 설치하도록 해야한다.
+이 경우 configSets 를 사용하면 이 config key 들을 어떤 순서로 실행할지 알려줄 수 있다.
+
+#### helper script 의 config key 설명:
+**packages**: Downlaod and install pre-packaged applications and components
+**groups**: Create linux/UNIX groups and to assign group IDs
+**users**: Create Linux/UNIX users on the EC2 instance
+**sources**: Download an archive file and unpack it in a target directory on the EC2
+**files**: Create files on the EC2 instance
+**commands**: Execute commands on the EC2 instance
+**services**: Define which services should be enabled or disabled when the instance is launched
+
+---
+
+### Change Sets
+기존에 존재하는 stack 을 갱신 (update) 하는 작업은 위험할 수 있다.
+이 변화들이 자원에 어떤 영향을 줄지 알 수 있어야 한다.
+Change Sets 는 이를 가능하게 해준다.
+아래는 SQS Queue 의 이름을 바꿀 때 생길 수 있는 일이다.
+
+| ![-]({{"/assets/220514/image11.png"| relative_url}}) | 
+|:--:| 
+| *SQS Queue 의 이름을 바꾸는 경우, Publisher 와 Consumer 가 어떤 queue 를 사용해야 할지 알고 있을까?* |
+
+Change Set 의 4 가지 operations:
+**Create**: 기존에 존재하는 stack 에 대해 수정된 template 을 제시해 change set 을 생성. 기존의 stack 을 수정하지 않는다.
+**View**: 생성 후, 제시된 changes 들을 확인할 수 있다.
+**Execute**: Change Set 를 실행하면, 기존에 존재하는 stack 에 해당 change 를 적용한다.
+**Delete**: 해당 changes 를 실행하지 않고 Change Set 을 삭제한다.
+
+#### Change Set 에서 사용 가능한 data
+Change Set 은 "Array of Resource change data types" 이다.
+아래는 resource change data type 를 구성하는 요소들을 나열하였다.
+**Action**: action taken on the resource (Add | Modify | Remove)
+**LogicalResourceId & PhysicalResourceId**: Resource's logcial ID (EC2Instance) and physical ID (i-0a29e20fd8a1b308b)
+**ResourceType**: The type of CloudFormation resource (AWS::EC2::Instance)
+**Replacement**: For modify action, will CloudFormation delete the old resource and create a new one
+**Scope**: Which resource attribute is triggering the update
+**Details**: Description of the chagne ot the resource
+
+아래는 EC2 Instance 에 tag 를 추가했을 때의 Change Set 의 예시이다.
+```json
+// json
+"resourceChange": {
+    "resourceType": "AWS::EC2::Instance",
+    "logicalResourceId": "EC2Instance",
+    "physicalResourceId": "i-0a29e20fd8a1b308b",
+    "action": "Modify",
+    "replacement": "False",
+    "detials": [
+        {
+            "target": {
+                "name": null,
+                "requiresRecreation": "Never",
+                "attribute": "Tags",
+            },
+            "causingEntity": null,
+            "evaluation": "Static",
+            "changeSource": "DirectModification"
+        }
+    ],
+    "scope": ["Tags"]
+}
+```
+
+#### Change Set 을 실제로 사용하는 에시:
+
+| ![-]({{"/assets/220514/image12.png"| relative_url}}) |
+|:--:| 
+| *SecurityGroup 을 왼쪽 template 내용에서 오른쪽 template 내용으로 바꾸고자 한다.* |
+|:--:| 
+| ![-]({{"/assets/220514/image13.png"| relative_url}}) |
+|:--:| 
+| *CloudFormation 에서 stack 선택 후 Create Change Set 을 선택한다.* |
+|:--:| 
+| ![-]({{"/assets/220514/image14.png"| relative_url}}) |
+|:--:| 
+| *바꾸고자 하는 template 을 업로드 하고 next 를 누른다.* |
+|:--:| 
+| ![-]({{"/assets/220514/image15.png"| relative_url}}) |
+|:--:| 
+| *Changes 에는 어떤 내용이 바뀌게 될 것인지 나타난다.* |
+|:--:| 
+| ![-]({{"/assets/220514/image16.png"| relative_url}}) |
+|:--:| 
+| *Details 를 누르면 "Array of Resource change data types" 형태로 상세한 변화 내역이 나오게 된다.* |
+|:--:| 
+| ![-]({{"/assets/220514/image17.png"| relative_url}}) |
+|:--:| 
+| *변경 내역을 확인한 뒤, 위쪽에서 Change Set 을 새로 만들거나, 현재 Change Set 을 삭제하거나, 이 변경 내역을 적용하도록 Execute 할 수 있다.* |
+|:--:| 
+
+---
+
+오늘은 AWS CloudFormation 을 공부한 내용을 정리해봤습니다.
+그럼 다음 시간에 만나요!
