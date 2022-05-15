@@ -6,6 +6,16 @@ categories: [tech,programming]
 ---
 
 AWS CloudFormation 에 대해 공부하고 정리한 내용입니다.
+- CloudFormation 이 무엇인가
+- Intrinsic functions
+- Multiple resources
+- Pseudo parameters
+- Mappings
+- Input Parameters
+- Outputs
+- Setting up EC2 instance with template
+- Change Sets
+
 
 ---
 
@@ -38,25 +48,25 @@ AWS CloudFormation 에 대해 공부하고 정리한 내용입니다.
 - Rarely made truly reusable
 
 ---
-### CloudFormation
+### CloudFormation 이 무엇인가
 Infrastructure as Code tool for AWS
 Cloud formation 은 AWS 의 무료 서비스이므로, 추가 요금이 발생하지 않는다.
 
-### Cloud formation 의 기능
+#### Cloud formation 의 기능
 1. **Create**: template 에 기반해 AWS infrastructure 를 생성
 2. **Update**: AWS infrastructure 에 필요한 기능을 업데이트
 3. **Delete**: 생성한 AWS infrastructure 를 쉽게 제거
 
 ![-]({{"/assets/220514/image1.png"| relative_url}})
 
-### CloudFormation 을 사용하면 다음 작업들이 가능하다:
+#### CloudFormation 을 사용하면 다음 작업들이 가능하다:
 - template 를 이용해 AWS infrastructure 를 구상 & 설치
 - provision & configuration 자동화
 - dependency 관리
 - infrastructure 의 변화를 쉽게 조절 & 트래킹
 - 깔끔한 Rollback or Delete
 
-### 사용 예시
+#### 사용 예시
 
 | ![-]({{"/assets/220514/image2.png"| relative_url}}) | 
 |:--:| 
