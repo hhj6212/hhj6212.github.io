@@ -5,13 +5,416 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 May 2022 20:56:15 +0900</pubDate>
-    <lastBuildDate>Sun, 15 May 2022 20:56:15 +0900</lastBuildDate>
+    <pubDate>Sun, 22 May 2022 21:07:12 +0900</pubDate>
+    <lastBuildDate>Sun, 22 May 2022 21:07:12 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>AWS Elastic Compute Cloud (EC2)</title>
+        <description>&lt;p&gt;AWS EC2 에 대해 공부하고 정리한 내용입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;EC2 란 무엇인가?&lt;/li&gt;
+  &lt;li&gt;EC2 pricing options&lt;/li&gt;
+  &lt;li&gt;Launching an EC2 instance&lt;/li&gt;
+  &lt;li&gt;AWS Command line&lt;/li&gt;
+  &lt;li&gt;IAM role&lt;/li&gt;
+  &lt;li&gt;Security groups &amp;amp; Bootstrap scripts&lt;/li&gt;
+  &lt;li&gt;EC2 Metadata and User Data&lt;/li&gt;
+  &lt;li&gt;Networking with EC2&lt;/li&gt;
+  &lt;li&gt;Optimizing with EC2 placement groups&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;ec2-란-무엇인가&quot;&gt;EC2 란 무엇인가?&lt;/h3&gt;
+&lt;p&gt;Elastic Compute Cloud 의 약자로, Amazon 에서 제공하는 secure, resizable compute capacity in the cloud 이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;ec2-pricing-options&quot;&gt;EC2 pricing options&lt;/h3&gt;
+&lt;p&gt;Amazon 에서는 다음 네 가지 옵션의 EC2 를 제공하는데, 필요에 따라 적절한 항목을 선택할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;On-demand&lt;/li&gt;
+  &lt;li&gt;Reserved instances&lt;/li&gt;
+  &lt;li&gt;Spot instances&lt;/li&gt;
+  &lt;li&gt;Dedicated hosts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;on-demand&quot;&gt;On-demand&lt;/h4&gt;
+&lt;p&gt;사용하는 만큼 가격을 지불하는 가장 일반적인 형태의 EC2 옵션.&lt;br /&gt;
+다음과 같은 특징들이 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Flexible: 미리 돈을 지불하지 않으며, 장기간 사용해야하는 등의 제약이 없음.&lt;/li&gt;
+  &lt;li&gt;Short-term: short-term, spiky, unpredictable application 에 적절함.&lt;/li&gt;
+  &lt;li&gt;Testing the water: 만들어진 application 을 처음 테스트하기에 적절하다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;reserved-instances&quot;&gt;Reserved Instances&lt;/h4&gt;
+&lt;p&gt;1년 혹은 3년 동안 사용할 것이라고 예약하고 쓰는 EC2.&lt;br /&gt;
+때문에 다른 EC2 에 비해 가격이 저렴하다.&lt;br /&gt;
+다음과 같은 특징들이 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Predictable usage: 안정적이고 예측 가능한 application 에 적절함.&lt;/li&gt;
+  &lt;li&gt;Specific capacity requirements: 예약된 capacity 가 필요한 application 에 적절함.&lt;/li&gt;
+  &lt;li&gt;Pay up front: 미리 돈을 지불해 추후의 계산 비용을 줄일 수 있음.&lt;/li&gt;
+  &lt;li&gt;다음과 같은 종류의 RI 중 하나를 선택할 수 있다.
+    &lt;ul&gt;
+      &lt;li&gt;Standard RIs: on-demand 보다 72% 저렴한 가격에 사용 가능.&lt;/li&gt;
+      &lt;li&gt;Convertible RIs: 사용하던 중에 다른 종류의 EC2 로 바꿀 수 있도록 해주는 옵션.&lt;/li&gt;
+      &lt;li&gt;Scheduled RIs: 사용량을 시간에 따라 예측할 수 있을 때 적절한 옵션. ex) 아침 9시에 사용량이 많은 경우 이때에만 capacity 를 늘릴 수 있도록 해준다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;spot-instances&quot;&gt;Spot instances&lt;/h4&gt;
+&lt;p&gt;자원 사용 가격이 시간에 따라 바뀌는데, 자신이 지정한 특정 가격 이하로 내려갔을 때에만 사용할 수 있도록 설정한 EC2.&lt;br /&gt;
+이에 따라 instance 가격이 높아지면 사용하던 instance 를 쓸 수 없게 된다.&lt;br /&gt;
+start-end time 이 유연한 application 의 경우에 적절하다.&lt;br /&gt;
+예를 들어 사용량이 적은 밤중에 많은 계산을 해야하는 경우, 밤중에는 available capacity 가 많으므로 가격이 내려가기 때문에 해당 가격이 될 때 EC2 로 계산하도록 설정할 수 있다.&lt;br /&gt;
+가격이 올라가면 해당 EC2 를 잃게 되므로, 안정적인 서비스를 필요로 하는 웹사이트에는 적절하지 않다.&lt;br /&gt;
+Spot instances 는 다음 task 를 할 때 유용하다:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Big data and analytics&lt;/li&gt;
+  &lt;li&gt;Containerized workloads&lt;/li&gt;
+  &lt;li&gt;CI/CD and testing&lt;/li&gt;
+  &lt;li&gt;Image and media rendering&lt;/li&gt;
+  &lt;li&gt;High-performance computing&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Spot blocks&lt;/strong&gt;&lt;br /&gt;
+지정한 최대 가격보다 spot prices 가 높아졌을 때 spot instance 가 종료되는 것을 막아주는 것.&lt;br /&gt;
+현재 1~6시간 동안 이를 막아줄 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Spot Fleets&lt;/strong&gt;&lt;br /&gt;
+A collection of Spot Instances and (optionally) On-demand instances.&lt;br /&gt;
+고객의 Spot Fleet request 에 설정되어 있는 target capacity 에 맞춘 spot instance + on-demand instance 를 구동하려 시도한다.&lt;br /&gt;
+현재 spot price 보다 request 에 적힌 maximum price 를 넘어가면 해당 요청이 수행된다.&lt;br /&gt;
+Spot fleet 은 또한 spot instances 가 방해받았을 때도 target capacity fleet 을 유지하려 한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;dedicated-hosts&quot;&gt;Dedicated hosts&lt;/h4&gt;
+&lt;p&gt;AWS 에서 사용하는 하위 hardware 는 고객들간에 공유되어 있다. (multi-tenant virtualization)&lt;br /&gt;
+고객끼리 서로의 EC2 를 침범할 수는 없지만, 같은 RAM, 같은 processor, 같은 가상 hard disk 를 공유하고 있는 것이다.&lt;br /&gt;
+그런데 banking, government regulation 과 같은 서비스는 다른 고객이 데이터에 접근할 수도 있는 위험을 배제해야 한다.&lt;br /&gt;
+이런 경우 dedicated hosts 를 사용해 위험을 배제할 수 있다.&lt;br /&gt;
+Licensing 을 해야하는 경우 등에 유용하다.&lt;br /&gt;
+On-demand 의 70% 가격으로 사용 가능하며, 더 오랜 기간 사용하고자 할 때는 할인률이 높아진다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;launching-an-ec2-instance&quot;&gt;Launching an EC2 instance&lt;/h3&gt;
+&lt;p&gt;다음 단계들로 이루어진다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Amazone Machine Image (AMI) 선택&lt;/li&gt;
+  &lt;li&gt;Instance Type 선택&lt;/li&gt;
+  &lt;li&gt;Configure instance details&lt;/li&gt;
+  &lt;li&gt;Storage 추가하기&lt;/li&gt;
+  &lt;li&gt;Tag 추가하기: 원하는 만큼 tag key-value 를 추가할 수 있다.&lt;/li&gt;
+  &lt;li&gt;Configure security group: security group 을 설정해서 접근을 제한할 수 있다. 같은 security group 을 사용한 EC2 는 같은 접근성을 가지게 된다.&lt;/li&gt;
+  &lt;li&gt;Review instance launch: 리뷰가 끝나면 key pair 를 생성/선택할 수 있다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;aws-command-line&quot;&gt;AWS Command line&lt;/h3&gt;
+&lt;p&gt;GUI 가 아닌 command line 으로 AWS 와 통신하는 방법.&lt;br /&gt;
+ex) aws s3 ls : s3 의 모든 bucket 목록 보기&lt;/p&gt;
+
+&lt;p&gt;commandline 을 통해서 진행할 내용들:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Launch an EC2 Instance&lt;/li&gt;
+  &lt;li&gt;Create an IAM user&lt;/li&gt;
+  &lt;li&gt;Configure the AWS CLI&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;접근 방법은 다음과 같다&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh ec2-user@xxx.xxx.xxx.xxx &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; xxxx.pem
+aws configure &lt;span class=&quot;c&quot;&gt;# AWS console -&amp;gt; security 에서 IAM 을 생성해야 함.&lt;/span&gt;
+aws s3 &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# configure 가 선행되어야 함.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;iam-role&quot;&gt;IAM role&lt;/h3&gt;
+&lt;p&gt;A role is an identity you can create in IAM that has specific permissions.&lt;br /&gt;
+role 은 AWS identity 로써 AWS 에서 할 수 있는 일들에 대한 permission policies 를 가진다는 점에서 user 와 비슷하다.&lt;br /&gt;
+role 은 일시적인 것이며, 특정 role 을 가정 (assume) 하는 경우 해당 role session 에 대한 일시적인 security credential 을 제공한다.&lt;/p&gt;
+
+&lt;p&gt;아래 예시는 특정 EC2 instance 에 대해 S3 권한을 가진 role 을 부여하는 과정이다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Create an IAM role: ensure it has S3 access&lt;/li&gt;
+  &lt;li&gt;Create an EC2 instance: attach the role we just created&lt;/li&gt;
+  &lt;li&gt;Create S3 bucket: create a buckte in S3&lt;/li&gt;
+  &lt;li&gt;Access S3: Try to access s3 from our EC2 instance&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;AWS console 에서 Security, Identity, &amp;amp; Compliance 에서 IAM 을 선택하고,&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image2.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Dashboard 에서 Users 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Create role 을 사용해 새로운 role 을 만들어낸다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image5.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;entity 를 선택한다. 이 때 자주 사용되는 항목들 중 EC2 가 있으니 이를 사용할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image6.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;이후 Permission policies 를 선택한다. 항목이 너무 많으니 검색창에 원하는 서비스를 검색할 수 있다. 여기서는 S3 full access 선택.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image7.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;이후 원하는 Role name 을 지정하고 Role 생성을 마친다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image8.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;이후 EC2 를 생성하는 과정. 원래 default 로 설정하던 부분 중 “IAM role” 에서 방금 만든 role 을 선택해주면 된다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;security-groups--bootstrap-scripts&quot;&gt;Security groups &amp;amp; Bootstrap scripts&lt;/h3&gt;
+&lt;p&gt;Security groups 은 EC2 instance 를 위한 가상의 방화벽이다.&lt;br /&gt;
+기본적으로 모든 작업이 막혀 있다.&lt;br /&gt;
+접속을 가능하게 하려면 각 포트에 대해 0.0.0.0/0 등으로 허용해주면 된다.&lt;/p&gt;
+
+&lt;h4 id=&quot;bootstrap-script&quot;&gt;Bootstrap script&lt;/h4&gt;
+&lt;p&gt;bootstrap script 란 instance 가 처음 작동할 때 실행되는 script 를 말한다.&lt;br /&gt;
+이는 root level 로 작동한다.&lt;br /&gt;
+부팅시간을 늘릴 수도 있지만, application 설치를 자동으로 할 수 있다는 장점이 있다.&lt;/p&gt;
+
+&lt;p&gt;예시:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+yum &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;httpd &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# installs apache&lt;/span&gt;
+yum service httpd start &lt;span class=&quot;c&quot;&gt;# starts apache&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;아래의 예시는 security group 및 bootstrap script 를 활용해 EC2 instance 가 자동으로 web site 를 만들고 접근 가능하도록 하는 과정을 보여준다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image11.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;EC2 생성 과정에서, configure 화면 아래쪽 User data 에 원하는 bootstrap script 를 작성한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image12.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;이후 Step 6 security group 설정에서 원하는 종류의 type 을 선택한다. 이러면 port 는 자동으로 설정된다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220522/image13.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;위의 두 가지 설정을 마치고 생성된 EC2 의 IP 로 접근하면, 위와 같은 웹페이지가 자동으로 만들어졌으며 이를 접근 가능하다는 것을 알 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;ec2-metadata-and-user-data&quot;&gt;EC2 Metadata and User Data&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;EC2 Metadata:&lt;/strong&gt;&lt;br /&gt;
+simply data about the EC2 instance.&lt;br /&gt;
+(private IP address, public IP address, hostname, security groups, etc.)&lt;/p&gt;
+
+&lt;p&gt;다음 명령어를 통해 EC2 instance 의 metadata 를 받아올 수 있다:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl http://169.254.169.254/latest/meta-data/
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+...
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl http://169.254.169.254/latest/meta-data/local-ipv4 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; myIP.txt &lt;span class=&quot;c&quot;&gt;# metadata 중 IPv4 adress 를 가져오도로 ㄱ한다.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;같은 방식으로 user data 도 가져올 수 있다. 그러면 작성한 bootstrap script 를 볼 수 있다.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl http://169.254.169.254/latest/user-data/
+&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+yum update &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+yum &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;httpd &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+service httpd start
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;networking-with-ec2&quot;&gt;Networking with EC2&lt;/h3&gt;
+&lt;p&gt;EC2 에 붙일 수 있는 networking cards 는 다음 세 가지가 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Elastic Network Interface (ENI)&lt;/li&gt;
+  &lt;li&gt;Enhanced Networking (EN)&lt;/li&gt;
+  &lt;li&gt;Elastic Fabric Adapter (EFA)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220522/image14.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;eni-a-virtual-network-card&quot;&gt;ENI: a virtual network card&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Private IPv4 Addresses&lt;/li&gt;
+  &lt;li&gt;Public IPv4 Addresses&lt;/li&gt;
+  &lt;li&gt;Many IPv6 Addresses&lt;/li&gt;
+  &lt;li&gt;MAC Address&lt;/li&gt;
+  &lt;li&gt;1 or more security groups&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Common ENI use cases:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a management network&lt;/li&gt;
+  &lt;li&gt;Use network and security appliances in your VPC&lt;/li&gt;
+  &lt;li&gt;Create dual-homed instances with workloads/roles on distinct subnets&lt;/li&gt;
+  &lt;li&gt;Create a low-budget, high-availability solutions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;en-for-high-performance-networking&quot;&gt;EN: for high-performance networking&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;higher bandwidths&lt;/li&gt;
+  &lt;li&gt;higher packet per seconds (PPS) performance&lt;/li&gt;
+  &lt;li&gt;consistently lower inter-instance latencies&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Instance type 에 따라 다음 방법을 사용해 EN 을 활용할 수 있다:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Elastic Network Adapter (ENA): supports network speeds of up to 100 Gbps for supported instance types&lt;/li&gt;
+  &lt;li&gt;Intel 82599 virtual function (VF) interface: Supports network speeds of up to 10 Gbps for supported instance types. Typically used on older instances.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;efa-elastic-fabric-adapter&quot;&gt;EFA: Elastic fabric adapter&lt;/h4&gt;
+&lt;p&gt;High performance computing (HPC) 및 machine learning application 을 가속하기 위해 EC2 에 붙일 수 있는 장치이다.&lt;br /&gt;
+TCP transport 에 비해 lower &amp;amp; more consistent latency 및 higher throughput 을 제공한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;optimizing-with-ec2-placement-groups&quot;&gt;Optimizing with EC2 placement groups&lt;/h3&gt;
+&lt;p&gt;다음 세 가지 placement groups 이 존재한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Clustered placement groups&lt;/li&gt;
+  &lt;li&gt;Spread placement groups&lt;/li&gt;
+  &lt;li&gt;Partitioned placement groups&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;cluster-placement-groups&quot;&gt;Cluster placement groups&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Grouping of instances within a single availability zone.&lt;/li&gt;
+  &lt;li&gt;Recommended for apps that need &lt;strong&gt;low network latency, high network throughput&lt;/strong&gt;, or both.&lt;/li&gt;
+  &lt;li&gt;Only certain instance types can be launched into a cluster placement groups.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;spread-placement-groups&quot;&gt;Spread placement groups&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;A group of instances that are each placed on distinct underlying hardware.&lt;/li&gt;
+  &lt;li&gt;Recommended for apps that have a &lt;strong&gt;small number of critical instances&lt;/strong&gt; that should be kept separate from each other.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;partitioned-placement-groups&quot;&gt;Partitioned placement groups&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Each partition placement group has its &lt;strong&gt;own set of racks.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Each rack has its &lt;strong&gt;own network and power source.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Allows isolation of the impact of hardware failure within your applications.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;알아둬야 할 사항들:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;cluster placement group 은 여러 availability zone 에 걸쳐있을 수 없지만, spread placement group 과 partition placement group 은 가능하다.&lt;/li&gt;
+  &lt;li&gt;특정 종류의 instance 만이 placement group 으로 실행 가능하다 (compute optimized, GPU, memory optimized, storage optimized)&lt;/li&gt;
+  &lt;li&gt;AWS recommends homogenous instances within cluster placement groups.&lt;/li&gt;
+  &lt;li&gt;Placement groups 는 합칠 수 없다.&lt;/li&gt;
+  &lt;li&gt;이미 존재하는 instance 를 특정 placement group 으로 옮길 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;오늘은 EC2 에 대해 공부한 내용을 정리해봤습니다.&lt;br /&gt;
+그럼 다음 시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 22 May 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tech/programming/cloud/aws/2022/05/22/AWS-EC2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tech/programming/cloud/aws/2022/05/22/AWS-EC2.html</guid>
+        
+        
+        <category>tech</category>
+        
+        <category>programming</category>
+        
+        <category>cloud</category>
+        
+        <category>aws</category>
+        
+      </item>
     
       <item>
         <title>AWS CloudFormation</title>
         <description>&lt;p&gt;AWS CloudFormation 에 대해 공부하고 정리한 내용입니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;CloudFormation 이 무엇인가&lt;/li&gt;
+  &lt;li&gt;Intrinsic functions&lt;/li&gt;
+  &lt;li&gt;Multiple resources&lt;/li&gt;
+  &lt;li&gt;Pseudo parameters&lt;/li&gt;
+  &lt;li&gt;Mappings&lt;/li&gt;
+  &lt;li&gt;Input Parameters&lt;/li&gt;
+  &lt;li&gt;Outputs&lt;/li&gt;
+  &lt;li&gt;Setting up EC2 instance with template&lt;/li&gt;
+  &lt;li&gt;Change Sets&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;hr /&gt;
 
@@ -54,11 +457,11 @@
 &lt;/ul&gt;
 
 &lt;hr /&gt;
-&lt;h3 id=&quot;cloudformation&quot;&gt;CloudFormation&lt;/h3&gt;
+&lt;h3 id=&quot;cloudformation-이-무엇인가&quot;&gt;CloudFormation 이 무엇인가&lt;/h3&gt;
 &lt;p&gt;Infrastructure as Code tool for AWS&lt;br /&gt;
 Cloud formation 은 AWS 의 무료 서비스이므로, 추가 요금이 발생하지 않는다.&lt;/p&gt;
 
-&lt;h3 id=&quot;cloud-formation-의-기능&quot;&gt;Cloud formation 의 기능&lt;/h3&gt;
+&lt;h4 id=&quot;cloud-formation-의-기능&quot;&gt;Cloud formation 의 기능&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt;: template 에 기반해 AWS infrastructure 를 생성&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Update&lt;/strong&gt;: AWS infrastructure 에 필요한 기능을 업데이트&lt;/li&gt;
@@ -67,7 +470,7 @@ Cloud formation 은 AWS 의 무료 서비스이므로, 추가 요금이 발생�
 
 &lt;p&gt;&lt;img src=&quot;/assets/220514/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;cloudformation-을-사용하면-다음-작업들이-가능하다&quot;&gt;CloudFormation 을 사용하면 다음 작업들이 가능하다:&lt;/h3&gt;
+&lt;h4 id=&quot;cloudformation-을-사용하면-다음-작업들이-가능하다&quot;&gt;CloudFormation 을 사용하면 다음 작업들이 가능하다:&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;template 를 이용해 AWS infrastructure 를 구상 &amp;amp; 설치&lt;/li&gt;
   &lt;li&gt;provision &amp;amp; configuration 자동화&lt;/li&gt;
@@ -76,7 +479,7 @@ Cloud formation 은 AWS 의 무료 서비스이므로, 추가 요금이 발생�
   &lt;li&gt;깔끔한 Rollback or Delete&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;사용-예시&quot;&gt;사용 예시&lt;/h3&gt;
+&lt;h4 id=&quot;사용-예시&quot;&gt;사용 예시&lt;/h4&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -314,7 +717,7 @@ Ref 라는 function 을 통해 참조할 수 있다.&lt;/p&gt;
 &lt;hr /&gt;
 
 &lt;h3 id=&quot;mappings&quot;&gt;Mappings&lt;/h3&gt;
-&lt;p&gt;Mapping 은 input 을 사용해 다른 값을 결정할 수 있게 만들어준다.&lt;br /&gt;
+&lt;p&gt;Mapping 은 stack 을 구성할 때 자동으로 설정되는 항목을 정할 수 있게 해준다.&lt;br /&gt;
 예를 들어 AMI ID 를 region 에 따라 결정하고자 할 때 Mapping 을 사용할 수 있다.&lt;br /&gt;
 아래와 같이 Mappings 와 FindInMap 함수를 사용하면 Region 에 따라 올바른 AMI ID 를 사용해 instance 를 만들 수 있게 된다.&lt;/p&gt;
 &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -352,7 +755,7 @@ Ref 라는 function 을 통해 참조할 수 있다.&lt;/p&gt;
 &lt;hr /&gt;
 
 &lt;h3 id=&quot;input-parameters&quot;&gt;Input Parameters&lt;/h3&gt;
-&lt;p&gt;Input Parameters 는 template 에 custome value 를 입력할 수 있게 해준다.&lt;br /&gt;
+&lt;p&gt;Input Parameters 는 template 에 custome value 를 입력할 수 있게 해준다. (Argument 의 역할)&lt;br /&gt;
 이들은 top level Parameters 부분에서 정의된다.&lt;br /&gt;
 각 parameter 는 하나의 값이 할당되어 있어야 한다.&lt;br /&gt;
 default value 를 설정할 수도 있다.&lt;br /&gt;
@@ -431,6 +834,8 @@ default value 를 설정할 수도 있다.&lt;br /&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;먼저 EC2 에서 key-pair 가 만들어져 있어야 함. EC2 -&amp;gt; Key pair 에서 Create 로 “Test key pair” 를 만든 뒤,&lt;/em&gt;&lt;/td&gt;
     &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220514/image8.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -755,13 +1160,17 @@ Change Sets 는 이를 가능하게 해준다.&lt;br /&gt;
 그럼 다음 시간에 만나요!&lt;/p&gt;
 </description>
         <pubDate>Sat, 14 May 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/tech/programming/2022/05/14/cloud-formation.html</link>
-        <guid isPermaLink="true">http://localhost:4000/tech/programming/2022/05/14/cloud-formation.html</guid>
+        <link>http://localhost:4000/tech/programming/cloud/aws/2022/05/14/cloud-formation.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tech/programming/cloud/aws/2022/05/14/cloud-formation.html</guid>
         
         
         <category>tech</category>
         
         <category>programming</category>
+        
+        <category>cloud</category>
+        
+        <category>aws</category>
         
       </item>
     

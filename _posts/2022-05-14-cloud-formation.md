@@ -2,7 +2,7 @@
 layout: post
 title: AWS CloudFormation
 comments: true
-categories: [tech,programming]
+categories: [tech,programming,cloud,aws]
 ---
 
 AWS CloudFormation 에 대해 공부하고 정리한 내용입니다.
@@ -279,7 +279,7 @@ Resources:
 ---
 
 ### Mappings
-Mapping 은 input 을 사용해 다른 값을 결정할 수 있게 만들어준다.
+Mapping 은 stack 을 구성할 때 자동으로 설정되는 항목을 정할 수 있게 해준다.
 예를 들어 AMI ID 를 region 에 따라 결정하고자 할 때 Mapping 을 사용할 수 있다.
 아래와 같이 Mappings 와 FindInMap 함수를 사용하면 Region 에 따라 올바른 AMI ID 를 사용해 instance 를 만들 수 있게 된다.
 ```json
@@ -319,7 +319,7 @@ Resources:
 ---
 
 ### Input Parameters
-Input Parameters 는 template 에 custome value 를 입력할 수 있게 해준다.
+Input Parameters 는 template 에 custome value 를 입력할 수 있게 해준다. (Argument 의 역할)
 이들은 top level Parameters 부분에서 정의된다.
 각 parameter 는 하나의 값이 할당되어 있어야 한다.
 default value 를 설정할 수도 있다.
@@ -391,6 +391,7 @@ Resources:
 | ![-]({{"/assets/220514/image7.png"| relative_url}}) | 
 |:--:| 
 | *먼저 EC2 에서 key-pair 가 만들어져 있어야 함. EC2 -> Key pair 에서 Create 로 "Test key pair" 를 만든 뒤,* |
+|:--:| 
 | ![-]({{"/assets/220514/image8.png"| relative_url}}) | 
 |:--:| 
 | *CloudFormation 으로 와서 위 yaml template 으로 update 를 시도하면, 기존에 없었던 KeyName 선택 창이 나타난다.* |
