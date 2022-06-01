@@ -5,9 +5,228 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 22 May 2022 21:07:12 +0900</pubDate>
-    <lastBuildDate>Sun, 22 May 2022 21:07:12 +0900</lastBuildDate>
+    <pubDate>Wed, 01 Jun 2022 19:21:31 +0900</pubDate>
+    <lastBuildDate>Wed, 01 Jun 2022 19:21:31 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>AWS Identity and Access Management (IAM)</title>
+        <description>&lt;p&gt;AWS IAM 에 대해 공부하고 정리한 내용입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;iam-이란&quot;&gt;IAM 이란?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Identity and Access Management&lt;/strong&gt;&lt;br /&gt;
+IAM 은 사용자와 AWS 자원에 대한 접근 권한을 관리할 수 있게 해주는 AWS 서비스이다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;User 생성 및 권한 할당&lt;/li&gt;
+  &lt;li&gt;Group 및 role 생성&lt;/li&gt;
+  &lt;li&gt;AWS 자원에 대한 접근권한 조정&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;root-account&quot;&gt;Root Account&lt;/h4&gt;
+&lt;p&gt;Root account 은 AWS 에 로그인할 때 사용한 이메일 주소이다.&lt;br /&gt;
+Root 계정은 AWS 에 대한 &lt;strong&gt;full administrative access&lt;/strong&gt; 를 가진다.&lt;br /&gt;
+따라서 이 계정을 안전하게 보호하는 것이 매우 중요하다.&lt;br /&gt;
+이를 위해 Multi-factor authentication (MFA) 를 설정해야 한다.&lt;/p&gt;
+
+&lt;p&gt;다음은 MFA 를 설정하는 과정에 대한 예시이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;AWS console 의 IAM 에서 rotate credentials 를 선택하고&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image2.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;MFA -&amp;gt; Activate MFA 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image3.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Virtual MFA 를 선택한 뒤&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;QR 코드를 스캔하고 나타나는 두 개의 MFA 코드를 입력하면, 이제 Root account 를 안전하게 보호할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;AWS 에서는 root user 를 매일 접속하는 용도로 사용하지 않도록 권장하고 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;iam-권한을-조정하는-방법&quot;&gt;IAM 권한을 조정하는 방법&lt;/h3&gt;
+
+&lt;p&gt;IAM 은 policy document 라는 json 문서로 권한 정책을 표현한다.&lt;br /&gt;
+이렇게 작성된 policy document 는 Group, Users 혹은 Roles 에 할당할 수 있다.&lt;br /&gt;
+아래는 가장 간단한 policy document 의 예시이다.&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2012-10-17&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Statement&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;아래는 IAM policy 를 검색하고 확인하는 과정을 보여주고 있다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image5.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;AWS console 의 IAM 에서 policy 를 선택한다&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image6.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;처음엔 custom policy 는 없고 AWS 에서 제공하는 여러 policy 들이 존재한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image7.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;키워드 검색을 통해 원하는 정책을 찾을 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image8.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;해당 policy 를 클릭하면 policy document 를 확인할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;iam-에서-user-group-을-생성하고-권한을-부여하는-방법&quot;&gt;IAM 에서 user, group 을 생성하고 권한을 부여하는 방법&lt;/h3&gt;
+
+&lt;p&gt;IAM 을 구성하는 요소들은 다음으로 나눌 수 있다.&lt;br /&gt;
+&lt;strong&gt;Users&lt;/strong&gt;: 사용자 한 사람.&lt;br /&gt;
+&lt;strong&gt;Groups&lt;/strong&gt;: 관리자, 개발자 등의 기능으로 나뉜 그룹. Users 를 포함한다.&lt;br /&gt;
+&lt;strong&gt;Roles&lt;/strong&gt;: Internal usage within AWS. 자원에 부여되는 권한으로 이해하면 된다.&lt;/p&gt;
+
+&lt;p&gt;AWS 에서 추천하는 방식은 user 가 group 의 권한을 상속받도록 하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220529/image9.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다음은 User 및 Group 을 생성하고 권한을 부여하는 과정을 나타낸 것이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image10.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;IAM 에서 Users -&amp;gt; Add user 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image11.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;사용자 이름 및 종류를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image12.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;User 의 권한을 설정한다. Group 이 있다면 해당 group 에 소속되게 할 수 있다. group 이 없다면 Create group 으로 group 을 생성할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image13.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;group 이름을 지정하고, 관련 policy 들을 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220529/image14.png&quot; alt=&quot;-&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;생성된 group 에 user 를 소속되게 하면 사용자 추가가 완료된다. 이 때, 이 화면은 &lt;strong&gt;단 한 번만&lt;/strong&gt; 보여지기 때문에, 다운로드 하거나 이메일을 보내 access key, secret key, password 등을 저장해둬야 한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;네, 오늘은 AWS IAM 에 대해 공부한 내용을 정리해보았습니다.&lt;br /&gt;
+그럼 다음 시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 29 May 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tech/programming/cloud/aws/2022/05/29/IAM.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tech/programming/cloud/aws/2022/05/29/IAM.html</guid>
+        
+        
+        <category>tech</category>
+        
+        <category>programming</category>
+        
+        <category>cloud</category>
+        
+        <category>aws</category>
+        
+      </item>
     
       <item>
         <title>AWS Elastic Compute Cloud (EC2)</title>
@@ -134,6 +353,7 @@ aws s3 &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;c&q
 &lt;h3 id=&quot;iam-role&quot;&gt;IAM role&lt;/h3&gt;
 &lt;p&gt;A role is an identity you can create in IAM that has specific permissions.&lt;br /&gt;
 role 은 AWS identity 로써 AWS 에서 할 수 있는 일들에 대한 permission policies 를 가진다는 점에서 user 와 비슷하다.&lt;br /&gt;
+그러나 user 와 달리 role 은 ‘자원’ 에 부여되는 권한이라는 차이점이 있다.&lt;br /&gt;
 role 은 일시적인 것이며, 특정 role 을 가정 (assume) 하는 경우 해당 role session 에 대한 일시적인 security credential 을 제공한다.&lt;/p&gt;
 
 &lt;p&gt;아래 예시는 특정 EC2 instance 에 대해 S3 권한을 가진 role 을 부여하는 과정이다.&lt;/p&gt;
