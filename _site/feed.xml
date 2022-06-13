@@ -5,9 +5,354 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 01 Jun 2022 19:21:31 +0900</pubDate>
-    <lastBuildDate>Wed, 01 Jun 2022 19:21:31 +0900</lastBuildDate>
+    <pubDate>Sun, 12 Jun 2022 12:41:34 +0900</pubDate>
+    <lastBuildDate>Sun, 12 Jun 2022 12:41:34 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>AWS EBS &amp; EFS</title>
+        <description>&lt;p&gt;AWS EBS, EFS 에 대해 공부하고 정리한 내용입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;elastic-block-storage-ebs&quot;&gt;Elastic Block Storage (EBS)&lt;/h3&gt;
+
+&lt;h4 id=&quot;ebs-volume-이란&quot;&gt;EBS volume 이란?&lt;/h4&gt;
+&lt;p&gt;Elastic Block Storage.&lt;br /&gt;
+EC2 에 붙일 수 있는 storage volumne 이다.&lt;br /&gt;
+Cloud 의 virtual hard disk 라고 생각하면 된다.&lt;/p&gt;
+
+&lt;h4 id=&quot;ebs-의-특징&quot;&gt;EBS 의 특징&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Designed for mission-critical workloads.&lt;/li&gt;
+  &lt;li&gt;Highly available: 특정 availability zone 내에서 자동으로 복제되어 hard failure 를 방지해준다.&lt;/li&gt;
+  &lt;li&gt;Scalable: Capacity 와 volume type 을 자동으로 맞춰주면서 성능에는 영향을 주지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;ebs-의-종류---ssd&quot;&gt;EBS 의 종류 - SSD&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. gp2: General purpose SSD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;3 IOPS per GiB, up to max 16,000 IPOS per volumne.&lt;/li&gt;
+  &lt;li&gt;gp2 volumes smaller than 1TB can burst up to 3,000 IOPS&lt;/li&gt;
+  &lt;li&gt;부팅 볼륨이나 latency 에 민감하지 않은 app 을 개발하고 테스트할 때 적절하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. gp3: General purpose SSD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;predictable 3,000 IOPS baseline performance and 125 MiB/s&lt;/li&gt;
+  &lt;li&gt;저렴한 비용에 고성능을 요구하는 app 에 적절하다. (MySQL, Cassandra, virtual desktops, and Hadoop analytics)&lt;/li&gt;
+  &lt;li&gt;16,000 IOPS &amp;amp; 1,000 MiB/s 까지 scale up 가능하다.&lt;/li&gt;
+  &lt;li&gt;gp3 의 최고성능은 gp2 의 네 배 정도이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;3. io1: provisioned IOPS SSD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Up to 64,000 IOPS per volume, 50 IOPS per GiB.&lt;/li&gt;
+  &lt;li&gt;16,000 IOPS 이상이 필요한 경우 사용.&lt;/li&gt;
+  &lt;li&gt;고성능이고, 가장 비싼 옵션이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;4. io2: provisioned IOPS SSD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Latest generation.&lt;/li&gt;
+  &lt;li&gt;Higher durability and more IOPS.&lt;/li&gt;
+  &lt;li&gt;Up to 64,000 IOPS, 500 IOPS per GiB.&lt;/li&gt;
+  &lt;li&gt;99.999% durability&lt;/li&gt;
+  &lt;li&gt;I/O intensive app 이나 large database 그리고 latency-sensitive workload 에 적절하다.&lt;/li&gt;
+  &lt;li&gt;io2 가격은 io1 과 동일하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;ebs-종류---hdd&quot;&gt;EBS 종류 - HDD&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image2.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. st1: Throughput optimized HDD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Low-cost HDD volume&lt;/li&gt;
+  &lt;li&gt;baseline 40 MB/s per TB, up to 260 MB/s per TB.&lt;/li&gt;
+  &lt;li&gt;Max throughput 500 MB/s per volume&lt;/li&gt;
+  &lt;li&gt;자주 접근하거나 througput-intensive workloads 에 적절하다.&lt;/li&gt;
+  &lt;li&gt;Big data, data warehouse, ETL, log processing 등에 사용된다.&lt;/li&gt;
+  &lt;li&gt;boot volume 으로 사용될 수 없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. sc1: Cold HDD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Lowest cost option.&lt;/li&gt;
+  &lt;li&gt;baseline 12 MB/s per TB, up to 80 MB/s per TB.&lt;/li&gt;
+  &lt;li&gt;Max throughput 250 MB/s per volume.&lt;/li&gt;
+  &lt;li&gt;자주 접근하지 않는 cold data 에 적절하다.&lt;/li&gt;
+  &lt;li&gt;저렴한 비용에 performance 가 중요하지 않은 app 에 사용된다.&lt;/li&gt;
+  &lt;li&gt;boot volume 으로 사용될 수 없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;iops-와-throughput-의-차이&quot;&gt;IOPS 와 Throughput 의 차이&lt;/h4&gt;
+&lt;p&gt;시간당 read/write 횟수를 측정하느냐, 혹은 read/write 하는 데이터의 크기를 측정하느냐의 차이이다.&lt;br /&gt;
+&lt;img src=&quot;/assets/220606/image3.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;volumes-and-snapshots&quot;&gt;Volumes and Snapshots&lt;/h3&gt;
+
+&lt;h4 id=&quot;volume-이란&quot;&gt;Volume 이란?&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;volume 은 EBS 에 있는 것이다.&lt;/li&gt;
+  &lt;li&gt;virutal hard disk 라고 생각하면 된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;snapshot-이란&quot;&gt;Snapshot 이란?&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;snapshot 은 s3 에 있는 것이다.&lt;/li&gt;
+  &lt;li&gt;virtual disk/volume 의 사진을 찍은 거라고 생각할 수 있다.&lt;/li&gt;
+  &lt;li&gt;snapshot 을 찍으면, volume 의 특정 시간의 복사본을 만드는 것이다.&lt;/li&gt;
+  &lt;li&gt;snapshot 을 찍으면, 가장 마지막에 snapshot 을 찍은 순간부터 바뀐 데이터만이 s3 에 저장된다.&lt;/li&gt;
+  &lt;li&gt;첫 snapshot 은 시간이 좀 걸린다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래 예시는 다음 작업들을 진행한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;EC2 를 생성할 때 EBS volume 을 추가한다.&lt;/li&gt;
+  &lt;li&gt;만들어진 EC2 with EBS volume 에서 volume type 을 바꾼다.&lt;/li&gt;
+  &lt;li&gt;root volume 에 대한 snapshot 을 만든다.&lt;/li&gt;
+  &lt;li&gt;만들어진 snapshot 을 다른 availability zone 에 복사하고 이를 활용해 AMI 를 만든다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image5.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;EC2 instance 를 만든다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image6.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Network setting 아래쪽에서 volume 을 선택할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image7.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;선택할 때, 위에서 배운대로 sc1 과 같은 cold HDD 는 root volume 으로 선택할 수 없다고 나온다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image8.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Root volume 은 gp2 8GB 로 설정했고, Add volume 을 선택해 custome 으로 sc1 125GB 를 추가했다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image9.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;왼쪽의 Elastic Block Storage - Volumes 탭으로 들어가면 현재 만들어둔 volume 목록을 확인할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image10.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;만들어진 sc1 volume type 을 다른 것으로 바꿀 수 있다. Actions -&amp;gt; Modify Volume 을 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image11.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Volume type 을 sc1 에서 io2 로 변경한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image12.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;만들어진 volume 에 대해 snapshot 을 만들 수 있다. Actions -&amp;gt; Create Snapshot 을 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image14.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;왼쪽의 Elastic Block Storage - Snapshots 탭으로 들어가면 만들어진 snapshot 들을 확인할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image15.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;Snapshot 을 복사할 수 있다. Actions -&amp;gt; Copy 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image16.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;복사할 때 availability zone 을 다른 곳으로 선택할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;ebs-encryption&quot;&gt;EBS Encryption&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image17.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;ebs-volume-을-encrypt-하면-어떤-일이-발생하는가&quot;&gt;EBS volume 을 encrypt 하면 어떤 일이 발생하는가?&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;volume 내에 있는 Data 가 암호화된다.&lt;/li&gt;
+  &lt;li&gt;instance 와 volume 이 주고받는 데이터가 암호화된다.&lt;/li&gt;
+  &lt;li&gt;snapshot 이 암호화된다.&lt;/li&gt;
+  &lt;li&gt;해당 snapshot 으로 만들어진 volume 이 암호화된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;ebs-encrypt-방법&quot;&gt;EBS encrypt 방법&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;EC2 instance 만들 때 volume option 중 Encrypted - Yes 를 선택한다.&lt;/li&gt;
+  &lt;li&gt;Unencrypted volume 에 대한 snapshot 을 만들고, 이 snapshot 을 복사할 때 Encrypt option 을 선택한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;ec2-hibernation&quot;&gt;EC2 hibernation&lt;/h3&gt;
+&lt;h4 id=&quot;ec2-hibernation-이란&quot;&gt;EC2 hibernation 이란?&lt;/h4&gt;
+&lt;p&gt;EC2 RAM 에 있는 내용물을 EBS root volume 에 저장하는 것.&lt;br /&gt;
+일반적으로는 EC2 instance 를 멈추는 경우, data 는 EBS disk 에 남아있고 EC2 를 다시 시작할 때까지 남아있을 것이다.&lt;br /&gt;
+그리고 EC2 instance 를 terminate 하는 경우 root device volume 은 같이 terminate 하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image18.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;ec2-hibernation-의-특징들&quot;&gt;EC2 hibernation 의 특징들&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;EC2 in-memory RAM을 persistant storage (EBS) 에 보관한다.&lt;/li&gt;
+  &lt;li&gt;hibernation 에 들어간 EC2 를 다시 실행하는 것이 매우 빠르다 - OS 를 다시 불러올 필요가 없기 때문.&lt;/li&gt;
+  &lt;li&gt;instance RAM 은 150GB 보다 작아야 한다.&lt;/li&gt;
+  &lt;li&gt;instance family 는 C3, C4, C5, M3, M4, M5, R3, R4, R5 를 포함한다.&lt;/li&gt;
+  &lt;li&gt;가능한 OS 는 Windows, Amazon Linux 2 AMI, Ubuntu 이다.&lt;/li&gt;
+  &lt;li&gt;hibernation 은 60 일을 초과할 수 없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;elastic-file-system-efs&quot;&gt;Elastic File System (EFS)&lt;/h3&gt;
+
+&lt;h4 id=&quot;efs-란&quot;&gt;EFS 란?&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;많은 EC2 instance 에 mount 할 수 있는 network file system.&lt;/li&gt;
+  &lt;li&gt;여러 Availability zone 에 있는 EC2 에서 사용 가능하다.&lt;/li&gt;
+  &lt;li&gt;Highly available &amp;amp; scalable, but expensive.&lt;/li&gt;
+  &lt;li&gt;Contents management, Web servers 등 data 를 공유하는 시스템에 적절하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;efs-overview&quot;&gt;EFS Overview&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;NFSv4 protocol 을 사용한다.&lt;/li&gt;
+  &lt;li&gt;Linux-based AMI compatible (Windows not supported).&lt;/li&gt;
+  &lt;li&gt;Encryption at rest using KMS.&lt;/li&gt;
+  &lt;li&gt;사용에 따라 자동으로 커지고 줄어들기 때문에 capacity planning 이 필요 없다.&lt;/li&gt;
+  &lt;li&gt;사용하는 만큼 비용이 발생한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;efs-performance&quot;&gt;EFS performance&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image19.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;controlling-performance&quot;&gt;Controlling performance&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;용도에 따라 성능을 결정할 수 있다.&lt;/li&gt;
+  &lt;li&gt;General Purpose: web server, CMS 등에 사용된다.&lt;/li&gt;
+  &lt;li&gt;Max I/O: Big data, media processing 등에 사용된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;storage-tiers&quot;&gt;Storage Tiers&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;EFS 는 storage tiers 그리고 lifecycle management 가 가능해서 며칠 뒤에 다른 tier 로 넘어가게 할지 설정할 수 있다.&lt;/li&gt;
+  &lt;li&gt;Standard: frequently accessed file 에 해당한다.&lt;/li&gt;
+  &lt;li&gt;Infrequently accessed: 자주 사용되지 않는 파일들에 해당한다.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 06 Jun 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tech/programming/cloud/aws/2022/06/06/EBS-EFS.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tech/programming/cloud/aws/2022/06/06/EBS-EFS.html</guid>
+        
+        
+        <category>tech</category>
+        
+        <category>programming</category>
+        
+        <category>cloud</category>
+        
+        <category>aws</category>
+        
+      </item>
     
       <item>
         <title>AWS Identity and Access Management (IAM)</title>
