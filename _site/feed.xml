@@ -5,13 +5,224 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 12 Jun 2022 12:41:34 +0900</pubDate>
-    <lastBuildDate>Sun, 12 Jun 2022 12:41:34 +0900</lastBuildDate>
+    <pubDate>Sun, 19 Jun 2022 21:39:39 +0900</pubDate>
+    <lastBuildDate>Sun, 19 Jun 2022 21:39:39 +0900</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
-        <title>AWS EBS &amp; EFS</title>
+        <title>AWS Database (RDS &amp; DynamoDB)</title>
+        <description>&lt;p&gt;AWS Database service 에 대해 공부한 내용을 정리한 것입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Relational Database Service (RDS)&lt;/li&gt;
+  &lt;li&gt;Read Replica&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;relational-database-service-rds&quot;&gt;Relational Database Service (RDS)&lt;/h3&gt;
+
+&lt;h4 id=&quot;rds-란&quot;&gt;RDS 란?&lt;/h4&gt;
+&lt;p&gt;AWS 에서 제공하는 관계형 DB 서비스.&lt;br /&gt;
+다음 engine 들을 사용해서 만들 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Microsoft SQL Server&lt;/li&gt;
+  &lt;li&gt;Oracle&lt;/li&gt;
+  &lt;li&gt;MySQL&lt;/li&gt;
+  &lt;li&gt;PostgreSQL&lt;/li&gt;
+  &lt;li&gt;MariaDB&lt;/li&gt;
+  &lt;li&gt;Amazon Aurora&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AWS 에서 RDS 를 검토하고 생성하게 되면 몇분 안에 RDS instance 가 생성된다.&lt;br /&gt;
+이 때, 위의 6개 엔진 중 하나로 돌아가는 EC2가 만들어지게 되는데, 이 EC2 OS 에 접근할 수는 없다.&lt;br /&gt;
+Automated backups: 설정 주기에 따라 RDS 를 자동으로 백업할 수 있다.&lt;br /&gt;
+Multi-AZ: 여러 availability zone 에 만들 수 있는데, 하나의 AZ 에 만들어진 DB 를 다른 AZ 에 그대로 복사하는 것이다.&lt;br /&gt;
+이 때, 첫 번째 AZ 에 만들어진 DB 가 fail 되는 경우, AWS 에서는 automatic fail over 라는 기능으로 해당 DB 를 참조하던 모든 EC2 가 두 번째 AZ 의 DB 를 참조할 수 있도록 해준다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image2.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;특정 AZ 에 만들어진 primary DB 가 망가진 경우 다른 AZ 에 만들어진 secondary DB 를 참조할 수 있도록 하는 Automatic fail over 기능.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;rds-database-는-언제-사용하는-걸까&quot;&gt;RDS database 는 언제 사용하는 걸까?&lt;/h4&gt;
+&lt;p&gt;RDS 는 &lt;strong&gt;online transaction processing (OLTP)&lt;/strong&gt; workload 에 주로 사용된다.&lt;br /&gt;
+이는 &lt;strong&gt;online analytical processing (OLAP)&lt;/strong&gt; 에 주로 사용되는 &lt;strong&gt;RedShift&lt;/strong&gt; 와 비교할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220619/image1.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;다음은-rds-를-생성하는-예시-과정이다&quot;&gt;다음은 RDS 를 생성하는 예시 과정이다.&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image3.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;RDS console -&amp;gt; Create RDS 로 생성한다. 이 아래에서 Engine, Template, User/PW, instance class (EC2 와 유사함), storage, AZ, Connectivity (VPC), Authentication 등을 선택할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image4.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;맨 아래쪽에서 이 RDS 의 monthly cost 를 확인해볼 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image5.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;생성된 RDS 의 summary page. 여기서 접속에 필요한 Endpoint 및 Port 를 확인할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;read-replica&quot;&gt;Read Replica&lt;/h3&gt;
+
+&lt;h4 id=&quot;read-replica-란&quot;&gt;Read Replica 란?&lt;/h4&gt;
+&lt;p&gt;Read-only copy of a primary database.&lt;br /&gt;
+Database 의 성능 (Performance) 를 높이기 위해 사용하는 기능이다.&lt;br /&gt;
+Primary database 는 App server 에 의해 Read/Write 가 가능하다.&lt;br /&gt;
+Read Replica 는 이 primary DB 의 복사본이며, 해당 DB 는 ‘사용자’ 들이 Read 만 수행하게 된다.&lt;br /&gt;
+따라서 사용량이 많은 App 및 Database 에 유용한 기능이다.&lt;/p&gt;
+
+&lt;p&gt;Read replica 는 다음과 같은 특징을 가진다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Read replica 는 같은 AZ 에 만들 수도 있고, 다른 AZ 에도 만들 수 있다.&lt;/li&gt;
+  &lt;li&gt;각 read replica 는 개별 DNS endpoint 를 가지고 있다.&lt;/li&gt;
+  &lt;li&gt;Read replica 를 primary DB 와 분리시켜서 새로운 primary DB 로 만들 수도 있다. (Promote) 이 때, 기존 primary DB 와의 연결은 해제된다.&lt;/li&gt;
+  &lt;li&gt;Read replica 를 생성하기 위해서는 Automatic Backup 이 활성화 되어있어야 한다.&lt;/li&gt;
+  &lt;li&gt;각 DB instance 에 대해 최대 5개의 read replica 를 생성할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220619/image6.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;다음은-특정-rds-의-read-replica-를-생성하는-과정의-예시이다&quot;&gt;다음은 특정 RDS 의 Read Replica 를 생성하는 과정의 예시이다.&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image7.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;만들어진 RDS 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image8.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;오른쪽 위 ‘Actions’ 에서 Create read replica 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image9.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;그러면 새로 RDS 를 만들 때와 비슷하게 network, connectivity, authentication 등을 선택하게 된다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image10.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;목록에서 primary 밑에 replica 가 생성된 것을 알 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220619/image11.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;만들어진 replica 를 선택하고 ‘Actions’ -&amp;gt; promote 를 선택해서 해당 replica 를 primary DB 로 만들 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;multi-az-와-read-replica-의-차이점&quot;&gt;Multi-AZ 와 Read-replica 의 차이점&lt;/h4&gt;
+&lt;p&gt;‘시스템에 문제가 생겼을 때 대비하는 기능’ vs ‘성능을 높이는 기능’ 의 차이로 생각하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220619/image12.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;네, 오늘은 AWS Database service 에 대해 공부한 내용을 정리해보았습니다.&lt;br /&gt;
+그럼 다음 시간에 만나요!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 19 Jun 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tech/programming/cloud/aws/2022/06/19/AWS-Database.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tech/programming/cloud/aws/2022/06/19/AWS-Database.html</guid>
+        
+        
+        <category>tech</category>
+        
+        <category>programming</category>
+        
+        <category>cloud</category>
+        
+        <category>aws</category>
+        
+      </item>
+    
+      <item>
+        <title>AWS Elastic Block Storage (EBS) &amp; Elastic File System (EFS)</title>
         <description>&lt;p&gt;AWS EBS, EFS 에 대해 공부하고 정리한 내용입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Elastic Block Storage (EBS)&lt;/li&gt;
+  &lt;li&gt;Volumes and Snapshots&lt;/li&gt;
+  &lt;li&gt;EC2 hibernation&lt;/li&gt;
+  &lt;li&gt;Elastic File System (EFS)&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;hr /&gt;
 
@@ -97,13 +308,13 @@ Cloud 의 virtual hard disk 라고 생각하면 된다.&lt;/p&gt;
 
 &lt;h4 id=&quot;volume-이란&quot;&gt;Volume 이란?&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;volume 은 EBS 에 있는 것이다.&lt;/li&gt;
+  &lt;li&gt;volume 은 EBS 볼륨을 의미한다.&lt;/li&gt;
   &lt;li&gt;virutal hard disk 라고 생각하면 된다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;snapshot-이란&quot;&gt;Snapshot 이란?&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;snapshot 은 s3 에 있는 것이다.&lt;/li&gt;
+  &lt;li&gt;snapshot 은 s3 에 저장된다.&lt;/li&gt;
   &lt;li&gt;virtual disk/volume 의 사진을 찍은 거라고 생각할 수 있다.&lt;/li&gt;
   &lt;li&gt;snapshot 을 찍으면, volume 의 특정 시간의 복사본을 만드는 것이다.&lt;/li&gt;
   &lt;li&gt;snapshot 을 찍으면, 가장 마지막에 snapshot 을 찍은 순간부터 바뀐 데이터만이 s3 에 저장된다.&lt;/li&gt;
@@ -338,6 +549,162 @@ Cloud 의 virtual hard disk 라고 생각하면 된다.&lt;/p&gt;
   &lt;li&gt;Standard: frequently accessed file 에 해당한다.&lt;/li&gt;
   &lt;li&gt;Infrequently accessed: 자주 사용되지 않는 파일들에 해당한다.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;아래는 EFS 를 생성하고 정책을 설정하는 과정에 대한 예시이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image21.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;EFS 콘솔 화면. 오른쪽 Create file system 을 통해 EFS 를 생성할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image22.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;EFS 의 이름, VPC 그리고 Availability 를 설정할 수 있다. Regional 로 만드는 것을 추천하고 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image23.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;만들어진 EFS 목록. 이름을 클릭해서 들어가면 세부사항을 확인할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image24.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;해당 EFS 에 대한 설명이 나온다. 아래의 Metered size 에서 전체 크기를 확인할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image25.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;“Edit” 으로 들어가면 해당 EFS 에 대한 정책을 설정할 수 있다. Lifecycle 및 Throughput 을 조정할 수 있다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;만들어진-efs-를-ec2-에-연결하기&quot;&gt;만들어진 EFS 를 EC2 에 연결하기&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image26.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;만들어진 EFS 에서 아래 “Network” 탭의 “Manage” 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image27.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;EFS 의 mount target 을 설정한다. 현재 만들어져 있는 EC2 instance 들이 target 으로 뜨게 되고, 이들에 대한 security group 을 새로 설정한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image28.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;이제 해당 EFS 화면에서 오른쪽 위의 Attach 를 선택한다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/220606/image29.png&quot; alt=&quot;-&quot; /&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;여기서 mount via IP 를 선택하면 IP 를 통해 마운트를 할 수 있게 된다. EC2 터미널에서 아래의 마운트 명령어를 사용하면 “efs” 폴더에 해당 EFS 가 마운트되게 된다.&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;EC2 terminal 에서 해당 EFS 를 마운트하고 마운트 목록에 추가하는 명령어는 다음과 같다.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mkdir /efs # root 에 efs 디렉토리를 생성
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 10.0.0.233:/ /efs # mount 진행
+sudo nano /etc/fstab # 해당 파일을 수정한다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;/etc/fstab 파일에서는 다음 항목을 추가한다.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;10.0.0.233:/ 		/data 	nfs4    nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 0 0
+# 형태: &amp;lt;NFS MOUNT IP&amp;gt;:/ 		/data 	nfs4 	 &amp;lt;OPTIONS&amp;gt; 0 0
+# NFS MOUNT IP 및 OPTIONS 는 EFS - Attach 에서 확인했던 값을 사용하면 된다.
+# 중간에 tab 두번, 한번, 한번이 각각 들어있다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;다른 EC2 에서도 /etc/fstab 에 해당 라인을 추가하고 mount -a 를 실행하면 EFS 가 mount 되게 된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;aws-backup&quot;&gt;AWS backup&lt;/h3&gt;
+
+&lt;h4 id=&quot;aws-backup-이란&quot;&gt;AWS backup 이란?&lt;/h4&gt;
+&lt;p&gt;EC2, EBS, EFS, RDS, DynamoDB 등 여러 AWS service 에 대한 백업을 의미한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;aws-backup-with-organizations&quot;&gt;AWS backup with organizations&lt;/h4&gt;
+&lt;p&gt;AWS organization 에 대해 Backup 을 진행할 수 있고, 이 때 해당 organization에 속한 여러 AWS account 에 대한 백업이 가능하다.&lt;/p&gt;
+
+&lt;h4 id=&quot;benefits-of-aws-backup&quot;&gt;Benefits of AWS backup&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;1. Central management:&lt;/strong&gt; 하나의 백업 콘솔을 통해 여러 AWS 서비스와 여러 AWS account 백업이 가능하다.&lt;br /&gt;
+&lt;strong&gt;2. Automation:&lt;/strong&gt; 자동 백업 스케줄과 retention policy 들을 사용할 수 있다. 또한 lifecycle policy 를 사용해 특정 기간이 지난 불필요한 백업 파일은 삭제하도록 할 수도 있다.&lt;br /&gt;
+&lt;strong&gt;3. Improved Compliance:&lt;/strong&gt; 백업 정책을 시행하는 동안 백업은 미사용 및 전송 모두에 암호화되어 규정 준수사항에 부합되도록 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/220606/image20.png&quot; alt=&quot;-&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;네, 오늘은 AWS EBS, EFS 에 대해서 알아보았습니다.&lt;br /&gt;
+그럼 다음 시간에 만나요!&lt;/p&gt;
 </description>
         <pubDate>Mon, 06 Jun 2022 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/tech/programming/cloud/aws/2022/06/06/EBS-EFS.html</link>
